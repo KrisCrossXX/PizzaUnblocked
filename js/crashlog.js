@@ -153,10 +153,20 @@
         if (mc && mc.style.display !== 'none') scanText(mc.textContent);
         for (const mu of muts) {
             for (const n of mu.addedNodes) {
-                if (n.nodeType === 3) scanText(n.nodeValue);
-                else if (n.nodeType === 1) scanText(n.textContent);
+                if (n.nodeType === 3) {
+                    const p = n.parentElement;
+                    if (p && (p.id === 'pu-fix-banner' || /^(SCRIPT|STYLE|NOSCRIPT)$/.test(p.tagName))) continue;
+                    scanText(n.nodeValue);
+                } else if (n.nodeType === 1) {
+                    if (n.id === 'pu-fix-banner' || /^(SCRIPT|STYLE|NOSCRIPT)$/.test(n.tagName)) continue;
+                    scanText(n.textContent);
+                }
             }
-            if (mu.type === 'characterData') scanText(mu.target.nodeValue);
+            if (mu.type === 'characterData') {
+                const p = mu.target.parentElement;
+                if (p && (p.id === 'pu-fix-banner' || /^(SCRIPT|STYLE|NOSCRIPT)$/.test(p.tagName))) continue;
+                scanText(mu.target.nodeValue);
+            }
         }
     });
     addEventListener('DOMContentLoaded', () => {
