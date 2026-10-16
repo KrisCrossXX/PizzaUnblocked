@@ -27,6 +27,9 @@ const MODS = [
 ];
 
 const FANGAMES = [
+    { name: 'anton blast', desc: 'demo web port', dir: 'antonblast', img: 'assets/thumb-antonblast.png' },
+    { name: 'fnaf all-stars', desc: 'fnaf 1 + 2 remake', dir: 'fnafallstars', img: 'assets/thumb-fnafallstars.png' },
+    { name: 'undertale', desc: 'web port', dir: 'undertale', img: 'assets/thumb-undertale.png' },
     { name: 'sugary spire', desc: '', dir: 'sugaryspire', img: 'assets/thumb-sugaryspire.png' },
     { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'assets/thumb-pat.png' },
     { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'assets/thumb-killnoise.gif' },
