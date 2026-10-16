@@ -4,7 +4,10 @@
 
 const MODS = [
     { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', img: 'assets/thumb-scoutdigo.png' },
-    { name: 'pizza tower: frenzy worlds', desc: 'gx.games embed', dir: 'frenzyworlds', img: 'assets/btn-pizzatower.png' },
+    { name: 'pizza tower: frenzy worlds', desc: 'gx.games embed', dir: 'frenzyworlds', img: 'assets/thumb-frenzy.png' },
+    { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', img: 'assets/thumb-coop.png' },
+    { name: 'swabs expedition', desc: '', dir: 'swabs', img: 'assets/thumb-swabs.png' },
+    { name: 'super bo noise', desc: '', dir: 'superbonoise', img: 'assets/thumb-sbn.png' },
 ];
 
 const FANGAMES = [
