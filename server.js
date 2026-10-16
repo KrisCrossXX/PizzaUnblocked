@@ -37,7 +37,7 @@ http.createServer((req, res) => {
     if (!file.startsWith(ROOT)) { res.writeHead(403); res.end(); return; }
 
     // Godot web exports need SharedArrayBuffer → cross-origin isolation headers
-    const coi = /^\/games\/(jwvl|mininoise|towerpasta)(\/|$)/.test(urlPath);
+    const coi = /^\/games\/(jwvl|mininoise|towerpasta|beeders|ihv)(\/|$)/.test(urlPath);
     const headers = {
         'Content-Type': MIME[path.extname(file).toLowerCase()] || 'application/octet-stream',
         'Cache-Control': 'no-store',

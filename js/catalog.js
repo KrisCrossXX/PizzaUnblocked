@@ -50,6 +50,11 @@ const FANGAMES = [
     { name: 'sugary spire: playtest 3.2', desc: '', dir: 'ssplaytest', img: 'assets/thumb-ss.png' },
     { name: 'sugary spire: p-rank', desc: '', dir: 'ssprank', img: 'assets/thumb-ss.png' },
     { name: 'mininoise', desc: '', dir: 'mininoise', img: 'assets/thumb-killnoise.gif' },
+    { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'assets/thumb-pts.png' },
+    { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-fnap.png' },
+    { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-pts.png' },
+    { name: "beeder's big playtest", desc: '3d platformer', dir: 'beeders', img: 'assets/thumb-frenzy.png' },
+    { name: 'i hate vampires', desc: '', dir: 'ihv', img: 'assets/thumb-pts.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -92,6 +97,11 @@ const CHANGELOG = [
                 'sugary spire: playtest 3.2',
                 'sugary spire: p-rank',
                 'mininoise',
+                'too big to fail',
+                "one nights at peppino's",
+                'smash bash brawl 2',
+                "beeder's big playtest",
+                'i hate vampires',
             ]},
             { label: 'bug fixes', items: [
                 'crash watchdog no longer panics over fullscreen/permission errors',
