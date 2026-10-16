@@ -117,6 +117,44 @@ onlineBtn.classList.add('sel');
 const panicBtn = document.getElementById('panicBtn');
 panicBtn.addEventListener('click', () => alert('panic button coming soon'));
 
+// ---------- themes ----------
+// cls = filter class on .bgimg ('' = default look, 'theme-black' = off)
+// song = optional override for the theme music track (defaults to theme.mp3)
+const THEMES = [
+    { name: 'the tower',   cls: '' },
+    { name: 'black',       cls: 'theme-black' },
+    { name: 'the noise',   cls: 't-noise' },
+    { name: 'vigilante',   cls: 't-vigilante' },
+    { name: 'fake peppino', cls: 't-fakepep' },
+    { name: 'midnight',    cls: 't-midnight' },
+    { name: 'pizzaface',   cls: 't-pizzaface' },
+    { name: 'halloween',   cls: 't-halloween' },
+    { name: 'boiler city', cls: 't-boiler' },
+];
+const bgimgEl = document.querySelector('.bgimg');
+const themeGrid = document.getElementById('themeGrid');
+
+function applyTheme(t) {
+    bgimgEl.className = 'bgimg ' + (t.cls || '');
+    const src = t.song || 'assets/theme.mp3';
+    if (!bgm.src.endsWith(src)) {
+        const wasPlaying = bgmStarted && !bgm.paused;
+        bgm.src = src;
+        if (wasPlaying) bgm.play().catch(() => {});
+    }
+    localStorage.setItem('pu_theme', t.name);
+    for (const c of themeGrid.children) c.classList.toggle('sel', c.dataset.name === t.name);
+}
+for (const t of THEMES) {
+    const card = document.createElement('div');
+    card.className = 'theme-card';
+    card.dataset.name = t.name;
+    card.innerHTML = `<img class="tprev ${t.cls}" src="assets/bg.gif" alt=""><div class="tname">${t.name}</div>`;
+    card.addEventListener('click', () => applyTheme(t));
+    themeGrid.appendChild(card);
+}
+applyTheme(THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || THEMES[0]);
+
 // ---------- save export/import (localStorage + IndexedDB) ----------
 function b64(buf) { return btoa(String.fromCharCode(...new Uint8Array(buf))); }
 function unb64(s) { return Uint8Array.from(atob(s), c => c.charCodeAt(0)).buffer; }

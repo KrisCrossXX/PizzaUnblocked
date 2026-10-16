@@ -34,6 +34,47 @@ body {
     z-index: -2;
     pointer-events: none;
 }
+/* theme variants (applied to .bgimg) */
+.bgimg.theme-black      { display: none; }
+.bgimg.t-noise          { filter: hue-rotate(60deg) saturate(1.8) contrast(1.1); }
+.bgimg.t-vigilante      { filter: sepia(.85) saturate(1.6); }
+.bgimg.t-fakepep        { filter: grayscale(1) brightness(.65) contrast(1.2); }
+.bgimg.t-midnight       { filter: hue-rotate(185deg) brightness(.55); }
+.bgimg.t-pizzaface      { filter: hue-rotate(-30deg) saturate(2); }
+.bgimg.t-halloween      { filter: hue-rotate(25deg) saturate(1.4) brightness(.85); }
+.bgimg.t-boiler         { filter: hue-rotate(250deg) saturate(2.2) brightness(.8); }
+
+/* ---------- theme picker ---------- */
+.theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+}
+.theme-card {
+    background: #000;
+    border: 2px solid #555;
+    cursor: pointer;
+    padding: 4px 4px 2px;
+    text-align: center;
+}
+.theme-card.sel { border-color: var(--yellow); }
+.theme-card .tprev {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    image-rendering: pixelated;
+    display: block;
+    background: #000;
+}
+.theme-card .tprev.theme-black { display: block; }
+.theme-card .tname {
+    color: #fff;
+    font-size: .8rem;
+    padding: 5px 0;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+.theme-card.sel .tname { color: var(--yellow); }
 
 
 
