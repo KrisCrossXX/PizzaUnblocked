@@ -27,9 +27,6 @@ const MODS = [
 ];
 
 const FANGAMES = [
-    { name: 'anton blast', desc: 'demo web port', dir: 'antonblast', img: 'assets/thumb-antonblast.png' },
-    { name: 'fnaf all-stars', desc: 'fnaf 1 + 2 remake', dir: 'fnafallstars', img: 'assets/thumb-fnafallstars.png' },
-    { name: 'undertale', desc: 'web port', dir: 'undertale', img: 'assets/thumb-undertale.png' },
     { name: 'sugary spire', desc: '', dir: 'sugaryspire', img: 'assets/thumb-sugaryspire.png' },
     { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'assets/thumb-pat.png' },
     { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'assets/thumb-killnoise.gif' },
@@ -52,7 +49,6 @@ const FANGAMES = [
     { name: "cooldude's lap mod", desc: 'lap mod v1.7', dir: 'ptlapmod', img: 'assets/thumb-loco.png' },
     { name: 'pizza tower network 2', desc: 'play test 2', dir: 'ptn2', img: 'assets/thumb-coop.png' },
     { name: 'pizzaboi', desc: '', dir: 'pizzaboi', img: 'assets/thumb-pts.png' },
-    { name: 'sugary spire: unham', desc: 'unham cotton build', dir: 'ssunham', img: 'assets/thumb-ss.png' },
     { name: 'sugary spire: playtest 3.2', desc: '', dir: 'ssplaytest', img: 'assets/thumb-ss.png' },
     { name: 'sugary spire: p-rank', desc: '', dir: 'ssprank', img: 'assets/thumb-ss.png' },
     { name: 'mininoise', desc: '', dir: 'mininoise', img: 'assets/thumb-killnoise.gif' },
@@ -99,7 +95,6 @@ const CHANGELOG = [
                 "cooldude's lap mod",
                 'pizza tower network 2',
                 'pizzaboi',
-                'sugary spire: unham',
                 'sugary spire: playtest 3.2',
                 'sugary spire: p-rank',
                 'mininoise',
