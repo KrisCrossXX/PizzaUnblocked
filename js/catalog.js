@@ -46,6 +46,9 @@ const FANGAMES = [
     { name: "cooldude's lap mod", desc: 'lap mod v1.7', dir: 'ptlapmod', img: 'assets/thumb-loco.png' },
     { name: 'pizza tower network 2', desc: 'play test 2', dir: 'ptn2', img: 'assets/thumb-coop.png' },
     { name: 'pizzaboi', desc: '', dir: 'pizzaboi', img: 'assets/thumb-pts.png' },
+    { name: 'sugary spire: unham', desc: 'unham cotton build', dir: 'ssunham', img: 'assets/thumb-ss.png' },
+    { name: 'sugary spire: playtest 3.2', desc: '', dir: 'ssplaytest', img: 'assets/thumb-ss.png' },
+    { name: 'sugary spire: p-rank', desc: '', dir: 'ssprank', img: 'assets/thumb-ss.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -84,6 +87,9 @@ const CHANGELOG = [
                 "cooldude's lap mod",
                 'pizza tower network 2',
                 'pizzaboi',
+                'sugary spire: unham',
+                'sugary spire: playtest 3.2',
+                'sugary spire: p-rank',
             ]},
             { label: 'bug fixes', items: [
                 'crash watchdog no longer panics over fullscreen/permission errors',
