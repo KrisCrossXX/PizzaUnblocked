@@ -7,8 +7,8 @@ const MODS = [
     { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', img: 'assets/thumb-coop.png' },
     { name: 'swabs expedition', desc: '', dir: 'swabs', img: 'assets/thumb-swabs.png' },
     { name: 'super bo noise', desc: '', dir: 'superbonoise', img: 'assets/thumb-sbn.png' },
-    { name: 'pt: cheesed up', desc: '', dir: 'cheesypizza', img: 'assets/thumb-cheesypizza.png' },
-    { name: "egg's lap mod", desc: 'lap 3+4 overhaul', dir: 'elm', img: 'assets/thumb-elm.png' },
+    // cheesed up + egg's lap mod removed — desktop data.win can't run on the
+    // web runner (fmod ext funcs unresolvable / wad memory OOB). files still in games/.
 ];
 
 const FANGAMES = [
