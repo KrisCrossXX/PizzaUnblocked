@@ -11,21 +11,24 @@
 
     // ---- auto-fix: missing extension functions (fmod_*, etc.) ----
     function readStubs() { try { return JSON.parse(localStorage.getItem(STUBS_KEY) || '[]'); } catch { return []; } }
+    let stubHandle = 0;
+    function stubFn(name) {
+        if (/isplaying|is_playing|paused|exists/.test(name)) return function () { return 0; };
+        if (/path|property|result|name|string/.test(name)) return function () { return ''; };
+        if (/create|instance|init|load|event/.test(name)) return function () { return ++stubHandle; };
+        return function () { return 0; };
+    }
     function defineStub(name) {
-        const fn = /isplaying|is_playing|paused|exists/.test(name) ? function () { return 0; }
-            : /path|property|result|name|string/.test(name) ? function () { return ''; }
-            : /create|instance|init|load/.test(name) ? (function () { let h = defineStub._h || 0; return function () { return ++h; }; })()
-            : function () { return 0; };
-        const g = [window, globalThis];
-        if (window.Module) g.push(window.Module);
-        for (const o of g) if (typeof o[name] === 'undefined') o[name] = fn;
+        for (const o of [window, globalThis, window.Module].filter(Boolean)) {
+            if (typeof o[name] === 'undefined') o[name] = stubFn(name);
+        }
     }
     // install all remembered stubs now; keep patching Module once the runner defines it
     const pending = new Set(readStubs());
     for (const n of pending) defineStub(n);
     const modTimer = setInterval(() => {
         if (!window.Module) return;
-        for (const n of pending) if (typeof window.Module[n] === 'undefined') window.Module[n] = window[n];
+        for (const n of pending) if (typeof window.Module[n] === 'undefined') window.Module[n] = stubFn(n);
     }, 100);
     setTimeout(() => clearInterval(modTimer), 60000);
 
@@ -55,25 +58,43 @@
         }
     }
 
-    // ---- crash capture ----
+    // ---- serialization ----
+    function ser(v) {
+        if (v == null) return String(v);
+        if (typeof v === 'string') return v;
+        if (v instanceof Error) return (v.name + ': ' + v.message + '\n' + (v.stack || '')).trim();
+        if (typeof v === 'object') {
+            const parts = [];
+            for (const k of Object.getOwnPropertyNames(v)) {
+                try { parts.push(k + '=' + ser(v[k])); } catch {}
+            }
+            const s = parts.join(', ');
+            return s.length > 600 ? s.slice(0, 600) : s;
+        }
+        return String(v);
+    }
+
+    // ---- crash capture (deduped) ----
     function readLog() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; } }
+    let lastMsg = '', lastTime = 0;
     function push(msg, extra) {
+        const text = ser(msg).slice(0, 2000);
+        const now = Date.now();
+        if (text === lastMsg && now - lastTime < 10000) return; // dedupe spam
+        lastMsg = text; lastTime = now;
         try {
             const log = readLog();
-            const text = typeof msg === 'string' ? msg : (msg && (msg.stack || msg.message)) || JSON.stringify(msg);
-            log.push({ t: new Date().toISOString(), page, msg: String(text).slice(0, 2000), extra: extra ? String(extra).slice(0, 500) : undefined });
+            log.push({ t: new Date().toISOString(), page, msg: text, extra: extra ? String(extra).slice(0, 500) : undefined });
             while (log.length > MAX) log.shift();
             localStorage.setItem(KEY, JSON.stringify(log));
-            maybeAutofix(String(text));
         } catch (e) {}
+        maybeAutofix(text);
     }
 
     let reloading = false;
     function maybeAutofix(text) {
         if (reloading) return;
-        let tries = 0;
-        try { tries = JSON.parse(sessionStorage.getItem(triesKey) || '0'); } catch {}
-        if (tries >= 2) { banner('crash could not be auto-fixed — send this to devin:', true); return; }
+        if (triesNow() >= 2) { banner('crash could not be auto-fixed — send this to devin:', true); return; }
 
         const m = /unable to find function ([\w$]+)/i.exec(text);
         if (m) {
@@ -84,7 +105,7 @@
             recover(`missing function "${name}" — stubbed it, reloading…`);
             return;
         }
-        if (/exception thrown|error on load|uncaught|webgl|out of memory|wasm|abort/i.test(text)) {
+        if (/exception thrown|error on load|uncaught|webgl|out of memory|wasm|abort|not a function|is not defined/i.test(text)) {
             recover('crash detected — clearing cache and reloading…');
         }
     }
@@ -103,22 +124,48 @@
     }
     function triesNow() { try { return JSON.parse(sessionStorage.getItem(triesKey) || '0'); } catch { return 0; } }
 
-    addEventListener('error', (e) => push(e.message || 'script error', (e.filename || '') + ':' + (e.lineno || 0)));
-    addEventListener('unhandledrejection', (e) => push('unhandled rejection: ' + (e.reason && (e.reason.stack || e.reason.message) || JSON.stringify(e.reason))));
+    addEventListener('error', (e) => {
+        push(e.error || e.message || 'script error', (e.filename || '') + ':' + (e.lineno || 0));
+    });
+    addEventListener('unhandledrejection', (e) => push('unhandled rejection: ' + ser(e.reason)));
 
     const origErr = console.error.bind(console);
     console.error = function (...args) {
-        push(args.map(a => (a && a.stack) || (typeof a === 'object' ? JSON.stringify(a) : a)).join(' '));
+        push(args.map(ser).join(' '));
         origErr(...args);
     };
 
-    const statusObserver = new MutationObserver(() => {
+    // runner's own error surfaces: #status text, #message-container, and any DOM
+    // text matching a crash signature (covers the mods' "Error on load" dialog)
+    const CRASH_RX = /unable to find function|error on load|exception thrown|crash/i;
+    const seenText = new Set();
+    function scanText(txt) {
+        const t = (txt || '').trim();
+        if (t && CRASH_RX.test(t) && !seenText.has(t)) {
+            seenText.add(t);
+            push('runner: ' + t.slice(0, 2000));
+        }
+    }
+    const statusObserver = new MutationObserver((muts) => {
         const s = document.getElementById('status');
-        if (s && /exception|error|crash/i.test(s.textContent)) push('runner: ' + s.textContent.trim());
+        if (s) scanText(s.textContent);
         const mc = document.getElementById('message-container');
-        if (mc && mc.style.display !== 'none' && /error|unable|exception/i.test(mc.textContent)) push('runner-msg: ' + mc.textContent.trim());
+        if (mc && mc.style.display !== 'none') scanText(mc.textContent);
+        for (const mu of muts) {
+            for (const n of mu.addedNodes) {
+                if (n.nodeType === 3) scanText(n.nodeValue);
+                else if (n.nodeType === 1) scanText(n.textContent);
+            }
+            if (mu.type === 'characterData') scanText(mu.target.nodeValue);
+        }
     });
-    addEventListener('DOMContentLoaded', () => statusObserver.observe(document.body, { subtree: true, childList: true, characterData: true }));
+    addEventListener('DOMContentLoaded', () => {
+        statusObserver.observe(document.body, { subtree: true, childList: true, characterData: true });
+        // also catch the error dialog if it already exists
+        document.querySelectorAll('body *').forEach(el => {
+            if (el.children.length === 0) scanText(el.textContent);
+        });
+    });
 
     window.PU = window.PU || {};
     window.PU.crashlog = {
