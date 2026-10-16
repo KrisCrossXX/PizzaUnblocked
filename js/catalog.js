@@ -49,6 +49,7 @@ const FANGAMES = [
     { name: 'sugary spire: unham', desc: 'unham cotton build', dir: 'ssunham', img: 'assets/thumb-ss.png' },
     { name: 'sugary spire: playtest 3.2', desc: '', dir: 'ssplaytest', img: 'assets/thumb-ss.png' },
     { name: 'sugary spire: p-rank', desc: '', dir: 'ssprank', img: 'assets/thumb-ss.png' },
+    { name: 'mininoise', desc: '', dir: 'mininoise', img: 'assets/thumb-killnoise.gif' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -90,6 +91,7 @@ const CHANGELOG = [
                 'sugary spire: unham',
                 'sugary spire: playtest 3.2',
                 'sugary spire: p-rank',
+                'mininoise',
             ]},
             { label: 'bug fixes', items: [
                 'crash watchdog no longer panics over fullscreen/permission errors',
