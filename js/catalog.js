@@ -17,6 +17,7 @@ const MODS = [
     { name: 'pizza tower: meta', desc: '', dir: 'ptmeta', img: 'assets/thumb-pts.png' },
     { name: 'frenzy worlds', desc: '', dir: 'frenzyworlds', img: 'assets/thumb-frenzy.png' },
     { name: 'septastic', desc: '', dir: 'septastic', img: 'assets/thumb-pizzamassacre.png' },
+    { name: 'weenie cop', desc: 'food fighter', dir: 'weeniecop', img: 'assets/thumb-weeniecop.png' },
     { name: 'demo 3', desc: 'leaked dev build', dir: 'demo3', img: 'assets/thumb-pts.png' },
     { name: 'pt: gba edition', desc: '', dir: 'ptgba', img: 'assets/thumb-pts.png' },
     // desktop data.win swaps (games/cheesypizza, games/elm, games/ptlap) can't
@@ -24,7 +25,7 @@ const MODS = [
 ];
 
 const FANGAMES = [
-    { name: 'sugary spire', desc: '', dir: 'sugaryspire', img: 'assets/thumb-ss.png' },
+    { name: 'sugary spire', desc: '', dir: 'sugaryspire', img: 'assets/thumb-sugaryspire.png' },
     { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'assets/thumb-pat.png' },
     { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'assets/thumb-killnoise.gif' },
     { name: 'john wick vs lario', desc: '', dir: 'jwvl', img: 'assets/thumb-jwl.png' },
