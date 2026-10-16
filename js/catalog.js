@@ -15,6 +15,8 @@ const MODS = [
     { name: 'super bo noise', desc: '', dir: 'superbonoise', img: 'assets/thumb-sbn.png' },
     { name: 'sage 19 plus', desc: 'sage 2019 demo', dir: 'sage19plus', img: 'assets/thumb-ss.png' },
     { name: 'pizza tower: meta', desc: '', dir: 'ptmeta', img: 'assets/thumb-pts.png' },
+    { name: 'frenzy worlds', desc: '', dir: 'frenzyworlds', img: 'assets/thumb-frenzy.png' },
+    { name: 'septastic', desc: '', dir: 'septastic', img: 'assets/thumb-pizzamassacre.png' },
     // desktop data.win swaps (games/cheesypizza, games/elm, games/ptlap) can't
     // run on the web runner — different wad/vm format. files left in games/.
 ];
@@ -58,6 +60,8 @@ const CHANGELOG = [
                 'pizza massacre',
                 'sage 19 plus',
                 'pizza tower: meta',
+                'frenzy worlds',
+                'septastic',
                 'vigilante build',
                 'demo 1 engine',
                 'toadlegette revolution',
