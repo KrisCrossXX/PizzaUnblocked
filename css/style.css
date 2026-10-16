@@ -36,13 +36,6 @@ body {
 }
 /* theme variants (applied to .bgimg) */
 .bgimg.theme-black      { display: none; }
-.bgimg.t-noise          { filter: hue-rotate(60deg) saturate(1.8) contrast(1.1); }
-.bgimg.t-vigilante      { filter: sepia(.85) saturate(1.6); }
-.bgimg.t-fakepep        { filter: grayscale(1) brightness(.65) contrast(1.2); }
-.bgimg.t-midnight       { filter: hue-rotate(185deg) brightness(.55); }
-.bgimg.t-pizzaface      { filter: hue-rotate(-30deg) saturate(2); }
-.bgimg.t-halloween      { filter: hue-rotate(25deg) saturate(1.4) brightness(.85); }
-.bgimg.t-boiler         { filter: hue-rotate(250deg) saturate(2.2) brightness(.8); }
 
 /* ---------- theme picker ---------- */
 .theme-grid {
@@ -60,11 +53,13 @@ body {
 .theme-card.sel { border-color: var(--yellow); }
 .theme-card .tprev {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
     object-fit: cover;
+    object-position: center;
     image-rendering: pixelated;
     display: block;
     background: #000;
+    border: 1px solid #333;
 }
 .theme-card .tprev.theme-black { display: block; }
 .theme-card .tname {

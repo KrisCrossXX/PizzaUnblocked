@@ -122,14 +122,7 @@ panicBtn.addEventListener('click', () => alert('panic button coming soon'));
 // song = optional override for the theme music track (defaults to theme.mp3)
 const THEMES = [
     { name: 'the tower',   cls: '' },
-    { name: 'black',       cls: 'theme-black' },
-    { name: 'the noise',   cls: 't-noise' },
-    { name: 'vigilante',   cls: 't-vigilante' },
-    { name: 'fake peppino', cls: 't-fakepep' },
-    { name: 'midnight',    cls: 't-midnight' },
-    { name: 'pizzaface',   cls: 't-pizzaface' },
-    { name: 'halloween',   cls: 't-halloween' },
-    { name: 'boiler city', cls: 't-boiler' },
+    // song = optional override for the theme music (defaults to theme.mp3)
 ];
 const bgimgEl = document.querySelector('.bgimg');
 const themeGrid = document.getElementById('themeGrid');
