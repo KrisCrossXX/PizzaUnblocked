@@ -284,6 +284,21 @@ body {
     overflow-y: auto;
     max-height: 100vh;
 }
+.searchbox {
+    display: block;
+    width: min(480px, 80vw);
+    margin: 0 auto 26px;
+    padding: 10px 16px;
+    font-family: inherit;
+    font-size: 1.15rem;
+    color: var(--yellow);
+    background: rgba(0,0,0,.75);
+    border: 2px solid #fff;
+    border-radius: 0;
+    outline: none;
+}
+.searchbox::placeholder { color: var(--muted); }
+.searchbox:focus { border-color: var(--yellow); }
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));

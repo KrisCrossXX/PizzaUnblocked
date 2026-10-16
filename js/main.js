@@ -27,7 +27,7 @@ document.addEventListener('keydown', (e) => {
 
 document.getElementById('gearBtn').addEventListener('click', () => openPop('popSettings'));
 document.getElementById('clBtn').addEventListener('click', () => { renderChangelog(); openPop('popChangelog'); });
-const DISCORD_URL = 'https://discord.gg/placeholder';
+const DISCORD_URL = 'https://discord.gg/Yv7Ms7KMnq';
 // arrow icon = download the single-file site; pizza icon = discord
 document.getElementById('dlBtn').addEventListener('click', () => {
     const a = document.createElement('a');

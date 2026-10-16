@@ -7,6 +7,8 @@ const MODS = [
     { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', img: 'assets/thumb-coop.png' },
     { name: 'swabs expedition', desc: '', dir: 'swabs', img: 'assets/thumb-swabs.png' },
     { name: 'super bo noise', desc: '', dir: 'superbonoise', img: 'assets/thumb-sbn.png' },
+    { name: 'pt: cheesed up', desc: '', dir: 'cheesypizza', img: 'assets/thumb-cheesypizza.png' },
+    { name: "egg's lap mod", desc: 'lap 3+4 overhaul', dir: 'elm', img: 'assets/thumb-elm.png' },
 ];
 
 const FANGAMES = [
@@ -14,6 +16,7 @@ const FANGAMES = [
     { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'assets/thumb-pat.png' },
     { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'assets/thumb-killnoise.gif' },
     { name: 'john wick vs lario', desc: '', dir: 'jwvl', img: 'assets/thumb-jwl.png' },
+    { name: 'internship', desc: '', dir: 'internship', img: 'assets/thumb-internship.jpg' },
 ];
 
 /* Changelog entries shown in the changelog popup.

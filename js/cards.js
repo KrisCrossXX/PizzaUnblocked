@@ -12,6 +12,15 @@ function renderCards(gridEl, emptyEl, list) {
     emptyEl.hidden = list.length > 0;
 }
 
+function setupSearch(inputEl, gridEl, emptyEl, list) {
+    if (!inputEl) return;
+    inputEl.addEventListener('input', () => {
+        const q = inputEl.value.trim().toLowerCase();
+        gridEl.innerHTML = '';
+        renderCards(gridEl, emptyEl, q ? list.filter(g => g.name.toLowerCase().includes(q)) : list);
+    });
+}
+
 // hover sfx
 const hoverSfx = new Audio('assets/sfx/buttons.ogg');
 hoverSfx.volume = 0.6;
