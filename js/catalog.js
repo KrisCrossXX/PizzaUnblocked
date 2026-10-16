@@ -17,6 +17,8 @@ const MODS = [
     { name: 'pizza tower: meta', desc: '', dir: 'ptmeta', img: 'assets/thumb-pts.png' },
     { name: 'frenzy worlds', desc: '', dir: 'frenzyworlds', img: 'assets/thumb-frenzy.png' },
     { name: 'septastic', desc: '', dir: 'septastic', img: 'assets/thumb-pizzamassacre.png' },
+    { name: 'demo 3', desc: 'leaked dev build', dir: 'demo3', img: 'assets/thumb-pts.png' },
+    { name: 'pt: gba edition', desc: '', dir: 'ptgba', img: 'assets/thumb-pts.png' },
     // desktop data.win swaps (games/cheesypizza, games/elm, games/ptlap) can't
     // run on the web runner — different wad/vm format. files left in games/.
 ];
@@ -64,6 +66,8 @@ const CHANGELOG = [
                 'pizza tower: meta',
                 'frenzy worlds',
                 'septastic',
+                'demo 3',
+                'pt: gba edition',
                 'vigilante build',
                 'demo 1 engine',
                 'toadlegette revolution',
