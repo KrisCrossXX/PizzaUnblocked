@@ -4,10 +4,12 @@
 
 const MODS = [
     { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', img: 'assets/thumb-scoutdigo.png' },
+    { name: 'pizza tower: frenzy worlds', desc: 'gx.games embed', dir: 'frenzyworlds', img: 'assets/btn-pizzatower.png' },
 ];
 
 const FANGAMES = [
-    // { name: 'sugary spire', desc: 'fangame', dir: 'sugaryspire', img: 'assets/thumb-ss.png' }, — pending better build
+    { name: 'sugary spire: exhibition night', desc: 'gx.games embed', dir: 'ssexhibition', img: 'assets/thumb-ss.png' },
+    { name: 'pizza tower shooter', desc: 'gx.games embed', dir: 'ptshooter', img: 'assets/thumb-pts.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.

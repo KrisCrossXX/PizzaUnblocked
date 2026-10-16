@@ -27,7 +27,8 @@ document.addEventListener('keydown', (e) => {
 
 document.getElementById('gearBtn').addEventListener('click', () => openPop('popSettings'));
 document.getElementById('clBtn').addEventListener('click', () => { renderChangelog(); openPop('popChangelog'); });
-document.getElementById('dlBtn').addEventListener('click', () => alert('single file mode coming soon'));
+const DISCORD_URL = 'https://discord.gg/placeholder';
+document.getElementById('dlBtn').addEventListener('click', () => window.open(DISCORD_URL, '_blank'));
 
 // ---------- changelog ----------
 function renderChangelog() {
