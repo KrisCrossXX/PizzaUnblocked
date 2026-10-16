@@ -42,6 +42,8 @@ const FANGAMES = [
     { name: 'tower pasta', desc: '', dir: 'towerpasta', img: 'assets/thumb-frenzy.png' },
     { name: 'noise crusher', desc: 'level editor demo', dir: 'noisecrusher', img: 'assets/thumb-killnoise.gif' },
     { name: "cooldude's lap mod", desc: 'lap mod v1.7', dir: 'ptlapmod', img: 'assets/thumb-loco.png' },
+    { name: 'pizza tower network 2', desc: 'play test 2', dir: 'ptn2', img: 'assets/thumb-coop.png' },
+    { name: 'pizzaboi', desc: '', dir: 'pizzaboi', img: 'assets/thumb-pts.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -76,6 +78,8 @@ const CHANGELOG = [
                 'tower pasta',
                 'noise crusher',
                 "cooldude's lap mod",
+                'pizza tower network 2',
+                'pizzaboi',
             ]},
             { label: 'bug fixes', items: [
                 'crash watchdog no longer panics over fullscreen/permission errors',
