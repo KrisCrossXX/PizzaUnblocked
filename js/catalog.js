@@ -31,6 +31,14 @@ const FANGAMES = [
     { name: 'toadlegette revolution', desc: '', dir: 'toadlegette', img: 'assets/thumb-ss.png' },
     { name: 'pizza tower network', desc: 'online multiplayer', dir: 'ptn', img: 'assets/thumb-coop.png' },
     { name: 'rando-laps', desc: 'lap hell engine mod', dir: 'randolap', img: 'assets/thumb-loco.png' },
+    { name: 'hungry pepperman', desc: '', dir: 'pepperman', img: 'assets/thumb-pat.png' },
+    { name: 'punch-out!! pt edition', desc: '', dir: 'popte', img: 'assets/thumb-pts.png' },
+    { name: "peppino's party at the tower", desc: '', dir: 'partytower', img: 'assets/thumb-pts.png' },
+    { name: 'pat the peppino: expansion', desc: '', dir: 'patpeppinox', img: 'assets/thumb-pat.png' },
+    { name: 'stupid spire', desc: '', dir: 'stupidspire', img: 'assets/thumb-ss.png' },
+    { name: 'flappy peppino', desc: '', dir: 'flappypeppino', img: 'assets/thumb-pts.png' },
+    { name: 'tower pasta', desc: '', dir: 'towerpasta', img: 'assets/thumb-frenzy.png' },
+    { name: 'noise crusher', desc: 'level editor demo', dir: 'noisecrusher', img: 'assets/thumb-killnoise.gif' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -54,6 +62,14 @@ const CHANGELOG = [
                 'toadlegette revolution',
                 'pizza tower network',
                 'rando-laps',
+                'hungry pepperman',
+                'punch-out!! pt edition',
+                "peppino's party at the tower",
+                'pat the peppino: expansion',
+                'stupid spire',
+                'flappy peppino',
+                'tower pasta',
+                'noise crusher',
             ]},
             { label: 'bug fixes', items: [
                 'crash watchdog no longer panics over fullscreen/permission errors',
