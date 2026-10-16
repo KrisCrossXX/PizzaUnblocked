@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pizza Unblocked</title>
+<link rel="icon" href="assets/pizza-icon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<img class="bgimg" src="assets/bg.gif" alt="" aria-hidden="true">
+<img class="pillar pillar-left" src="assets/pillar.png" alt="" aria-hidden="true">
+<img class="pillar pillar-right" src="assets/pillar.png" alt="" aria-hidden="true">
+
+<a class="logo" href="index.html"><img src="assets/logo.png" alt="Pizza Unblocked"></a>
+
+<nav class="topicons">
+    <button class="icon-btn" id="gearBtn" data-sfx="buttons" title="settings"><img src="assets/icon-gear.png" alt="settings"></button>
+    <button class="icon-btn" id="clBtn" data-sfx="buttons" title="changelog"><img src="assets/icon-pillar.png" alt="changelog"></button>
+    <button class="icon-btn" id="dlBtn" data-sfx="buttons" title="single file"><img src="assets/icon-arrow.png" alt="download"></button>
+</nav>
+
+<main class="menu">
+    <a class="gbtn" href="games/pizzatower/" data-sfx="pizzatower"><img src="assets/btn-pizzatower.png" alt="PIZZA TOWER"></a>
+    <a class="gbtn" href="mods.html" data-sfx="mods"><img src="assets/btn-mods.png" alt="MODS"></a>
+    <a class="gbtn" href="extras.html" data-sfx="extras"><img src="assets/btn-extras.png" alt="EXTRAS"></a>
+</main>
+
+<button class="pizza-icon" data-sfx="buttons" onclick="location.href='index.html'" title="home"><img src="assets/pizza-icon.png" alt="pizza"></button>
+
+<!-- popups -->
+<div class="overlay" id="popSettings" hidden>
+    <div class="pop">
+        <div class="pop-head">
+            <span class="pop-title">settings</span>
+            <button class="xbtn" data-close="popSettings">x</button>
+        </div>
+        <div class="pop-body">
+            <div class="set-block">
+                <div class="set-label">audio</div>
+                <div class="opt-row"><button class="sbtn" id="audioBtn">audio: on</button>
+                <input class="vol" id="volSlider" type="range" min="0" max="100" value="100"></div>
+            </div>
+            <div class="set-block">
+                <div class="set-label">site name</div>
+                <div class="opt-row">
+                    <select id="cloakSel" class="sel">
+                        <option value="">pizza unblocked</option>
+                        <option value="google">google</option>
+                        <option value="canvas">canvas</option>
+                        <option value="clever">clever</option>
+                        <option value="drive">google drive</option>
+                        <option value="classroom">google classroom</option>
+                    </select>
+                </div>
+                <div class="opt-row">
+                    <button class="sbtn" id="onlineBtn">online counter: on</button>
+                    <button class="sbtn" id="panicBtn">panic button: off</button>
+                </div>
+            </div>
+            <div class="set-block">
+                <div class="set-label">save</div>
+                <div class="opt-row">
+                    <button class="sbtn" id="exportBtn">export</button>
+                    <button class="sbtn" id="importBtn">import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="popChangelog" hidden>
+    <div class="pop pop-cl">
+        <div class="pop-head">
+            <span class="pop-title">changelog</span>
+            <button class="xbtn" data-close="popChangelog">x</button>
+        </div>
+        <div class="pop-body" id="clBody"></div>
+    </div>
+</div>
+
+<script src="js/catalog.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
