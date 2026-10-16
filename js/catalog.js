@@ -5,7 +5,6 @@
 const MODS = [
     { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', img: 'assets/thumb-scoutdigo.png' },
     { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', img: 'assets/thumb-coop.png' },
-    { name: 'cheesed up', desc: 'huge content mod', dir: 'cheesedupnew', img: 'assets/thumb-cheesedup.jpg' },
     { name: 'cheesed up (old)', desc: 'classic build', dir: 'cheesedupold', img: 'assets/thumb-cheesedup.jpg' },
     { name: 'loco tower', desc: '', dir: 'locotower', img: 'assets/thumb-loco.png' },
     { name: 'stuffed crust', desc: '', dir: 'stuffedcrust', img: 'assets/thumb-stuffed.png' },
@@ -14,6 +13,8 @@ const MODS = [
     { name: 'pizza massacre', desc: '', dir: 'pizzamassacre', img: 'assets/thumb-pizzamassacre.png' },
     { name: 'swabs expedition', desc: '', dir: 'swabs', img: 'assets/thumb-swabs.png' },
     { name: 'super bo noise', desc: '', dir: 'superbonoise', img: 'assets/thumb-sbn.png' },
+    { name: 'sage 19 plus', desc: 'sage 2019 demo', dir: 'sage19plus', img: 'assets/thumb-ss.png' },
+    { name: 'pizza tower: meta', desc: '', dir: 'ptmeta', img: 'assets/thumb-pts.png' },
     // desktop data.win swaps (games/cheesypizza, games/elm, games/ptlap) can't
     // run on the web runner — different wad/vm format. files left in games/.
 ];
@@ -25,6 +26,8 @@ const FANGAMES = [
     { name: 'john wick vs lario', desc: '', dir: 'jwvl', img: 'assets/thumb-jwl.png' },
     { name: 'internship', desc: '', dir: 'internship', img: 'assets/thumb-internship.jpg' },
     { name: "five nights at peppino's", desc: '', dir: 'fnap', img: 'assets/thumb-fnap.png' },
+    { name: 'vigilante build', desc: 'old pt build', dir: 'ptwv', img: 'assets/thumb-pts.png' },
+    { name: 'demo 1 engine', desc: 'pt fangame engine', dir: 'demo1', img: 'assets/thumb-pts.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -35,12 +38,16 @@ const CHANGELOG = [
         date: 'october 16, 2026',
         groups: [
             { label: 'new ports', items: [
-                'cheesed up + cheesed up (old)',
+                'cheesed up (old)',
                 'loco tower',
                 'stuffed crust',
                 "chef's kiss",
                 'final round',
                 'pizza massacre',
+                'sage 19 plus',
+                'pizza tower: meta',
+                'vigilante build',
+                'demo 1 engine',
             ]},
             { label: 'bug fixes', items: [
                 'crash watchdog no longer panics over fullscreen/permission errors',
