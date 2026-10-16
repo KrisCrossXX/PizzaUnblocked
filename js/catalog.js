@@ -11,6 +11,9 @@ const MODS = [
 
 const FANGAMES = [
     { name: 'sugary spire', desc: '', dir: 'sugaryspire', img: 'assets/thumb-ss.png' },
+    { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'assets/thumb-pat.png' },
+    { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'assets/thumb-killnoise.gif' },
+    { name: 'john wick vs lario', desc: '', dir: 'jwvl', img: 'assets/thumb-jwl.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -24,7 +27,10 @@ const CHANGELOG = [
                 'pizza tower: co-op',
                 'swabs expedition',
                 'super bo noise',
-                'sugary spire unham (cotton update)',
+                'sugary spire',
+                'pat the peppino',
+                'kill the noise',
+                'john wick vs lario',
             ]},
             { label: 'bug fixes', items: [
                 'mods no longer render squashed in the corner',
