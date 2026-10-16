@@ -89,6 +89,17 @@ body {
     height: clamp(80px, 15vh, 130px);
     width: auto;
 }
+.byline {
+    position: fixed;
+    top: clamp(30px, 6vh, 55px);
+    left: calc(14px + clamp(160px, 24vw, 320px));
+    color: #ff3b3b;
+    font-size: 1.3rem;
+    letter-spacing: .03em;
+    z-index: 5;
+    pointer-events: none;
+    white-space: nowrap;
+}
 
 .topicons {
     position: fixed;
@@ -123,18 +134,19 @@ body {
     grid-template-columns: 1fr 1fr;
     align-content: center;
     align-items: center;
-    gap: 4vh 6vw;
-    padding: 24vh 10vw 12vh;
+    gap: 1vh 4vw;
+    padding: 14vh 8vw 8vh;
 }
 .menu .gbtn:first-child { justify-self: start; }
 .menu .gbtn:nth-child(2) { justify-self: end; }
 .menu .gbtn:last-child { grid-column: 1 / -1; justify-self: center; }
+.menu .gbtn:last-child img { height: clamp(110px, 26vh, 300px); }
 
 .gbtn { display: block; }
 .gbtn img {
     display: block;
-    width: clamp(200px, 24vw, 380px);
-    height: auto;
+    height: clamp(160px, 34vh, 380px);
+    width: auto;
     transition: transform .1s;
 }
 .gbtn:hover img { transform: scale(1.05); }
