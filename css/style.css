@@ -83,6 +83,10 @@ body {
     position: fixed;
     top: 10px; left: 14px;
     z-index: 5;
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    text-decoration: none;
 }
 .logo img {
     display: block;
@@ -90,15 +94,11 @@ body {
     width: auto;
 }
 .byline {
-    position: fixed;
-    top: clamp(30px, 6vh, 55px);
-    left: calc(14px + clamp(160px, 24vw, 320px));
     color: #ff3b3b;
     font-size: 1.3rem;
     letter-spacing: .03em;
-    z-index: 5;
-    pointer-events: none;
     white-space: nowrap;
+    padding-bottom: 4px;
 }
 
 .topicons {
@@ -111,7 +111,7 @@ body {
 .icon-btn {
     display: grid;
     place-items: center;
-    width: 52px; height: 46px;
+    width: 74px; height: 66px;
     padding: 4px;
     background: transparent;
     border: none;
@@ -140,12 +140,11 @@ body {
 .menu .gbtn:first-child { justify-self: start; }
 .menu .gbtn:nth-child(2) { justify-self: end; }
 .menu .gbtn:last-child { grid-column: 1 / -1; justify-self: center; }
-.menu .gbtn:last-child img { height: clamp(110px, 26vh, 300px); }
 
 .gbtn { display: block; }
 .gbtn img {
     display: block;
-    height: clamp(160px, 34vh, 380px);
+    height: clamp(160px, 32vh, 360px);
     width: auto;
     transition: transform .1s;
 }
@@ -156,7 +155,7 @@ body {
 .pizza-icon {
     position: fixed;
     bottom: 14px; left: 14px;
-    width: 64px;
+    width: 100px;
     z-index: 5;
     background: none;
     border: none;
