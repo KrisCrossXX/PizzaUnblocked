@@ -231,3 +231,22 @@ document.getElementById('importBtn').addEventListener('click', () => {
     };
     inp.click();
 });
+
+// ---------- crash log viewer ----------
+function renderCrashLog() {
+    const el = document.getElementById('crashLog');
+    let log = [];
+    try { log = JSON.parse(localStorage.getItem('pu_crashlog') || '[]'); } catch {}
+    el.textContent = log.length
+        ? log.map(e => `[${e.t}] ${e.page}\n  ${e.msg}${e.extra ? '\n  ' + e.extra : ''}`).join('\n\n')
+        : 'no crashes logged';
+}
+document.getElementById('gearBtn').addEventListener('click', renderCrashLog);
+document.getElementById('clearLogBtn').addEventListener('click', () => {
+    localStorage.removeItem('pu_crashlog');
+    renderCrashLog();
+});
+document.getElementById('copyLogBtn').addEventListener('click', () => {
+    const t = document.getElementById('crashLog').textContent;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).catch(() => {});
+});

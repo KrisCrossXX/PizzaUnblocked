@@ -17,6 +17,7 @@ const FANGAMES = [
     { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'assets/thumb-killnoise.gif' },
     { name: 'john wick vs lario', desc: '', dir: 'jwvl', img: 'assets/thumb-jwl.png' },
     { name: 'internship', desc: '', dir: 'internship', img: 'assets/thumb-internship.jpg' },
+    { name: "five nights at peppino's", desc: '', dir: 'fnap', img: 'assets/thumb-fnap.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
