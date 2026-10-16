@@ -28,6 +28,9 @@ const FANGAMES = [
     { name: "five nights at peppino's", desc: '', dir: 'fnap', img: 'assets/thumb-fnap.png' },
     { name: 'vigilante build', desc: 'old pt build', dir: 'ptwv', img: 'assets/thumb-pts.png' },
     { name: 'demo 1 engine', desc: 'pt fangame engine', dir: 'demo1', img: 'assets/thumb-pts.png' },
+    { name: 'toadlegette revolution', desc: '', dir: 'toadlegette', img: 'assets/thumb-ss.png' },
+    { name: 'pizza tower network', desc: 'online multiplayer', dir: 'ptn', img: 'assets/thumb-coop.png' },
+    { name: 'rando-laps', desc: 'lap hell engine mod', dir: 'randolap', img: 'assets/thumb-loco.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -48,6 +51,9 @@ const CHANGELOG = [
                 'pizza tower: meta',
                 'vigilante build',
                 'demo 1 engine',
+                'toadlegette revolution',
+                'pizza tower network',
+                'rando-laps',
             ]},
             { label: 'bug fixes', items: [
                 'crash watchdog no longer panics over fullscreen/permission errors',
