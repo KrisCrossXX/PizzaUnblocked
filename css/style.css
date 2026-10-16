@@ -85,7 +85,7 @@ body {
 }
 .logo img {
     display: block;
-    height: clamp(80px, 15vh, 130px);
+    height: clamp(110px, 21vh, 190px);
     width: auto;
 }
 .byline {
@@ -339,5 +339,5 @@ body {
     .menu { grid-template-columns: 1fr; gap: 20px; padding: 120px 0 100px; }
     .menu .gbtn { justify-self: center !important; }
     .menu .gbtn:last-child { grid-column: auto; }
-    .logo { height: 80px; }
+    .logo img { height: 110px; }
 }
