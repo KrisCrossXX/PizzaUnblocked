@@ -1,16 +1,4 @@
-// ---------- theme music ----------
-const bgm = new Audio('assets/theme.mp3');
-bgm.loop = true;
-bgm.volume = localStorage.getItem('pu_vol') != null ? +localStorage.getItem('pu_vol') / 100 : 1;
-const bgmWanted = localStorage.getItem('pu_audio') !== 'off';
-let bgmStarted = false;
-function kickBgm() {
-    if (!bgmStarted && bgmWanted) { bgmStarted = true; bgm.play().catch(() => {}); }
-    document.removeEventListener('click', kickBgm);
-    document.removeEventListener('keydown', kickBgm);
-}
-document.addEventListener('click', kickBgm);
-document.addEventListener('keydown', kickBgm);
+// ---------- theme music (from js/music.js: bgm, bgmStarted, bgmWanted) ----------
 
 // ---------- icon sfx ----------
 const sfx = {};
