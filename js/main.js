@@ -28,7 +28,17 @@ document.addEventListener('keydown', (e) => {
 document.getElementById('gearBtn').addEventListener('click', () => openPop('popSettings'));
 document.getElementById('clBtn').addEventListener('click', () => { renderChangelog(); openPop('popChangelog'); });
 const DISCORD_URL = 'https://discord.gg/placeholder';
-document.getElementById('dlBtn').addEventListener('click', () => window.open(DISCORD_URL, '_blank'));
+// arrow icon = download the single-file site; pizza icon = discord
+document.getElementById('dlBtn').addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.href = 'pizza-unblocked.html';
+    a.download = 'pizza-unblocked.html';
+    a.click();
+});
+const pizzaBtn = document.querySelector('.pizza-icon');
+pizzaBtn.removeAttribute('onclick');
+pizzaBtn.title = 'discord';
+pizzaBtn.addEventListener('click', () => window.open(DISCORD_URL, '_blank'));
 
 // ---------- changelog ----------
 function renderChangelog() {

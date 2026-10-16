@@ -4,20 +4,37 @@
 
 const MODS = [
     { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', img: 'assets/thumb-scoutdigo.png' },
-    { name: 'pizza tower: frenzy worlds', desc: 'gx.games embed', dir: 'frenzyworlds', img: 'assets/thumb-frenzy.png' },
     { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', img: 'assets/thumb-coop.png' },
     { name: 'swabs expedition', desc: '', dir: 'swabs', img: 'assets/thumb-swabs.png' },
     { name: 'super bo noise', desc: '', dir: 'superbonoise', img: 'assets/thumb-sbn.png' },
 ];
 
 const FANGAMES = [
-    { name: 'sugary spire: exhibition night', desc: 'gx.games embed', dir: 'ssexhibition', img: 'assets/thumb-ss.png' },
-    { name: 'pizza tower shooter', desc: 'gx.games embed', dir: 'ptshooter', img: 'assets/thumb-pts.png' },
+    { name: 'sugary spire unham', desc: 'cotton update', dir: 'sugaryspire', img: 'assets/thumb-ss.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
    groups = array of { label, items[] } rendered in order. */
 const CHANGELOG = [
+    {
+        title: 'update 0.3',
+        date: 'october 15, 2026',
+        groups: [
+            { label: 'new ports', items: [
+                'pizza tower: co-op',
+                'swabs expedition',
+                'super bo noise',
+                'sugary spire unham (cotton update)',
+            ]},
+            { label: 'bug fixes', items: [
+                'mods no longer render squashed in the corner',
+            ]},
+            { label: 'new features', items: [
+                'single file download — whole site as one html',
+                'discord button',
+            ]},
+        ],
+    },
     {
         title: 'update 0.2',
         date: 'october 15, 2026',
@@ -25,7 +42,6 @@ const CHANGELOG = [
             { label: 'new ports', items: [
                 'pizza tower 1.1.0 — official-runner web build (real sprites + audio)',
                 'pizza tower: scoutdigo',
-                'sugary spire',
             ]},
             { label: 'bug fixes', items: [
                 'peppino renders correctly (swapped butterscotch build for the official runner)',
