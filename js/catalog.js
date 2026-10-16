@@ -7,7 +7,7 @@ const MODS = [
 ];
 
 const FANGAMES = [
-    { name: 'sugary spire', desc: 'fangame', dir: 'sugaryspire', img: 'assets/thumb-ss.png' },
+    // { name: 'sugary spire', desc: 'fangame', dir: 'sugaryspire', img: 'assets/thumb-ss.png' }, — pending better build
 ];
 
 /* Changelog entries shown in the changelog popup.
