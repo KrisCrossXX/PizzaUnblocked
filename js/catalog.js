@@ -5,10 +5,17 @@
 const MODS = [
     { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', img: 'assets/thumb-scoutdigo.png' },
     { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', img: 'assets/thumb-coop.png' },
+    { name: 'cheesed up', desc: 'huge content mod', dir: 'cheesedupnew', img: 'assets/thumb-cheesedup.jpg' },
+    { name: 'cheesed up (old)', desc: 'classic build', dir: 'cheesedupold', img: 'assets/thumb-cheesedup.jpg' },
+    { name: 'loco tower', desc: '', dir: 'locotower', img: 'assets/thumb-loco.png' },
+    { name: 'stuffed crust', desc: '', dir: 'stuffedcrust', img: 'assets/thumb-stuffed.png' },
+    { name: "chef's kiss", desc: '', dir: 'chefskiss', img: 'assets/thumb-chefskiss.png' },
+    { name: 'final round', desc: '', dir: 'finalround', img: 'assets/thumb-finalround.png' },
+    { name: 'pizza massacre', desc: '', dir: 'pizzamassacre', img: 'assets/thumb-pizzamassacre.png' },
     { name: 'swabs expedition', desc: '', dir: 'swabs', img: 'assets/thumb-swabs.png' },
     { name: 'super bo noise', desc: '', dir: 'superbonoise', img: 'assets/thumb-sbn.png' },
-    // cheesed up + egg's lap mod removed — desktop data.win can't run on the
-    // web runner (fmod ext funcs unresolvable / wad memory OOB). files still in games/.
+    // desktop data.win swaps (games/cheesypizza, games/elm, games/ptlap) can't
+    // run on the web runner — different wad/vm format. files left in games/.
 ];
 
 const FANGAMES = [
@@ -23,6 +30,24 @@ const FANGAMES = [
 /* Changelog entries shown in the changelog popup.
    groups = array of { label, items[] } rendered in order. */
 const CHANGELOG = [
+    {
+        title: 'update 0.4',
+        date: 'october 16, 2026',
+        groups: [
+            { label: 'new ports', items: [
+                'cheesed up + cheesed up (old)',
+                'loco tower',
+                'stuffed crust',
+                "chef's kiss",
+                'final round',
+                'pizza massacre',
+            ]},
+            { label: 'bug fixes', items: [
+                'crash watchdog no longer panics over fullscreen/permission errors',
+                'recovered 6 lost ports from the archive',
+            ]},
+        ],
+    },
     {
         title: 'update 0.3',
         date: 'october 15, 2026',

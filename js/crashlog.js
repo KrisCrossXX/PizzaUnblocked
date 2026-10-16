@@ -91,13 +91,19 @@
         maybeAutofix(text);
     }
 
+    // errors that look scary but never kill the game — fullscreen/pointer-lock/
+    // autoplay/permission denials and browser-extension noise
+    const BENIGN_RX = /permissions check failed|exitFullscreen|requestFullscreen|not active|user gesture|notallowederror|pointerlock|pointer lock|user didn't interact|interact with the document first|is not defined/i;
+    const FATAL_RX = /exception thrown|error on load|out of memory|memory access out of bounds|runtimeerror|abort\(|unable to find function/i;
+
     let reloading = false;
     function maybeAutofix(text) {
         if (reloading) return;
-        if (triesNow() >= 2) { banner('crash could not be auto-fixed — send this to devin:', true); return; }
+        if (BENIGN_RX.test(text) && !FATAL_RX.test(text)) return;
 
         const m = /unable to find function ([\w$]+)/i.exec(text);
         if (m) {
+            if (triesNow() >= 2) { banner('crash could not be auto-fixed — send this to devin:', true); return; }
             const name = m[1];
             const stubs = readStubs();
             if (!stubs.includes(name)) { stubs.push(name); localStorage.setItem(STUBS_KEY, JSON.stringify(stubs)); }
@@ -105,7 +111,8 @@
             recover(`missing function "${name}" — stubbed it, reloading…`);
             return;
         }
-        if (/exception thrown|error on load|uncaught|webgl|out of memory|wasm|abort|not a function|is not defined/i.test(text)) {
+        if (FATAL_RX.test(text)) {
+            if (triesNow() >= 2) { banner('crash could not be auto-fixed — send this to devin:', true); return; }
             recover('crash detected — clearing cache and reloading…');
         }
     }
