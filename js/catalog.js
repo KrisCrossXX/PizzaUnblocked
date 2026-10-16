@@ -39,6 +39,7 @@ const FANGAMES = [
     { name: 'flappy peppino', desc: '', dir: 'flappypeppino', img: 'assets/thumb-pts.png' },
     { name: 'tower pasta', desc: '', dir: 'towerpasta', img: 'assets/thumb-frenzy.png' },
     { name: 'noise crusher', desc: 'level editor demo', dir: 'noisecrusher', img: 'assets/thumb-killnoise.gif' },
+    { name: "cooldude's lap mod", desc: 'lap mod v1.7', dir: 'ptlapmod', img: 'assets/thumb-loco.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -70,6 +71,7 @@ const CHANGELOG = [
                 'flappy peppino',
                 'tower pasta',
                 'noise crusher',
+                "cooldude's lap mod",
             ]},
             { label: 'bug fixes', items: [
                 'crash watchdog no longer panics over fullscreen/permission errors',
