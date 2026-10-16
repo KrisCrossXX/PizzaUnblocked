@@ -10,7 +10,7 @@ const MODS = [
 ];
 
 const FANGAMES = [
-    { name: 'sugary spire unham', desc: 'cotton update', dir: 'sugaryspire', img: 'assets/thumb-ss.png' },
+    { name: 'sugary spire', desc: '', dir: 'sugaryspire', img: 'assets/thumb-ss.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
