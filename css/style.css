@@ -275,55 +275,8 @@ body {
     cursor: pointer;
 }
 
-/* p-rank tracker */
-.pr-prog { color: #fff; font-size: .95rem; margin-bottom: 12px; }
-.pr-hint { color: var(--muted); font-size: .8rem; }
-.pr-list {
-    max-height: 220px;
-    overflow-y: auto;
-    border: 1px solid #555;
-    padding: 6px;
-    margin-bottom: 8px;
-}
-.pr-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 2px 0;
-}
-.pr-lname { flex: 1; color: #fff; font-size: .95rem; }
-.pr-rank {
-    width: 40px; height: 28px;
-    background: #000;
-    border: 2px solid #fff;
-    color: #fff;
-    font-family: inherit;
-    font-size: 1rem;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-.pr-del {
-    background: #000; border: 1px solid #f44; color: #f44;
-    font-family: inherit; cursor: pointer; width: 24px; height: 24px;
-}
-.pr-ach-row {
-    display: flex; align-items: center; gap: 8px;
-    color: #fff; font-size: .95rem; padding: 3px 0;
-    cursor: pointer;
-}
-.pr-ach-row input { accent-color: var(--yellow); width: 16px; height: 16px; }
-.pr-inp { flex: 1; min-width: 160px; }
-
-/* save manager */
-.savegames { max-height: 200px; overflow-y: auto; border: 1px solid #555; padding: 6px; }
-.sg-row { display: flex; align-items: center; gap: 8px; padding: 3px 0; color: #fff; font-size: .9rem; }
-.sg-row span:first-child { flex: 1; }
-.sg-count { color: var(--muted); font-size: .8rem; }
-.sg-exp {
-    background: #000; border: 1px solid #fff; color: #fff;
-    font-family: inherit; font-size: .8rem; padding: 2px 8px; cursor: pointer;
-}
-.sg-exp:hover { border-color: var(--yellow); color: var(--yellow); }
+/* device line */
+.devline { color: var(--muted); font-size: .85rem; margin-top: 6px; }
 
 /* changelog popup */
 .cl-head { margin: 14px 0 6px; }
@@ -417,5 +370,25 @@ body {
     .menu { grid-template-columns: 1fr; gap: 20px; padding: 120px 0 100px; }
     .menu .gbtn { justify-self: center !important; }
     .menu .gbtn:last-child { grid-column: auto; }
-    .logo img { height: 110px; }
+    .logo img { height: 110px; max-width: 62vw; object-fit: contain; }
+    .byline { font-size: 1rem; padding-top: 14px; }
+    .icon-btn { width: 58px; height: 52px; }
+    .gbtn img { width: min(487px, 74vw); }
+    .pizza-icon { width: 64px; }
+    .sbtn { min-width: 0; flex: 1; }
+    .sel { min-width: 0; width: 100%; }
+    /* prevent iOS focus-zoom */
+    .sel, .searchbox, input { font-size: 16px; }
+    .pop { padding: 12px 14px 16px; }
+    .card-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+    .vol { flex: 1; }
+}
+
+@media (max-width: 420px) {
+    .logo img { height: 84px; }
+    .icon-btn { width: 48px; height: 44px; }
+    .topicons { gap: 4px; }
+    .menu { padding: 96px 0 90px; }
+    .pop-title { font-size: 1.25rem; }
+    .card-grid { grid-template-columns: 1fr 1fr; }
 }
