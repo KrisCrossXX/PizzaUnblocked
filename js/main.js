@@ -146,35 +146,33 @@ window.addEventListener('gamepaddisconnected', syncPadUi);
 syncPadUi();
 
 // ---------- themes ----------
-// cls = filter class on .bgimg ('' = default look, 'theme-black' = off)
-// song = optional override for the theme music track (defaults to theme.mp3)
-const THEMES = [
-    { name: 'the tower',   cls: '' },
-    // song = optional override for the theme music (defaults to theme.mp3)
-];
-const bgimgEl = document.querySelector('.bgimg');
+// PU_THEMES comes from js/music.js — bg = background image, song = music track
+const bgimgEl2 = document.querySelector('.bgimg');
 const themeGrid = document.getElementById('themeGrid');
 
 function applyTheme(t) {
-    bgimgEl.className = 'bgimg ' + (t.cls || '');
-    const src = t.song || 'assets/theme.mp3';
+    bgimgEl2.src = t.bg;
+    bgimgEl2.className = 'bgimg ' + (t.cls || '');
+    const src = t.song;
     if (!bgm.src.endsWith(src)) {
         const wasPlaying = bgmStarted && !bgm.paused;
         bgm.src = src;
+        try { bgm.currentTime = 0; } catch {}
+        localStorage.setItem('pu_pos', 0);
         if (wasPlaying) bgm.play().catch(() => {});
     }
     localStorage.setItem('pu_theme', t.name);
     for (const c of themeGrid.children) c.classList.toggle('sel', c.dataset.name === t.name);
 }
-for (const t of THEMES) {
+for (const t of PU_THEMES) {
     const card = document.createElement('div');
     card.className = 'theme-card';
     card.dataset.name = t.name;
-    card.innerHTML = `<img class="tprev ${t.cls}" src="assets/bg.gif" alt=""><div class="tname">${t.name}</div>`;
+    card.innerHTML = `<img class="tprev ${t.cls || ''}" src="${t.bg}" alt=""><div class="tname">${t.name}</div>`;
     card.addEventListener('click', () => applyTheme(t));
     themeGrid.appendChild(card);
 }
-applyTheme(THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || THEMES[0]);
+applyTheme(PU_THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || PU_THEMES[0]);
 
 // ---------- save manager (localStorage + IndexedDB, versioned backup) ----------
 const BACKUP_FORMAT = 'pizza-unblocked-backup';

@@ -1,6 +1,24 @@
 // Shared site music — plays on every site page (not game pages),
 // resumes its position so it feels continuous when navigating.
-const bgm = new Audio('assets/theme.mp3');
+
+// Site themes: bg = background image, song = music track.
+// cls = optional extra class on .bgimg.
+const PU_THEMES = [
+    { name: 'the tower',      bg: 'assets/bg.gif',            song: 'assets/theme.mp3' },
+    { name: 'oregano desert', bg: 'assets/bg-desert.webp',    song: 'assets/theme-desert.ogg' },
+    { name: 'pizzaland',      bg: 'assets/bg-pizzaland.webp', song: 'assets/theme-funiculi.ogg' },
+];
+
+const puTheme = PU_THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || PU_THEMES[0];
+
+// apply the theme's background on every page that loads this script
+const bgimgEl = document.querySelector('.bgimg');
+if (bgimgEl) {
+    bgimgEl.src = puTheme.bg;
+    bgimgEl.className = 'bgimg ' + (puTheme.cls || '');
+}
+
+const bgm = new Audio(puTheme.song);
 bgm.loop = true;
 bgm.volume = localStorage.getItem('pu_vol') != null ? +localStorage.getItem('pu_vol') / 100 : 1;
 const bgmWanted = localStorage.getItem('pu_audio') !== 'off';
