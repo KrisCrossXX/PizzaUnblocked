@@ -275,6 +275,56 @@ body {
     cursor: pointer;
 }
 
+/* p-rank tracker */
+.pr-prog { color: #fff; font-size: .95rem; margin-bottom: 12px; }
+.pr-hint { color: var(--muted); font-size: .8rem; }
+.pr-list {
+    max-height: 220px;
+    overflow-y: auto;
+    border: 1px solid #555;
+    padding: 6px;
+    margin-bottom: 8px;
+}
+.pr-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 0;
+}
+.pr-lname { flex: 1; color: #fff; font-size: .95rem; }
+.pr-rank {
+    width: 40px; height: 28px;
+    background: #000;
+    border: 2px solid #fff;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.pr-del {
+    background: #000; border: 1px solid #f44; color: #f44;
+    font-family: inherit; cursor: pointer; width: 24px; height: 24px;
+}
+.pr-ach-row {
+    display: flex; align-items: center; gap: 8px;
+    color: #fff; font-size: .95rem; padding: 3px 0;
+    cursor: pointer;
+}
+.pr-ach-row input { accent-color: var(--yellow); width: 16px; height: 16px; }
+.pr-inp { flex: 1; min-width: 160px; }
+
+/* save manager */
+.savegames { max-height: 200px; overflow-y: auto; border: 1px solid #555; padding: 6px; }
+.sg-row { display: flex; align-items: center; gap: 8px; padding: 3px 0; color: #fff; font-size: .9rem; }
+.sg-row span:first-child { flex: 1; }
+.sg-count { color: var(--muted); font-size: .8rem; }
+.sg-exp {
+    background: #000; border: 1px solid #fff; color: #fff;
+    font-family: inherit; font-size: .8rem; padding: 2px 8px; cursor: pointer;
+}
+.sg-exp:hover { border-color: var(--yellow); color: var(--yellow); }
+
 /* changelog popup */
 .cl-head { margin: 14px 0 6px; }
 .cl-title { color: var(--yellow); font-size: 1.2rem; }

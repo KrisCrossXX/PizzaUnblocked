@@ -115,7 +115,35 @@ onlineBtn.textContent = 'online counter: on';
 onlineBtn.classList.add('sel');
 
 const panicBtn = document.getElementById('panicBtn');
-panicBtn.addEventListener('click', () => alert('panic button coming soon'));
+panicBtn.addEventListener('click', () => {
+    const on = localStorage.getItem('pu_panic') === 'on';
+    localStorage.setItem('pu_panic', on ? 'off' : 'on');
+    panicBtn.textContent = 'panic button: ' + (on ? 'off' : 'on');
+    panicBtn.classList.toggle('sel', !on);
+});
+panicBtn.textContent = 'panic button: ' + (localStorage.getItem('pu_panic') === 'on' ? 'on' : 'off');
+panicBtn.classList.toggle('sel', localStorage.getItem('pu_panic') === 'on');
+document.addEventListener('keydown', (e) => {
+    if (e.key === '`' && localStorage.getItem('pu_panic') === 'on') location.href = 'https://www.google.com';
+});
+
+// ---------- tools ----------
+document.getElementById('prankBtn').addEventListener('click', () => { openPop('popPrank'); initPrank(); });
+const padBtn = document.getElementById('padBtn');
+function syncPadUi() {
+    const on = localStorage.getItem('pu_gamepad') !== 'off';
+    const n = ('getGamepads' in navigator ? navigator.getGamepads() : []).filter(p => p && p.connected).length;
+    padBtn.textContent = 'controller: ' + (on ? 'on' : 'off') + (n ? ` (${n} connected)` : '');
+    padBtn.classList.toggle('sel', on);
+}
+padBtn.addEventListener('click', () => {
+    const on = localStorage.getItem('pu_gamepad') !== 'off';
+    localStorage.setItem('pu_gamepad', on ? 'off' : 'on');
+    syncPadUi();
+});
+window.addEventListener('gamepadconnected', syncPadUi);
+window.addEventListener('gamepaddisconnected', syncPadUi);
+syncPadUi();
 
 // ---------- themes ----------
 // cls = filter class on .bgimg ('' = default look, 'theme-black' = off)
@@ -148,7 +176,9 @@ for (const t of THEMES) {
 }
 applyTheme(THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || THEMES[0]);
 
-// ---------- save export/import (localStorage + IndexedDB) ----------
+// ---------- save manager (localStorage + IndexedDB, versioned backup) ----------
+const BACKUP_FORMAT = 'pizza-unblocked-backup';
+const BACKUP_VERSION = 2;
 function b64(buf) { return btoa(String.fromCharCode(...new Uint8Array(buf))); }
 function unb64(s) { return Uint8Array.from(atob(s), c => c.charCodeAt(0)).buffer; }
 async function encodeVal(v) {
@@ -173,11 +203,21 @@ function openDb(name) {
 function getAll(store) { return new Promise((res, rej) => { const r = store.getAll(); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
 function getAllKeys(store) { return new Promise((res, rej) => { const r = store.getAllKeys(); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
 
-document.getElementById('exportBtn').addEventListener('click', async () => {
-    const dump = { ls: {}, idb: {} };
+// per-game save adapters — which storage keys/dbs belong to each port.
+// gx/oprt saves persist under localStorage prefix pu_gs:<dir>:
+const SAVE_ADAPTERS = [
+    { dir: '*', label: 'site settings', match: k => k.startsWith('pu_') && !k.startsWith('pu_gs:') },
+];
+for (const g of [{ dir: 'pizzatower', name: 'pizza tower' },
+    ...(typeof MODS !== 'undefined' ? MODS : []), ...(typeof FANGAMES !== 'undefined' ? FANGAMES : [])]) {
+    SAVE_ADAPTERS.push({ dir: g.dir, label: g.name, match: k => k.startsWith('pu_gs:' + g.dir + ':') });
+}
+
+async function buildBackup(filter) {
+    const dump = { format: BACKUP_FORMAT, version: BACKUP_VERSION, exported: new Date().toISOString(), ls: {}, idb: {} };
     for (let i = 0; i < localStorage.length; i++) {
         const k = localStorage.key(i);
-        dump.ls[k] = localStorage.getItem(k);
+        if (!filter || filter(k)) dump.ls[k] = localStorage.getItem(k);
     }
     if (indexedDB.databases) {
         for (const { name } of await indexedDB.databases()) {
@@ -186,28 +226,37 @@ document.getElementById('exportBtn').addEventListener('click', async () => {
             for (const sn of db.objectStoreNames) {
                 const st = db.transaction(sn, 'readonly').objectStore(sn);
                 const [vals, keys] = await Promise.all([getAll(st), getAllKeys(st)]);
-                stores[sn] = { vals: await Promise.all(vals.map(encodeVal)), keys: keys.map(String) };
+                let list = vals.map((v, i) => ({ v, k: keys[i] }));
+                if (filter && name === 'pu-replays') list = list.filter(e => e.v && e.v.game === filter.__game);
+                stores[sn] = { vals: await Promise.all(list.map(e => encodeVal(e.v))), keys: list.map(e => String(e.k)) };
             }
-            dump.idb[name] = { version: db.version, stores };
+            if (!filter || name === 'pu-prank' || name === 'pu-replays' || Object.values(stores).some(s => s.vals.length))
+                dump.idb[name] = { version: db.version, stores };
             db.close();
         }
     }
-    const blob = new Blob([JSON.stringify(dump)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'pizza-unblocked-save.json';
-    a.click();
-    URL.revokeObjectURL(a.href);
-});
+    return dump;
+}
 
-document.getElementById('importBtn').addEventListener('click', () => {
-    const inp = document.createElement('input');
-    inp.type = 'file';
-    inp.accept = '.json';
-    inp.onchange = async () => {
-        const dump = JSON.parse(await inp.files[0].text());
-        localStorage.clear();
-        for (const k in dump.ls) localStorage.setItem(k, dump.ls[k]);
+function validateBackup(d) {
+    if (!d || typeof d !== 'object') return 'not a json object';
+    if (d.format) {
+        if (d.format !== BACKUP_FORMAT) return 'wrong format: ' + d.format;
+        if ((d.version || 0) > BACKUP_VERSION) return 'backup is from a newer version (v' + d.version + ')';
+    }
+    // legacy dumps (no format tag) still accepted if they carry ls/idb
+    if (d.ls && typeof d.ls !== 'object') return 'corrupt ls section';
+    if (d.idb && typeof d.idb !== 'object') return 'corrupt idb section';
+    if (!d.ls && !d.idb) return 'no save data found in file';
+    return null;
+}
+
+async function restoreBackup(dump) {
+    let nLs = 0, nStores = 0, nRec = 0;
+    if (dump.ls) {
+        for (const k in dump.ls) { localStorage.setItem(k, dump.ls[k]); nLs++; }
+    }
+    if (dump.idb) {
         for (const name in dump.idb) {
             const { version, stores } = dump.idb[name];
             const req = indexedDB.open(name, version);
@@ -215,22 +264,86 @@ document.getElementById('importBtn').addEventListener('click', () => {
                 const db = req.result;
                 for (const sn in stores) if (!db.objectStoreNames.contains(sn)) db.createObjectStore(sn);
             };
-            req.onsuccess = async () => {
-                const db = req.result;
-                for (const sn in stores) {
-                    const st = db.transaction(sn, 'readwrite').objectStore(sn);
-                    const { vals, keys } = stores[sn];
-                    for (let i = 0; i < vals.length; i++) {
-                        try { st.put(decodeVal(vals[i]), keys[i]); } catch { st.put(decodeVal(vals[i])); }
+            await new Promise((res) => {
+                req.onsuccess = () => {
+                    const db = req.result;
+                    const t = db.transaction([...Object.keys(stores)], 'readwrite');
+                    for (const sn in stores) {
+                        const st = t.objectStore(sn);
+                        const { vals, keys } = stores[sn];
+                        nStores++;
+                        for (let i = 0; i < vals.length; i++) {
+                            nRec++;
+                            try { st.put(decodeVal(vals[i]), keys[i]); } catch { st.put(decodeVal(vals[i])); }
+                        }
                     }
-                }
-                db.close();
-            };
+                    t.oncomplete = () => { db.close(); res(); };
+                    t.onerror = () => { db.close(); res(); };
+                };
+                req.onerror = () => res();
+            });
         }
-        alert('save imported');
+    }
+    return { nLs, nStores, nRec };
+}
+
+function downloadJson(obj, name) {
+    const blob = new Blob([JSON.stringify(obj)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
+
+document.getElementById('exportBtn').addEventListener('click', async () => {
+    downloadJson(await buildBackup(null), 'pizza-unblocked-backup.json');
+});
+
+document.getElementById('importBtn').addEventListener('click', () => {
+    const inp = document.createElement('input');
+    inp.type = 'file';
+    inp.accept = '.json';
+    inp.onchange = async () => {
+        let dump;
+        try { dump = JSON.parse(await inp.files[0].text()); }
+        catch { alert('import failed: not valid json'); return; }
+        const err = validateBackup(dump);
+        if (err) { alert('import failed: ' + err); return; }
+        const { nLs, nStores, nRec } = await restoreBackup(dump);
+        renderSaveGames();
+        alert(`save imported — ${nLs} settings/save keys, ${nRec} records in ${nStores} stores`);
     };
     inp.click();
 });
+
+// per-game save view — shows which ports have detected save data
+async function renderSaveGames() {
+    const el = document.getElementById('saveGames');
+    if (!el) return;
+    el.innerHTML = '';
+    for (const ad of SAVE_ADAPTERS) {
+        let count = 0;
+        for (let i = 0; i < localStorage.length; i++)
+            if (ad.match(localStorage.key(i))) count++;
+        const row = document.createElement('div');
+        row.className = 'sg-row';
+        row.innerHTML = `<span>${ad.label}</span><span class="sg-count">${count ? count + ' keys' : 'no saves'}</span>`;
+        if (count) {
+            const b = document.createElement('button');
+            b.className = 'sg-exp';
+            b.textContent = 'export';
+            b.onclick = async () => {
+                const f = ad.match;
+                f.__game = ad.dir;
+                downloadJson(await buildBackup(f), `pu-save-${ad.dir}.json`);
+            };
+            row.appendChild(b);
+        }
+        el.appendChild(row);
+    }
+}
+document.getElementById('gearBtn').addEventListener('click', renderSaveGames);
 
 // ---------- crash log viewer ----------
 function renderCrashLog() {

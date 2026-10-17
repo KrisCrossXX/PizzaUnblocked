@@ -62,10 +62,18 @@
                 <div class="theme-grid" id="themeGrid"></div>
             </div>
             <div class="set-block">
-                <div class="set-label">save</div>
+                <div class="set-label">save manager</div>
                 <div class="opt-row">
-                    <button class="sbtn" id="exportBtn">export</button>
-                    <button class="sbtn" id="importBtn">import</button>
+                    <button class="sbtn" id="exportBtn">export backup</button>
+                    <button class="sbtn" id="importBtn">import backup</button>
+                </div>
+                <div class="savegames" id="saveGames"></div>
+            </div>
+            <div class="set-block">
+                <div class="set-label">tools</div>
+                <div class="opt-row">
+                    <button class="sbtn" id="prankBtn">p-rank tracker</button>
+                    <button class="sbtn" id="padBtn">controller: on</button>
                 </div>
             </div>
             <div class="set-block">
@@ -75,6 +83,33 @@
                     <button class="sbtn" id="copyLogBtn">copy</button>
                     <button class="sbtn" id="clearLogBtn">clear</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="popPrank" hidden>
+    <div class="pop">
+        <div class="pop-head">
+            <span class="pop-title">p-rank tracker</span>
+            <button class="xbtn" data-close="popPrank">x</button>
+        </div>
+        <div class="pop-body">
+            <div class="opt-row">
+                <select id="prGameSel" class="sel"></select>
+            </div>
+            <div class="pr-prog" id="prProg"></div>
+            <div class="set-label">levels <span class="pr-hint">(click rank to cycle)</span></div>
+            <div class="pr-list" id="prLevels"></div>
+            <div class="opt-row">
+                <input class="sel pr-inp" id="prNewLevel" type="text" placeholder="add level...">
+                <button class="sbtn" id="prAddLevel">add</button>
+            </div>
+            <div class="set-label">achievements</div>
+            <div class="pr-list" id="prAch"></div>
+            <div class="opt-row">
+                <input class="sel pr-inp" id="prNewAch" type="text" placeholder="add achievement...">
+                <button class="sbtn" id="prAddAch">add</button>
             </div>
         </div>
     </div>
@@ -92,6 +127,7 @@
 
 <script src="js/catalog.js"></script>
 <script src="js/music.js"></script>
+<script src="js/prank.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
