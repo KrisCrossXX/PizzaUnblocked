@@ -32,6 +32,8 @@ http.createServer((req, res) => {
     } catch {
         res.writeHead(400); res.end('bad request'); return;
     }
+    // SPA fallback: index.html/mods, index.html/extras (and bare /mods, /extras) serve the app
+    if (urlPath === '/mods' || urlPath === '/extras' || /^\/index\.html\//.test(urlPath)) urlPath = '/index.html';
     if (urlPath.endsWith('/')) urlPath += 'index.html';
     const file = path.normalize(path.join(ROOT, urlPath));
     if (!file.startsWith(ROOT)) { res.writeHead(403); res.end(); return; }

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pizza Unblocked</title>
+<script>
+// Static-host SPA fallback: this page is served for paths like
+// /index.html/extras that don't exist as files. Bounce to index.html
+// carrying the view name in the hash; main.js restores the clean URL.
+var p = location.pathname;
+var i = p.lastIndexOf('/index.html');
+var base = i >= 0 ? p.slice(0, i) : p.slice(0, p.lastIndexOf('/') + 1);
+var m = p.match(/\/(mods|extras)\/?$/);
+location.replace(base + '/index.html' + (m ? '#/' + m[1] : ''));
+</script>
+</head>
+<body></body>
+</html>

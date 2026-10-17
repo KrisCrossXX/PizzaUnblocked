@@ -6,6 +6,15 @@
 <title>Pizza Unblocked</title>
 <link rel="icon" href="assets/pizza-icon.png">
 <link rel="stylesheet" href="css/style.css">
+<script>
+// deep links like index.html/extras break relative asset paths —
+// bounce to the hash form before any resources load; the router
+// rewrites the URL back to the clean path afterwards.
+(function () {
+    var m = location.pathname.match(/^(.*?)\/index\.html\/(mods|extras)\/?$/) || location.pathname.match(/^(.*?)\/(mods|extras)\/?$/);
+    if (m) location.replace(m[1] + '/index.html#/' + m[m.length - 1]);
+})();
+</script>
 </head>
 <body>
 
@@ -19,10 +28,22 @@
     <button class="icon-btn" id="dlBtn" data-sfx="buttons" title="discord"><img src="assets/icon-arrow.png" alt="discord"></button>
 </nav>
 
-<main class="menu">
+<main class="menu" id="pageHome">
     <a class="gbtn" href="games/pizzatower/" data-sfx="pizzatower"><img src="assets/btn-pizzatower.png" alt="PIZZA TOWER"></a>
     <a class="gbtn" href="mods.html" data-sfx="mods"><img src="assets/btn-mods.png" alt="MODS"></a>
     <a class="gbtn" href="extras.html" data-sfx="extras"><img src="assets/btn-extras.png" alt="EXTRAS"></a>
+</main>
+
+<main class="page" id="pageMods" hidden>
+    <input class="searchbox" id="modSearch" type="text" placeholder="search..." autocomplete="off" spellcheck="false">
+    <div class="card-grid" id="modGrid"></div>
+    <p class="empty-note" id="modsEmpty" hidden>no mods yet</p>
+</main>
+
+<main class="page" id="pageExtras" hidden>
+    <input class="searchbox" id="extraSearch" type="text" placeholder="search..." autocomplete="off" spellcheck="false">
+    <div class="card-grid" id="extraGrid"></div>
+    <p class="empty-note" id="extrasEmpty" hidden>no extras yet</p>
 </main>
 
 <button class="pizza-icon" data-sfx="buttons" onclick="location.href='index.html'" title="home"><img src="assets/pizza-icon.png" alt="pizza"></button>
@@ -56,6 +77,9 @@
                     <button class="sbtn" id="onlineBtn">online counter: on</button>
                     <button class="sbtn" id="panicBtn">panic button: off</button>
                 </div>
+                <div class="opt-row">
+                    <button class="sbtn" id="blankBtn">open in about:blank</button>
+                </div>
             </div>
             <div class="set-block">
                 <div class="set-label">background</div>
@@ -81,6 +105,36 @@
 </div>
 
 
+<div class="overlay" id="popSave" hidden>
+    <div class="pop pop-save">
+        <div class="pop-head">
+            <span class="pop-title" id="saveTitle">noise update mod</span>
+            <button class="xbtn" data-close="popSave">x</button>
+        </div>
+        <div class="pop-body">
+            <p class="save-desc">this mod shares save files with other pizza tower games. load the 101% all-p-ranks save or keep your own.</p>
+            <div class="savebtns">
+                <button class="sbtn" id="saveBackup">back up my save</button>
+                <button class="sbtn" id="saveInject">play with 101% save</button>
+                <button class="sbtn" id="saveKeep">play with my save</button>
+                <button class="sbtn" id="saveCancel">cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="popSoon" hidden>
+    <div class="pop">
+        <div class="pop-head">
+            <span class="pop-title">download</span>
+            <button class="xbtn" data-close="popSoon">x</button>
+        </div>
+        <div class="pop-body">
+            <p>single-file build: coming soon</p>
+        </div>
+    </div>
+</div>
+
 <div class="overlay" id="popChangelog" hidden>
     <div class="pop pop-cl">
         <div class="pop-head">
@@ -94,6 +148,12 @@
 <script src="js/catalog.js"></script>
 <script src="js/music.js"></script>
 <script src="js/device.js"></script>
+<script src="js/cards.js"></script>
+<script src="js/mods.js"></script>
+<script src="js/extras.js"></script>
 <script src="js/main.js"></script>
+<script src="js/saves.js"></script>
+<script src="js/savepop.js"></script>
+<script src="swreg.js"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@ const PU_THEMES = [
     { name: 'the tower',      bg: 'assets/bg.gif',            song: 'assets/theme.mp3' },
     { name: 'oregano desert', bg: 'assets/bg-desert.webp',    song: 'assets/theme-desert.ogg' },
     { name: 'pizzaland',      bg: 'assets/bg-pizzaland.webp', song: 'assets/theme-funiculi.ogg' },
+    { name: "what's with these pizza guys?", bg: 'assets/bg-pizzaguys.png', song: 'assets/theme-pizzaguys.mp3' },
 ];
 
 const puTheme = PU_THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || PU_THEMES[0];

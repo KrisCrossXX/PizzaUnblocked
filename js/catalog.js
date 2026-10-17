@@ -22,8 +22,6 @@ const MODS = [
     { name: 'demo 3', desc: 'leaked dev build', dir: 'demo3', img: 'assets/thumb-demo3.png' },
     { name: 'pt: gba edition', desc: '', dir: 'ptgba', img: 'assets/thumb-ptgba.png' },
     { name: 'pt: april 2021 build', desc: 'early dev build', dir: 'april2021', img: 'assets/thumb-april2021.png' },
-    // desktop data.win swaps (games/cheesypizza, games/elm, games/ptlap) can't
-    // run on the web runner — different wad/vm format. files left in games/.
 ];
 
 const FANGAMES = [
@@ -55,6 +53,35 @@ const FANGAMES = [
 /* Changelog entries shown in the changelog popup.
    groups = array of { label, items[] } rendered in order. */
 const CHANGELOG = [
+    {
+        title: 'update 1.0',
+        date: 'october 17, 2026',
+        groups: [
+            { label: 'new ports', items: [
+                'pt: april 2021 build',
+                'weenie cop',
+                'virdesert',
+                'internship',
+                "five nights at peppino's",
+            ]},
+            { label: 'new features', items: [
+                'site themes — the tower, oregano desert, pizzaland, pizza guys',
+                'music keeps playing while you switch pages',
+                'touch controls on phones/tablets',
+                'controller support',
+                'save popup on noise update mods — back up your save or play the 101% all-p-ranks save',
+                'game saves now persist between sessions',
+                'tab disguise, panic button, and about:blank cloak in settings',
+                'volume slider, online counter, crash log viewer',
+                'clean urls — index.html/mods and index.html/extras',
+            ]},
+            { label: 'bug fixes', items: [
+                'missing peppino/noise sprites on butterscotch ports',
+                'itch.io ports broke from hotlink blocking',
+                'stray music looping on game boot',
+            ]},
+        ],
+    },
     {
         title: 'update 0.4',
         date: 'october 16, 2026',

@@ -28,13 +28,8 @@ document.addEventListener('keydown', (e) => {
 document.getElementById('gearBtn').addEventListener('click', () => openPop('popSettings'));
 document.getElementById('clBtn').addEventListener('click', () => { renderChangelog(); openPop('popChangelog'); });
 const DISCORD_URL = 'https://discord.gg/Yv7Ms7KMnq';
-// arrow icon = download the single-file site; pizza icon = discord
-document.getElementById('dlBtn').addEventListener('click', () => {
-    const a = document.createElement('a');
-    a.href = 'pizza-unblocked.html';
-    a.download = 'pizza-unblocked.html';
-    a.click();
-});
+// arrow icon = single-file download (coming soon); pizza icon = discord
+document.getElementById('dlBtn').addEventListener('click', () => openPop('popSoon'));
 const pizzaBtn = document.querySelector('.pizza-icon');
 pizzaBtn.removeAttribute('onclick');
 pizzaBtn.title = 'discord';
@@ -96,9 +91,11 @@ const CLOAKS = {
     classroom: ['Classes', 'https://ssl.gstatic.com/classroom/favicon.png'],
 };
 const cloakSel = document.getElementById('cloakSel');
+const VIEW_TITLES = { home: 'Pizza Unblocked', mods: 'Mods — Pizza Unblocked', extras: 'Extras — Pizza Unblocked' };
+let curView = 'home';
 function applyCloak(key) {
     const c = CLOAKS[key];
-    document.title = c ? c[0] : 'Pizza Unblocked';
+    document.title = c ? c[0] : VIEW_TITLES[curView];
     let link = document.querySelector('link[rel="icon"]');
     if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
     link.href = c ? c[1] : 'assets/pizza-icon.png';
@@ -124,7 +121,23 @@ panicBtn.addEventListener('click', () => {
 panicBtn.textContent = 'panic button: ' + (localStorage.getItem('pu_panic') === 'on' ? 'on' : 'off');
 panicBtn.classList.toggle('sel', localStorage.getItem('pu_panic') === 'on');
 document.addEventListener('keydown', (e) => {
-    if (e.key === '`' && localStorage.getItem('pu_panic') === 'on') location.href = 'https://www.google.com';
+    if (e.key === '`' && localStorage.getItem('pu_panic') === 'on') location.href = 'https://classroom.google.com';
+});
+
+// about:blank cloak — opens the whole site in a popup whose URL bar and
+// history entry just say "about:blank"; everything runs inside an iframe.
+document.getElementById('blankBtn').addEventListener('click', () => {
+    const w = window.open('about:blank', '_blank');
+    if (!w) return;
+    const file = location.pathname.split('/').pop() || 'index.html';
+    const src = new URL(file, appBase.href).href;
+    w.document.write(`<!DOCTYPE html><html><head>
+<title>Classes</title>
+<link rel="icon" href="https://ssl.gstatic.com/classroom/favicon.png">
+<style>html,body,iframe{height:100%;width:100%;margin:0;border:0;display:block}</style>
+</head><body><iframe src="${src}"></iframe></body></html>`);
+    w.document.close();
+    location.replace('https://classroom.google.com'); // overwrite this tab's history entry
 });
 
 // ---------- tools ----------
@@ -191,3 +204,45 @@ document.getElementById('copyLogBtn').addEventListener('click', () => {
     const t = document.getElementById('crashLog').textContent;
     (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).catch(() => {});
 });
+
+// ---------- view router ----------
+// home / mods / extras live in one document so the music never restarts.
+// URLs look like index.html/mods — the server (or 404.html on static hosts)
+// maps them back to index.html.
+const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras' };
+// pushed paths like index.html/mods would break relative links (games/, assets/)
+// — pin document.baseURI to the app directory so they always resolve correctly.
+const appBase = document.createElement('base');
+appBase.href = location.pathname.replace(/[^/]*$/, '');
+document.head.prepend(appBase);
+function viewFromUrl() {
+    const m = location.pathname.match(/\/(mods|extras)\/?$/)
+        || location.hash.match(/^#\/?(mods|extras)$/);
+    return m ? m[1] : 'home';
+}
+function pageUrl(name) {
+    const path = location.pathname.replace(/\/(mods|extras)\/?$/, '');
+    const m = path.match(/[^/]+\.html?$/i);
+    return (m ? path.slice(0, m.index) : path.replace(/\/$/, '') + '/')
+        + (m ? m[0] : 'index.html') + (name === 'home' ? '' : '/' + name);
+}
+function showPage(name, push = true) {
+    curView = name in VIEW_PAGES ? name : 'home';
+    for (const v in VIEW_PAGES) document.getElementById(VIEW_PAGES[v]).hidden = v !== curView;
+    document.title = (CLOAKS[cloakSel.value] || [VIEW_TITLES[curView]])[0];
+    try {
+        if (push) history.pushState(null, '', pageUrl(curView));
+        else history.replaceState(null, '', pageUrl(curView));
+    } catch {
+        if (push) location.hash = '/' + curView;
+    }
+}
+document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'index.html' ? 'home' : null;
+    if (view) { e.preventDefault(); showPage(view); }
+});
+window.addEventListener('popstate', () => showPage(viewFromUrl(), false));
+showPage(viewFromUrl(), false);
