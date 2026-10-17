@@ -2,7 +2,7 @@
    Injected into game pages. Shows a salami-sprite joystick (left) and
    action buttons (right) on touch-capable devices. Dispatches synthetic
    KeyboardEvents so keyboard-only engine builds become touch-playable.
-   Auto-shows on phones/tablets; manual toggle via the "ctrls" chip. */
+   Auto-shows on phones/tablets; hidden on desktop. */
 (function () {
     if (window.__puTouch) return;
 
@@ -56,9 +56,6 @@
         #pu-dash  { right: 8vmin;  bottom: 27vmin; width: 17vmin; height: 17vmin; }
         #pu-grab  { right: 26vmin; bottom: 12vmin; width: 17vmin; height: 17vmin; }
         #pu-pause { right: 2.5vmin; top: 7vmin;  width: 11vmin; height: 11vmin; opacity: .9; }
-        #pu-tog { position: fixed; left: 8px; bottom: 8px; z-index: 99999;
-            font: 12px monospace; color: #0f0; background: rgba(0,0,0,.6);
-            border: 1px solid #0f0; padding: 3px 8px; cursor: pointer; }
         @media (max-aspect-ratio: 1/1) {
             #pu-stick { width: 34vmin; height: 34vmin; }
             #pu-jump { width: 19vmin; } #pu-dash, #pu-grab { width: 15vmin; }
@@ -78,21 +75,10 @@
         <div class="pu-tc" id="pu-pause"><img src="${A}touch-pause.png" alt="pause"></div>`;
     document.documentElement.appendChild(root);
 
-    const tog = document.createElement('div');
-    tog.id = 'pu-tog';
-    tog.textContent = 'ctrls';
-    document.documentElement.appendChild(tog);
-
     function sync() {
         root.classList.toggle('on', enabled);
-        tog.style.display = 'block';
         if (!enabled) releaseAll();
     }
-    tog.addEventListener('click', () => {
-        enabled = !enabled;
-        localStorage.setItem('pu_touch', enabled ? 'on' : 'off');
-        sync();
-    });
 
     // --- action buttons ---
     function bindBtn(id, key, code, kc, tap) {
