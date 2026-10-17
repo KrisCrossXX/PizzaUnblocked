@@ -52,7 +52,6 @@ const FANGAMES = [
     { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-onafpeppino.png' },
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
     { name: "beeder's big playtest", desc: '3d platformer', dir: 'beeders', img: 'assets/thumb-beeders.png' },
-    { name: 'i hate vampires', desc: '', dir: 'ihv', img: 'assets/thumb-ihv.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -94,7 +93,6 @@ const CHANGELOG = [
                 "one nights at peppino's",
                 'smash bash brawl 2',
                 "beeder's big playtest",
-                'i hate vampires',
             ]},
             { label: 'bug fixes', items: [
                 'crash watchdog no longer panics over fullscreen/permission errors',
