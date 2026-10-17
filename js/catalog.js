@@ -46,12 +46,10 @@ const FANGAMES = [
     { name: 'noise crusher', desc: 'level editor demo', dir: 'noisecrusher', img: 'assets/thumb-noisecrusher.png' },
     { name: "cooldude's lap mod", desc: 'lap mod v1.7', dir: 'ptlapmod', img: 'assets/thumb-ptlapmod.png' },
     { name: 'pizza tower network 2', desc: 'play test 2', dir: 'ptn2', img: 'assets/thumb-ptn2.png' },
-    { name: 'pizzaboi', desc: '', dir: 'pizzaboi', img: 'assets/thumb-pizzaboi.gif' },
     { name: 'mininoise', desc: '', dir: 'mininoise', img: 'assets/thumb-mininoise.png' },
     { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'assets/thumb-toobigtofail.png' },
     { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-onafpeppino.png' },
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
-    { name: "beeder's big playtest", desc: '3d platformer', dir: 'beeders', img: 'assets/thumb-beeders.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -87,12 +85,10 @@ const CHANGELOG = [
                 'noise crusher',
                 "cooldude's lap mod",
                 'pizza tower network 2',
-                'pizzaboi',
                 'mininoise',
                 'too big to fail',
                 "one nights at peppino's",
                 'smash bash brawl 2',
-                "beeder's big playtest",
             ]},
             { label: 'bug fixes', items: [
                 'crash watchdog no longer panics over fullscreen/permission errors',
