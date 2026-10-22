@@ -98,7 +98,7 @@ function applyCloak(key) {
     document.title = c ? c[0] : VIEW_TITLES[curView];
     let link = document.querySelector('link[rel="icon"]');
     if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
-    link.href = c ? c[1] : 'assets/pizza-icon.png';
+    link.href = c ? c[1] : 'assets/pizza-icon.svg';
 }
 cloakSel.value = localStorage.getItem('pu_cloak') || '';
 cloakSel.addEventListener('change', () => {
