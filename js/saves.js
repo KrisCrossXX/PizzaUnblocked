@@ -168,5 +168,82 @@ const PU_SAVES = (() => {
         return true;
     }
 
-    return { dirKeyFromPath, restore, injectIfPending, flushOut, arm, downloadBackup, readOpfsFiles, zipStore };
+    /* GXMFS (emscripten runner) saves live in localStorage as
+       pu_gs:<dir>:<mount>:<file> entries. */
+    function readGameStorageFiles(dirKey) {
+        const files = {};
+        const pfx = 'pu_gs:' + dirKey + ':';
+        const enc = new TextEncoder();
+        for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (!k || !k.startsWith(pfx)) continue;
+            let v;
+            try { v = JSON.parse(localStorage.getItem(k)); } catch (e) { continue; }
+            const name = k.slice(pfx.length).replace(/^_savedata[:/]?/, '').replace(/^\/+/, '');
+            if (!name) continue;
+            if (typeof v === 'string') files[name] = enc.encode(v);
+            else if (v instanceof ArrayBuffer) files[name] = new Uint8Array(v);
+            else if (v != null) files[name] = enc.encode(typeof v === 'object' ? JSON.stringify(v) : String(v));
+        }
+        return files;
+    }
+
+    /* Godot / IDBFS saves land in IndexedDB — dump every store entry that
+       looks like a file blob, keyed by its stored path. */
+    async function readIdbFiles() {
+        const files = {};
+        let dbs;
+        try { dbs = await indexedDB.databases(); } catch (e) { return files; }
+        for (const info of dbs || []) {
+            if (!info.name) continue;
+            try {
+                const db = await new Promise((res, rej) => {
+                    const r = indexedDB.open(info.name);
+                    r.onsuccess = () => res(r.result);
+                    r.onerror = () => rej(r.error);
+                });
+                for (const sn of db.objectStoreNames) {
+                    try {
+                        const rows = await new Promise((res, rej) => {
+                            const tx = db.transaction(sn, 'readonly');
+                            const rq = tx.objectStore(sn).getAll();
+                            const kq = tx.objectStore(sn).getAllKeys();
+                            let vals, keys, left = 2;
+                            const done = () => { if (--left === 0) res({ keys, vals }); };
+                            rq.onsuccess = () => { vals = rq.result; done(); };
+                            kq.onsuccess = () => { keys = kq.result; done(); };
+                            rq.onerror = kq.onerror = () => rej(rq.error || kq.error);
+                        });
+                        for (let i = 0; i < rows.keys.length; i++) {
+                            const key = rows.keys[i], v = rows.vals[i];
+                            const path = 'idb/' + info.name + '/' + (typeof key === 'string' ? key : sn + '/' + key);
+                            if (v instanceof Blob) files[path] = new Uint8Array(await v.arrayBuffer());
+                            else if (v instanceof ArrayBuffer) files[path] = new Uint8Array(v);
+                            else if (v && v.contents instanceof Blob) files[path] = new Uint8Array(await v.contents.arrayBuffer());
+                            else if (typeof v === 'string') files[path] = new TextEncoder().encode(v);
+                        }
+                    } catch (e) {}
+                }
+                db.close();
+            } catch (e) {}
+        }
+        return files;
+    }
+
+    /* site-popup backup: merge OPFS (butterscotch), localStorage (GXMFS) and
+       IndexedDB (godot) saves for <dirKey> into one zip download. */
+    async function backupGame(dirKey) {
+        const files = await readOpfsFiles(dirKey);
+        for (const [k, v] of Object.entries(readGameStorageFiles(dirKey))) if (!(k in files)) files[k] = v;
+        for (const [k, v] of Object.entries(await readIdbFiles())) if (!(k in files)) files[k] = v;
+        if (!Object.keys(files).length) return false;
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(zipStore(files));
+        a.download = dirKey + '-saves-backup.zip';
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+        return true;
+    }
+
+    return { dirKeyFromPath, restore, injectIfPending, flushOut, arm, downloadBackup, readOpfsFiles, zipStore, backupGame };
 })();

@@ -28,6 +28,7 @@ function dataUri(rel) {
 
 let css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 let catalog = fs.readFileSync(path.join(root, 'js/catalog.js'), 'utf8');
+let credits = fs.readFileSync(path.join(root, 'js/credits.js'), 'utf8');
 let music = fs.readFileSync(path.join(root, 'js/music.js'), 'utf8');
 let device = fs.readFileSync(path.join(root, 'js/device.js'), 'utf8');
 let cards = fs.readFileSync(path.join(root, 'js/cards.js'), 'utf8');
@@ -49,7 +50,7 @@ if (fs.existsSync(saveDir))
 css = css.replace(/url\(['"]?\.\.\/([^'")]+)['"]?\)/g, (m, p) => `url("${dataUri(p)}")`);
 
 const assetRefs = new Set();
-for (const s of [catalog, music, device, cards, mods, extras, main]) {
+for (const s of [catalog, credits, music, device, cards, mods, extras, main]) {
     for (const m of s.matchAll(/assets\/[\w.\-/ ()]+/g)) assetRefs.add(m[0]);
 }
 let index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
@@ -61,7 +62,7 @@ for (const a of assetRefs) {
 }
 const inlineAssets = (s) => s.replace(/assets\/[\w.\-/ ()]+/g, (m) => uriMap[m] || m);
 for (const k in uriMap) catalog = catalog.replaceAll(`'${k}'`, `'${uriMap[k]}'`);
-music = inlineAssets(music); device = inlineAssets(device); cards = inlineAssets(cards);
+credits = inlineAssets(credits); music = inlineAssets(music); device = inlineAssets(device); cards = inlineAssets(cards);
 mods = inlineAssets(mods); extras = inlineAssets(extras); main = inlineAssets(main);
 
 // baseURI comes from the host that served the bundle (stub sets window.PU_HOST
@@ -91,6 +92,7 @@ const html = `<!DOCTYPE html>
 ${bodyCore}
 
 <script>${catalog}</script>
+<script>${credits}</script>
 <script>${music}</script>
 <script>${device}</script>
 <script>${cards}</script>
