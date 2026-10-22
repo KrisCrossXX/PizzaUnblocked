@@ -3,7 +3,7 @@ const SITE_CREDITS = [
     { name: 'floridiann', role: 'made the site', img: 'https://cdn.discordapp.com/avatars/1546007490624364647/9f159cd4a895dad5df44a91a4cee02d3.webp?size=128' },
     { name: 'devin', role: 'site dev, parts and bugfixes' },
     { name: 'chatgpt', role: 'site dev help' },
-    { name: 'mcpig', role: 'made pizza tower' },
+    { name: 'mcpig', role: 'made pizza tower', img: 'assets/pfp-mcpig.png' },
 ];
 
 // helpers — tiny cards under the main row

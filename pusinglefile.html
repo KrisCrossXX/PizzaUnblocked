@@ -1131,6 +1131,11 @@ function pageUrl(name) {
 }
 function showPage(name, push = true) {
     curView = name in VIEW_PAGES ? name : 'home';
+    const logo = document.querySelector('a.logo');
+    if (logo) {
+        logo.setAttribute('href', curView === 'credits' ? 'index.html' : 'credits.html');
+        logo.setAttribute('aria-label', curView === 'credits' ? 'Pizza Unblocked — back to menu' : 'Pizza Unblocked — credits');
+    }
     for (const v in VIEW_PAGES) document.getElementById(VIEW_PAGES[v]).hidden = v !== curView;
     document.title = (CLOAKS[cloakSel.value] || [VIEW_TITLES[curView]])[0];
     try {
