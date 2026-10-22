@@ -410,11 +410,9 @@ body {
 /* game overlay — in-page iframe so game URLs never hit the address bar */
 #gameOverlay { position: fixed; inset: 0; z-index: 500; background: #000; display: flex; flex-direction: column; }
 #gameOverlay iframe { flex: 1; width: 100%; border: 0; display: block; background: #000; }
-#gameOverlay .go-top { flex: 0 0 34px; display: flex; align-items: center; gap: 10px; padding: 0 10px; background: #14100c; font-family: 'PT Pig', monospace; }
-#gameOverlay .go-top button { background: #2a211a; color: #f3e3c2; border: 1px solid #4a3a2a; border-radius: 6px; padding: 4px 12px; font: inherit; font-size: .85rem; cursor: pointer; }
-#gameOverlay .go-top button:hover { filter: brightness(1.3); }
-#gameOverlay .go-title { color: #c9a877; font-size: .85rem; flex: 1; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-#gameOverlay .go-fs { margin-left: auto; }
+#gameOverlay .game-home { position: absolute; top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); z-index: 1; padding: 8px 14px; border: 2px solid #ffd75e; border-radius: 6px; background: #14100ce6; color: #ffd75e; font-family: 'ptsmall', 'Courier New', monospace; font-size: 24px; line-height: 1; text-shadow: 2px 2px #000; cursor: pointer; }
+#gameOverlay .game-home:hover { background: #352510; }
+#gameOverlay .game-home:focus-visible { outline: 3px solid white; outline-offset: 3px; }
 
 /* credits page — toby-style cards */
 .cr-wrap { width: min(1100px, 94vw); margin: 12vh auto 40px; }
@@ -1158,15 +1156,13 @@ function openGame(a) {
     gameOverlay = document.createElement('div');
     gameOverlay.id = 'gameOverlay';
     gameOverlay.innerHTML =
-        '<div class="go-top"><button class="go-back">&#8249; menu</button><span class="go-title"></span>' +
-        '<button class="go-fs">&#9974; fullscreen</button></div>' +
+        '<button class="game-home" type="button" aria-label="Home — main menu">home</button>' +
         '<iframe allowfullscreen allow="autoplay; fullscreen; gamepad; cross-origin-isolated"></iframe>';
-    gameOverlay.querySelector('.go-title').textContent = name;
+    gameOverlay.querySelector('iframe').title = name;
     gameOverlay.querySelector('iframe').src = url;
-    gameOverlay.querySelector('.go-back').addEventListener('click', () => history.back());
-    gameOverlay.querySelector('.go-fs').addEventListener('click', () => {
-        const f = gameOverlay.querySelector('iframe');
-        (document.fullscreenElement ? document.exitFullscreen() : f.requestFullscreen()).catch(() => {});
+    gameOverlay.querySelector('.game-home').addEventListener('click', () => {
+        closeGame();
+        showPage('home', false);
     });
     document.body.appendChild(gameOverlay);
     document.body.dataset.gameOpen = '1';
