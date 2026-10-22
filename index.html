@@ -409,11 +409,29 @@ body {
 #gameOverlay .go-top button:hover { filter: brightness(1.3); }
 #gameOverlay .go-title { color: #c9a877; font-size: .85rem; flex: 1; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #gameOverlay .go-fs { margin-left: auto; }
+
+/* credits page — toby-style cards */
+.cr-wrap { width: min(1100px, 94vw); margin: 12vh auto 40px; }
+.cr-head { font-family: 'PT Pig', monospace; font-size: 2rem; color: #ffd75e; margin: 26px 0 12px; text-shadow: 0 2px 0 #000; }
+.cr-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.cr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+.cr-card { display: flex; align-items: center; gap: 10px; background: rgba(20,16,12,.92); border: 2px solid #4a3a2a; border-radius: 10px; padding: 10px 12px; min-width: 0; }
+.cr-ava { width: 46px; height: 46px; object-fit: cover; border-radius: 8px; background: #241d16; flex: 0 0 46px; }
+.cr-letter { display: flex; align-items: center; justify-content: center; font-family: 'PT Pig', monospace; font-size: 1.5rem; color: #ffd75e; }
+.cr-info { display: flex; flex-direction: column; min-width: 0; }
+.cr-name { color: #fff4e0; font-size: 1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cr-role { color: #b8a89a; font-size: .85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cr-row-tiny { margin-top: 10px; }
+.cr-tiny { padding: 6px 10px; border-radius: 8px; }
+.cr-tiny .cr-ava { width: 30px; height: 30px; flex-basis: 30px; }
+.cr-tiny .cr-letter { font-size: 1rem; }
+.cr-tiny .cr-name { font-size: .85rem; }
+.cr-tiny .cr-role { font-size: .72rem; }
 </style></head><body>
 
 <img class="bgimg" src="https://pizza-tower-9iw.pages.dev/assets/bg.gif" alt="" aria-hidden="true">
 
-<a class="logo" href="index.html"><img src="https://pizza-tower-9iw.pages.dev/assets/logo.png" alt="Pizza Unblocked"><span class="byline">By: Swayloz And Camzzz</span></a>
+<a class="logo" href="credits.html"><img src="https://pizza-tower-9iw.pages.dev/assets/logo.png" alt="Pizza Unblocked"></a>
 
 <nav class="topicons">
     <button class="icon-btn" id="gearBtn" data-sfx="buttons" title="settings"><img src="https://pizza-tower-9iw.pages.dev/assets/icon-gear.png" alt="settings"></button>
@@ -439,7 +457,16 @@ body {
     <p class="empty-note" id="extrasEmpty" hidden>no extras yet</p>
 </main>
 
-<button class="pizza-icon" data-sfx="buttons" onclick="location.href='index.html'" title="home"><img src="https://pizza-tower-9iw.pages.dev/assets/pizza-icon.png" alt="pizza"></button>
+<main class="page" id="pageCredits" hidden>
+    <div class="cr-wrap">
+        <h2 class="cr-head">site credits</h2>
+        <div class="cr-row" id="crSite"></div>
+        <h2 class="cr-head">game credits</h2>
+        <div class="cr-grid" id="crGames"></div>
+    </div>
+</main>
+
+<button class="pizza-icon" data-sfx="buttons" onclick="showPage('home')" title="home"><img src="https://pizza-tower-9iw.pages.dev/assets/pizza-icon.png" alt="pizza"></button>
 
 <!-- popups -->
 <div class="overlay" id="popSettings" hidden>
@@ -523,7 +550,11 @@ body {
             <button class="xbtn" data-close="popSoon">x</button>
         </div>
         <div class="pop-body">
-            <p><a href="https://pizza-tower-9iw.pages.dev/single-file.html" target="_blank" rel="noopener">Open single-file version</a></p>
+            <p>grab the single-file build — share it and it loads the site without the url ever touching history:</p>
+            <div class="savebtns">
+                <button class="sbtn" id="dlHtml">single-file.html</button>
+                <button class="sbtn" id="dlSvg">single-file.svg</button>
+            </div>
         </div>
     </div>
 </div>
@@ -537,6 +568,7 @@ body {
         <div class="pop-body" id="clBody"></div>
     </div>
 </div>
+
 
 
 
@@ -731,6 +763,110 @@ const CHANGELOG = [
 
 </script>
 <script>
+// credits page — site credits + per-game credits (toby-style card grid)
+const SITE_CREDITS = [
+    { name: 'floridiann', role: 'made the site', img: 'https://cdn.discordapp.com/avatars/1546007490624364647/9f159cd4a895dad5df44a91a4cee02d3.webp?size=128' },
+    { name: 'devin', role: 'site dev, parts and bugfixes' },
+    { name: 'chatgpt', role: 'site dev help' },
+    { name: 'mcpig', role: 'made pizza tower' },
+];
+
+// helpers — tiny cards under the main row
+const SITE_HELPERS = [
+    { name: 'theo ry', role: 'beta testing', img: 'https://cdn.discordapp.com/avatars/777722251222450186/bdd79047caa6bdaa4c1dd91ef2fbf5bd.webp?size=128' },
+    { name: 'aqua', role: 'beta testing', img: 'https://cdn.discordapp.com/avatars/837075774905253988/7e6d70fc608b7d2ed72244e184ecc662.webp?size=128' },
+    { name: 'eram', role: 'beta testing', img: 'https://cdn.discordapp.com/avatars/1280301110992699477/7cd6305aa5b951d993cf7b60d9b4294d.webp?size=128' },
+];
+
+// name must match the catalog name — thumbnails are pulled from MODS/EXTRAS
+const GAME_CREDITS = {
+    'pizza tower': 'tour de pizza',
+    // mods
+    'pizza tower: scoutdigo': 'scoutthesnow & only1indigo',
+    'pizza tower: co-op': 'the co-op team',
+    'cheesed up (old)': 'token studios',
+    'loco tower': 'pikmin2wiiversion (yo) & team lt',
+    'stuffed crust': 'blaize mayes & team',
+    "chef's kiss": 'squishitt & the chef\u2019s kiss team',
+    'final round': 'sebas & compwnter',
+    'pizza massacre': 'team reslashed',
+    'swabs expedition': 'voidymite / chimp lair studios',
+    'super bo noise': 'desert team',
+    'sage 19 plus': 'tour de pizza (sage 2019 demo)',
+    'pizza tower: meta': 'mrcrabapples & guythemind',
+    'frenzy worlds': 'desayuno',
+    'septastic': 'septastic team',
+    'weenie cop': 'mcpig (pre-pt project)',
+    'virdesert': 'mr.grape / desert team',
+    'demo 3': 'tour de pizza (leaked dev build)',
+    'pt: gba edition': 'mineken713',
+    'pt: april 2021 build': 'tour de pizza (early build)',
+    // extras
+    'sugary spire': 'big gnome studios / sugary spire council',
+    'pat the peppino': 'scrufftuna',
+    'kill the noise': 'andresbamb',
+    'john wick vs lario': 'jegneg',
+    'internship': 'kvassalty',
+    "five nights at peppino's": 'gamexmega',
+    'vigilante build': 'tour de pizza (old build)',
+    'demo 1 engine': 'kaytea42 decomp + tour de pizza',
+    'pizza tower network': 'scratch network team',
+    'rando-laps': 'pte lap modders',
+    'hungry pepperman': 'se\u00f1or t',
+    'punch-out!! pt edition': 'scratchtac',
+    "peppino's party at the tower": 'myers tuber',
+    'pat the peppino: expansion': 'warcamoguy',
+    'flappy peppino': 'jimothy',
+    'tower pasta': 'superretro64',
+    'noise crusher': 'kendres',
+    "cooldude's lap mod": 'cooldude',
+    'pizza tower network 2': 'scratch network team',
+    'mininoise': 'dragonaero',
+    'too big to fail': 'grayson r. & charystuj',
+    "one nights at peppino's": 'onap scratch team',
+    'smash bash brawl 2': 'linkthepale',
+};
+
+function renderCredits() {
+    const site = document.getElementById('crSite');
+    const games = document.getElementById('crGames');
+    if (!site || !games) return;
+    site.innerHTML = '';
+    for (const c of SITE_CREDITS) {
+        const card = document.createElement('div');
+        card.className = 'cr-card';
+        card.innerHTML =
+            (c.img ? `<img class="cr-ava" src="${c.img}" alt="">` : `<span class="cr-ava cr-letter">${c.name[0]}</span>`) +
+            `<span class="cr-info"><span class="cr-name">${c.name}</span><span class="cr-role">${c.role}</span></span>`;
+        site.appendChild(card);
+    }
+    const helpers = document.createElement('div');
+    helpers.className = 'cr-row cr-row-tiny';
+    site.parentNode.insertBefore(helpers, site.nextSibling);
+    for (const c of SITE_HELPERS) {
+        const card = document.createElement('div');
+        card.className = 'cr-card cr-tiny';
+        card.innerHTML =
+            (c.img ? `<img class="cr-ava" src="${c.img}" alt="">` : `<span class="cr-ava cr-letter">${c.name[0]}</span>`) +
+            `<span class="cr-info"><span class="cr-name">${c.name}</span><span class="cr-role">${c.role}</span></span>`;
+        helpers.appendChild(card);
+    }
+    // game credits — pull thumbnails from the catalog so cards match
+    games.innerHTML = '';
+    const all = [{ name: 'pizza tower', img: 'https://pizza-tower-9iw.pages.dev/assets/btn-pizzatower.png' }, ...MODS, ...FANGAMES];
+    for (const g of all) {
+        const card = document.createElement('div');
+        card.className = 'cr-card cr-game';
+        card.innerHTML =
+            `<img class="cr-ava" src="${g.img}" alt="">` +
+            `<span class="cr-info"><span class="cr-name">${g.name}</span><span class="cr-role">${GAME_CREDITS[g.name] || 'unknown'}</span></span>`;
+        games.appendChild(card);
+    }
+}
+renderCredits();
+
+</script>
+<script>
 // Shared site music — plays on every site page (not game pages),
 // resumes its position so it feels continuous when navigating.
 
@@ -761,7 +897,8 @@ const bgmPos = +localStorage.getItem('pu_pos') || 0;
 let bgmStarted = false;
 
 function kickBgm() {
-    if (bgmStarted || !bgmWanted) return;
+    // dataset.gameOpen = a game is open in the overlay — never start over it
+    if (bgmStarted || !bgmWanted || document.body.dataset.gameOpen) return;
     try { bgm.currentTime = bgmPos; } catch {}
     bgm.play()
         .then(() => {
@@ -884,8 +1021,24 @@ document.addEventListener('keydown', (e) => {
 document.getElementById('gearBtn').addEventListener('click', () => openPop('popSettings'));
 document.getElementById('clBtn').addEventListener('click', () => { renderChangelog(); openPop('popChangelog'); });
 const DISCORD_URL = 'https://discord.gg/T2ZHkW9sHU';
-// arrow icon = single-file download (coming soon); pizza icon = discord
+// arrow icon = single-file downloads; pizza icon = discord
 document.getElementById('dlBtn').addEventListener('click', () => openPop('popSoon'));
+// fetch->blob so the download works cross-origin (plain href+download is
+// ignored cross-origin and would just navigate into the file)
+async function downloadFile(name) {
+    try {
+        const r = await fetch(name, { cache: 'no-store' });
+        if (!r.ok) throw 0;
+        const b = await r.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(b);
+        a.download = name;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    } catch { /* host unreachable */ }
+}
+document.getElementById('dlHtml').addEventListener('click', () => downloadFile('single-file.html'));
+document.getElementById('dlSvg').addEventListener('click', () => downloadFile('single-file.svg'));
 const pizzaBtn = document.querySelector('.pizza-icon');
 pizzaBtn.removeAttribute('onclick');
 pizzaBtn.title = 'discord';
@@ -947,7 +1100,7 @@ const CLOAKS = {
     classroom: ['Classes', 'https://ssl.gstatic.com/classroom/favicon.png'],
 };
 const cloakSel = document.getElementById('cloakSel');
-const VIEW_TITLES = { home: 'Pizza Unblocked', mods: 'Mods — Pizza Unblocked', extras: 'Extras — Pizza Unblocked' };
+const VIEW_TITLES = { home: 'Pizza Unblocked', mods: 'Mods — Pizza Unblocked', extras: 'Extras — Pizza Unblocked', credits: 'Credits — Pizza Unblocked' };
 let curView = 'home';
 function applyCloak(key) {
     const c = CLOAKS[key];
@@ -1065,15 +1218,15 @@ document.getElementById('copyLogBtn').addEventListener('click', () => {
 // home / mods / extras live in one document so the music never restarts.
 // URLs look like index.html/mods — the server (or 404.html on static hosts)
 // maps them back to index.html.
-const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras' };
+const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras', credits: 'pageCredits' };
 // pushed paths like index.html/mods would break relative links (games/, https://pizza-tower-9iw.pages.dev/assets/)
 // — pin document.baseURI to the app directory so they always resolve correctly.
 const appBase = document.createElement('base');
 appBase.href = 'https://pizza-tower-9iw.pages.dev/';
 document.head.prepend(appBase);
 function viewFromUrl() {
-    const m = location.pathname.match(/\/(mods|extras)\/?$/)
-        || location.hash.match(/^#\/?(mods|extras)$/);
+    const m = location.pathname.match(/\/(mods|extras|credits)\/?$/)
+        || location.hash.match(/^#\/?(mods|extras|credits)$/);
     return m ? m[1] : 'home';
 }
 function pageUrl(name) { return location.href.split('#')[0] + (name === 'home' ? '' : '#/' + name); }
@@ -1112,7 +1265,11 @@ function openGame(a) {
         (document.fullscreenElement ? document.exitFullscreen() : f.requestFullscreen()).catch(() => {});
     });
     document.body.appendChild(gameOverlay);
-    if (bgmStarted && !bgm.paused) { bgm.pause(); gameOverlay._bgmWas = true; }
+    document.body.dataset.gameOpen = '1';
+    // pause unconditionally — gating on bgmStarted misses the race where this
+    // very click is the first gesture and kickBgm's play() is still in-flight
+    gameOverlay._bgmWas = bgmWanted;
+    bgm.pause();
     try { history.pushState({ game: 1 }, '', '#game'); } catch { location.hash = 'game'; }
 }
 function closeGame() {
@@ -1120,13 +1277,14 @@ function closeGame() {
     const wasMusic = gameOverlay._bgmWas;
     gameOverlay.remove();
     gameOverlay = null;
-    if (wasMusic && bgmWanted) bgm.play().catch(() => {});
+    delete document.body.dataset.gameOpen;
+    if (wasMusic && bgmWanted) bgm.play().then(() => { bgmStarted = true; }).catch(() => {});
 }
 document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href]');
     if (!a) return;
     const href = a.getAttribute('href');
-    const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'index.html' ? 'home' : null;
+    const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'credits.html' ? 'credits' : href === 'index.html' ? 'home' : null;
     if (view) { e.preventDefault(); showPage(view); return; }
     if (/^games\//.test(href)) { e.preventDefault(); openGame(a); }
 });
