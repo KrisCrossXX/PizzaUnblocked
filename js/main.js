@@ -280,6 +280,14 @@ function openGame(a) {
         showPage('home', false);
     });
     document.body.appendChild(gameOverlay);
+    // Keep Enter inside the game instead of reactivating its menu card.
+    const gameFrame = gameOverlay.querySelector('iframe');
+    gameFrame.focus();
+    gameFrame.addEventListener('load', () => {
+        if (gameOverlay && gameOverlay.contains(gameFrame) && document.activeElement === gameFrame) {
+            gameFrame.contentWindow.focus();
+        }
+    });
     document.body.dataset.gameOpen = '1';
     // pause unconditionally — gating on bgmStarted misses the race where this
     // very click is the first gesture and kickBgm's play() is still in-flight
