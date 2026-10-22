@@ -4,8 +4,11 @@ function renderCards(gridEl, emptyEl, list) {
         const a = document.createElement('a');
         a.className = 'card';
         a.href = 'games/' + g.dir + '/';
+        const thumbnail = g.img.startsWith('assets/')
+            ? new URL(g.img, location.origin + '/').href
+            : g.img;
         a.innerHTML =
-            `<div class="thumb"><img src="${g.img}" alt="${g.name}"><button class="dots" tabindex="-1">⋮</button></div>` +
+            `<div class="thumb"><img src="${thumbnail}" alt="${g.name}"><button class="dots" tabindex="-1">⋮</button></div>` +
             `<div class="cname">${g.name}</div>`;
         gridEl.appendChild(a);
     }

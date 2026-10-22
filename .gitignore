@@ -50,6 +50,12 @@ games/*
 !games/onafpeppino/
 !games/smashbash/
 !games/pizzatower/
+!games/cheesedupnew/
+!games/cheesypizza/
+!games/laphell/
+!games/toadlegette/
+!games/beeders/
+!games/ihv/
 
 # >95MB blobs live as .part.NNN slices; sw.js stitches them at fetch time
 games/scoutdigo/game.unx
@@ -65,3 +71,10 @@ games/septastic/game.unx
 games/demo3/game.unx
 games/jwvl/index.pck
 games/pizzatower/game.unx
+games/cheesedupnew/runner.data
+games/cheesypizza/game.unx
+games/cheesypizza/game_orig.unx
+games/cheesypizza/game_shaderfixed.unx
+games/laphell/data.win
+games/laphell/data.win.prefmod
+games/laphell/sound/Desktop/music.bank

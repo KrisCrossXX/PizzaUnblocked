@@ -1,4 +1,5 @@
-// sw.js — chunk stitcher. Game files >95MB are committed to git as
+// sw.js — per-site chunk stitcher for this mirror's large game files.
+// Game files >95MB are committed to git as
 // <name>.part.NNN slices (GitHub rejects >100MB pushes). This worker intercepts
 // same-origin requests for the logical file and streams the parts back as one
 // response, so game loaders never know the file was split.
