@@ -54,6 +54,21 @@ const FANGAMES = [
    groups = array of { label, items[] } rendered in order. */
 const CHANGELOG = [
     {
+        title: 'update 1.1',
+        date: 'october 21, 2026',
+        groups: [
+            { label: 'new features', items: [
+                'replaced the game toolbar with a home button in the pizza tower font',
+                'the home button returns to the main menu from every game',
+            ]},
+            { label: 'fixes', items: [
+                'fixed mods and extra games not showing up',
+                'fixed missing game credits',
+                'clicking the pizza unblocked logo in credits now returns to the main menu',
+            ]},
+        ],
+    },
+    {
         title: 'update 1.0',
         date: 'october 17, 2026',
         groups: [

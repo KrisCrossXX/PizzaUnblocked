@@ -62,6 +62,38 @@ const GAME_CREDITS = {
     'smash bash brawl 2': 'linkthepale',
 };
 
+const GAME_CREDIT_LINKS = {
+    'pizza tower': 'https://store.steampowered.com/app/2231450/Pizza_Tower/',
+    'pizza tower: co-op': 'https://gamebanana.com/mods/501524',
+    'loco tower': 'https://yoyoyoioyo.itch.io/do-it-for-loco',
+    "chef's kiss": 'https://pizza-tower-chefs-kiss.itch.io/chefs-kiss',
+    'final round': 'https://finalround.itch.io/',
+    'swabs expedition': 'https://voidymite.itch.io/swabs-expedition',
+    'super bo noise': 'https://puffballspeakerbox.itch.io/super-bo-noise',
+    'frenzy worlds': 'https://www.youtube.com/@FrenzyWorldsOfficial',
+    'sage 19 plus': 'https://pizza-tower-19-plus.itch.io/pizza-tower-19-plus-sage-2024-demo',
+    'demo 3': 'https://store.steampowered.com/app/2231450/Pizza_Tower/',
+    'pt: april 2021 build': 'https://store.steampowered.com/app/2231450/Pizza_Tower/',
+    'vigilante build': 'https://store.steampowered.com/app/2231450/Pizza_Tower/',
+    'sugary spire': 'https://sugary-spire.itch.io/',
+    'pat the peppino': 'https://scrufftuna.itch.io/pat-the-peppino',
+    'kill the noise': 'https://andresbamb.itch.io/kill-the-noise',
+    'john wick vs lario': 'https://jegneg.itch.io/john-wick-vs-lario',
+    'demo 1 engine': 'https://github.com/kaytea42/Pizza-Tower-Demo-1-Engine',
+    'rando-laps': 'https://scratchisstrict-itch.itch.io/rando-lap',
+    'hungry pepperman': 'https://tomivargas.itch.io/hungry-pepperman-deluxe-demo',
+    'punch-out!! pt edition': 'https://scratchtac.itch.io/popte',
+    "peppino's party at the tower": 'https://myerstuberbutbettercn.itch.io/peppinos-party-at-the-tower',
+    'pat the peppino: expansion': 'https://warcamoguy.itch.io/pat-the-peppino-expansion-pack-demo',
+    'flappy peppino': 'https://jimzark.itch.io/pizza-tower-flappy-peppino',
+    'noise crusher': 'https://kendreskg.itch.io/noisecrusher-level-editor-demo',
+    "cooldude's lap mod": 'https://cooldude78.itch.io/pizza-tower-engine-cooldudes-lap-mod-v17',
+    'pizza tower network 2': 'https://ptnscratchedofficial.itch.io/pizza-tower-network-2',
+    'mininoise': 'https://dragonaero.itch.io/mininoise',
+    'too big to fail': 'https://real-legobuzz12.itch.io/toobigtofail',
+    'smash bash brawl 2': 'https://linkthepalesystem64.itch.io/smash-bash-brawl-2',
+};
+
 function renderCredits() {
     const site = document.getElementById('crSite');
     const games = document.getElementById('crGames');
@@ -90,11 +122,16 @@ function renderCredits() {
     games.innerHTML = '';
     const all = [{ name: 'pizza tower', img: 'assets/btn-pizzatower.png' }, ...MODS, ...FANGAMES];
     for (const g of all) {
-        const card = document.createElement('div');
+        const card = document.createElement('a');
         card.className = 'cr-card cr-game';
+        const destination = GAME_CREDIT_LINKS[g.name];
+        card.href = destination || 'https://www.google.com/search?q=' + encodeURIComponent('"' + g.name + '" ' + (GAME_CREDITS[g.name] || '') + ' game original page');
+        card.target = '_blank';
+        card.rel = 'noopener noreferrer';
+        card.title = destination ? 'Open game or creator page (new tab)' : 'Find original game page (new tab)';
         card.innerHTML =
             `<img class="cr-ava" src="${g.img}" alt="">` +
-            `<span class="cr-info"><span class="cr-name">${g.name}</span><span class="cr-role">${GAME_CREDITS[g.name] || 'unknown'}</span></span>`;
+            `<span class="cr-info"><span class="cr-name">${g.name}</span><span class="cr-role">${GAME_CREDITS[g.name] || 'unknown'}</span><span class="cr-link-label">${destination ? 'game / creator page' : 'find original page'} ↗</span></span>`;
         games.appendChild(card);
     }
 }
