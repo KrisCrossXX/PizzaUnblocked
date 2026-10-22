@@ -399,3 +399,12 @@ body {
 .pop-save .save-desc { font-size: .95rem; line-height: 1.55; margin: 0 0 14px; }
 .pop-save .savebtns { display: grid; gap: 9px; }
 .pop-save .savebtns .sbtn { width: 100%; }
+
+/* game overlay — in-page iframe so game URLs never hit the address bar */
+#gameOverlay { position: fixed; inset: 0; z-index: 500; background: #000; display: flex; flex-direction: column; }
+#gameOverlay iframe { flex: 1; width: 100%; border: 0; display: block; background: #000; }
+#gameOverlay .go-top { flex: 0 0 34px; display: flex; align-items: center; gap: 10px; padding: 0 10px; background: #14100c; font-family: 'PT Pig', monospace; }
+#gameOverlay .go-top button { background: #2a211a; color: #f3e3c2; border: 1px solid #4a3a2a; border-radius: 6px; padding: 4px 12px; font: inherit; font-size: .85rem; cursor: pointer; }
+#gameOverlay .go-top button:hover { filter: brightness(1.3); }
+#gameOverlay .go-title { color: #c9a877; font-size: .85rem; flex: 1; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#gameOverlay .go-fs { margin-left: auto; }

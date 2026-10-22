@@ -237,12 +237,48 @@ function showPage(name, push = true) {
         if (push) location.hash = '/' + curView;
     }
 }
+// ---------- game overlay ----------
+// game links open in an in-page iframe so the real host URL never hits the
+// address bar or history — important for the shared single file. The iframe
+// carries the host's origin, so its own service worker still stitches chunks
+// and COI headers still apply inside it.
+let gameOverlay = null;
+function openGame(a) {
+    const url = a.href; // already resolved against <base> = the real host
+    const name = (a.querySelector('.cname') || {}).textContent || a.getAttribute('title') || 'game';
+    if (gameOverlay) gameOverlay.remove();
+    gameOverlay = document.createElement('div');
+    gameOverlay.id = 'gameOverlay';
+    gameOverlay.innerHTML =
+        '<div class="go-top"><button class="go-back">&#8249; menu</button><span class="go-title"></span>' +
+        '<button class="go-fs">&#9974; fullscreen</button></div>' +
+        '<iframe allowfullscreen allow="autoplay; fullscreen; gamepad; cross-origin-isolated"></iframe>';
+    gameOverlay.querySelector('.go-title').textContent = name;
+    gameOverlay.querySelector('iframe').src = url;
+    gameOverlay.querySelector('.go-back').addEventListener('click', () => history.back());
+    gameOverlay.querySelector('.go-fs').addEventListener('click', () => {
+        const f = gameOverlay.querySelector('iframe');
+        (document.fullscreenElement ? document.exitFullscreen() : f.requestFullscreen()).catch(() => {});
+    });
+    document.body.appendChild(gameOverlay);
+    if (bgmStarted && !bgm.paused) { bgm.pause(); gameOverlay._bgmWas = true; }
+    try { history.pushState({ game: 1 }, '', '#game'); } catch { location.hash = 'game'; }
+}
+function closeGame() {
+    if (!gameOverlay) return;
+    const wasMusic = gameOverlay._bgmWas;
+    gameOverlay.remove();
+    gameOverlay = null;
+    if (wasMusic && bgmWanted) bgm.play().catch(() => {});
+}
 document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href]');
     if (!a) return;
     const href = a.getAttribute('href');
     const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'index.html' ? 'home' : null;
-    if (view) { e.preventDefault(); showPage(view); }
+    if (view) { e.preventDefault(); showPage(view); return; }
+    if (/^games\//.test(href)) { e.preventDefault(); openGame(a); }
 });
-window.addEventListener('popstate', () => showPage(viewFromUrl(), false));
+window.addEventListener('popstate', () => { closeGame(); showPage(viewFromUrl(), false); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gameOverlay) history.back(); });
 showPage(viewFromUrl(), false);
