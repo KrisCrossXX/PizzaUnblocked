@@ -27,7 +27,7 @@ document.addEventListener('keydown', (e) => {
 
 document.getElementById('gearBtn').addEventListener('click', () => openPop('popSettings'));
 document.getElementById('clBtn').addEventListener('click', () => { renderChangelog(); openPop('popChangelog'); });
-const DISCORD_URL = 'https://discord.gg/Yv7Ms7KMnq';
+const DISCORD_URL = 'https://discord.gg/T2ZHkW9sHU';
 // arrow icon = single-file download (coming soon); pizza icon = discord
 document.getElementById('dlBtn').addEventListener('click', () => openPop('popSoon'));
 const pizzaBtn = document.querySelector('.pizza-icon');
@@ -98,7 +98,7 @@ function applyCloak(key) {
     document.title = c ? c[0] : VIEW_TITLES[curView];
     let link = document.querySelector('link[rel="icon"]');
     if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
-    link.href = c ? c[1] : 'assets/pizza-icon.png';
+    link.href = c ? c[1] : 'assets/halloween.png';
 }
 cloakSel.value = localStorage.getItem('pu_cloak') || '';
 cloakSel.addEventListener('change', () => {
