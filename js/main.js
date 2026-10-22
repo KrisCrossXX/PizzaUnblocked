@@ -107,7 +107,7 @@ const CLOAKS = {
     classroom: ['Classes', 'https://ssl.gstatic.com/classroom/favicon.png'],
 };
 const cloakSel = document.getElementById('cloakSel');
-const VIEW_TITLES = { home: 'Pizza Unblocked', mods: 'Mods — Pizza Unblocked', extras: 'Extras — Pizza Unblocked' };
+const VIEW_TITLES = { home: 'Pizza Unblocked', mods: 'Mods — Pizza Unblocked', extras: 'Extras — Pizza Unblocked', credits: 'Credits — Pizza Unblocked' };
 let curView = 'home';
 function applyCloak(key) {
     const c = CLOAKS[key];
@@ -225,19 +225,19 @@ document.getElementById('copyLogBtn').addEventListener('click', () => {
 // home / mods / extras live in one document so the music never restarts.
 // URLs look like index.html/mods — the server (or 404.html on static hosts)
 // maps them back to index.html.
-const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras' };
+const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras', credits: 'pageCredits' };
 // pushed paths like index.html/mods would break relative links (games/, assets/)
 // — pin document.baseURI to the app directory so they always resolve correctly.
 const appBase = document.createElement('base');
 appBase.href = location.pathname.replace(/[^/]*$/, '');
 document.head.prepend(appBase);
 function viewFromUrl() {
-    const m = location.pathname.match(/\/(mods|extras)\/?$/)
-        || location.hash.match(/^#\/?(mods|extras)$/);
+    const m = location.pathname.match(/\/(mods|extras|credits)\/?$/)
+        || location.hash.match(/^#\/?(mods|extras|credits)$/);
     return m ? m[1] : 'home';
 }
 function pageUrl(name) {
-    const path = location.pathname.replace(/\/(mods|extras)\/?$/, '');
+    const path = location.pathname.replace(/\/(mods|extras|credits)\/?$/, '');
     const m = path.match(/[^/]+\.html?$/i);
     return (m ? path.slice(0, m.index) : path.replace(/\/$/, '') + '/')
         + (m ? m[0] : 'index.html') + (name === 'home' ? '' : '/' + name);
@@ -277,7 +277,11 @@ function openGame(a) {
         (document.fullscreenElement ? document.exitFullscreen() : f.requestFullscreen()).catch(() => {});
     });
     document.body.appendChild(gameOverlay);
-    if (bgmStarted && !bgm.paused) { bgm.pause(); gameOverlay._bgmWas = true; }
+    document.body.dataset.gameOpen = '1';
+    // pause unconditionally — gating on bgmStarted misses the race where this
+    // very click is the first gesture and kickBgm's play() is still in-flight
+    gameOverlay._bgmWas = bgmWanted;
+    bgm.pause();
     try { history.pushState({ game: 1 }, '', '#game'); } catch { location.hash = 'game'; }
 }
 function closeGame() {
@@ -285,13 +289,14 @@ function closeGame() {
     const wasMusic = gameOverlay._bgmWas;
     gameOverlay.remove();
     gameOverlay = null;
-    if (wasMusic && bgmWanted) bgm.play().catch(() => {});
+    delete document.body.dataset.gameOpen;
+    if (wasMusic && bgmWanted) bgm.play().then(() => { bgmStarted = true; }).catch(() => {});
 }
 document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href]');
     if (!a) return;
     const href = a.getAttribute('href');
-    const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'index.html' ? 'home' : null;
+    const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'credits.html' ? 'credits' : href === 'index.html' ? 'home' : null;
     if (view) { e.preventDefault(); showPage(view); return; }
     if (/^games\//.test(href)) { e.preventDefault(); openGame(a); }
 });

@@ -28,7 +28,8 @@ const bgmPos = +localStorage.getItem('pu_pos') || 0;
 let bgmStarted = false;
 
 function kickBgm() {
-    if (bgmStarted || !bgmWanted) return;
+    // dataset.gameOpen = a game is open in the overlay — never start over it
+    if (bgmStarted || !bgmWanted || document.body.dataset.gameOpen) return;
     try { bgm.currentTime = bgmPos; } catch {}
     bgm.play()
         .then(() => {

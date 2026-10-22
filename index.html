@@ -12,7 +12,7 @@
 // bounce to the hash form before any resources load; the router
 // rewrites the URL back to the clean path afterwards.
 (function () {
-    var m = location.pathname.match(/^(.*?)\/index\.html\/(mods|extras)\/?$/) || location.pathname.match(/^(.*?)\/(mods|extras)\/?$/);
+    var m = location.pathname.match(/^(.*?)\/index\.html\/(mods|extras|credits)\/?$/) || location.pathname.match(/^(.*?)\/(mods|extras|credits)\/?$/);
     if (m) location.replace(m[1] + '/index.html#/' + m[m.length - 1]);
 })();
 </script>
@@ -21,7 +21,7 @@
 
 <img class="bgimg" src="assets/bg.gif" alt="" aria-hidden="true">
 
-<a class="logo" href="index.html"><img src="assets/logo.png" alt="Pizza Unblocked"><span class="byline">By: Swayloz And Camzzz</span></a>
+<a class="logo" href="credits.html"><img src="assets/logo.png" alt="Pizza Unblocked"><span class="byline">By: Swayloz</span></a>
 
 <nav class="topicons">
     <button class="icon-btn" id="gearBtn" data-sfx="buttons" title="settings"><img src="assets/icon-gear.png" alt="settings"></button>
@@ -47,7 +47,16 @@
     <p class="empty-note" id="extrasEmpty" hidden>no extras yet</p>
 </main>
 
-<button class="pizza-icon" data-sfx="buttons" onclick="location.href='index.html'" title="home"><img src="assets/pizza-icon.png" alt="pizza"></button>
+<main class="page" id="pageCredits" hidden>
+    <div class="credits-box">
+        <h2 class="credits-title">credits</h2>
+        <div class="credits-list">
+            <p>site — swayloz</p>
+        </div>
+    </div>
+</main>
+
+<button class="pizza-icon" data-sfx="buttons" onclick="showPage('home')" title="home"><img src="assets/pizza-icon.png" alt="pizza"></button>
 
 <!-- popups -->
 <div class="overlay" id="popSettings" hidden>
