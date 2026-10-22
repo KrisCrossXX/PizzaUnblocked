@@ -28,8 +28,24 @@ document.addEventListener('keydown', (e) => {
 document.getElementById('gearBtn').addEventListener('click', () => openPop('popSettings'));
 document.getElementById('clBtn').addEventListener('click', () => { renderChangelog(); openPop('popChangelog'); });
 const DISCORD_URL = 'https://discord.gg/T2ZHkW9sHU';
-// arrow icon = single-file download (coming soon); pizza icon = discord
+// arrow icon = single-file downloads; pizza icon = discord
 document.getElementById('dlBtn').addEventListener('click', () => openPop('popSoon'));
+// fetch->blob so the download works cross-origin (plain href+download is
+// ignored cross-origin and would just navigate into the file)
+async function downloadFile(name) {
+    try {
+        const r = await fetch(name, { cache: 'no-store' });
+        if (!r.ok) throw 0;
+        const b = await r.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(b);
+        a.download = name;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    } catch { /* host unreachable */ }
+}
+document.getElementById('dlHtml').addEventListener('click', () => downloadFile('single-file.html'));
+document.getElementById('dlSvg').addEventListener('click', () => downloadFile('single-file.svg'));
 const pizzaBtn = document.querySelector('.pizza-icon');
 pizzaBtn.removeAttribute('onclick');
 pizzaBtn.title = 'discord';

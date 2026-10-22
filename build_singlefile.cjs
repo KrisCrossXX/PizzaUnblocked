@@ -136,6 +136,30 @@ var HOSTS = ${JSON.stringify(HOSTS)};
 </html>
 `;
 fs.writeFileSync(path.join(root, 'pizza-unblocked.html'), stub);
+// same loader under the download-page name
+fs.writeFileSync(path.join(root, 'single-file.html'), stub);
+
+// svg variant — same live-fetch idea, but delivered through foreignObject +
+// srcdoc since XML documents can't document.write. Always current bundle.
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position:fixed;inset:0"><title>Pizza Unblocked</title><foreignObject id="site" x="0" y="0" width="100%" height="100%"/><script><![CDATA[
+var HOSTS = ${JSON.stringify(HOSTS)};
+var frame = document.createElementNS('http://www.w3.org/1999/xhtml', 'iframe');
+frame.setAttribute('title', 'Pizza Unblocked');
+frame.setAttribute('style', 'width:100%;height:100%;border:0;display:block;background:#1e1a16');
+frame.setAttribute('allow', 'autoplay; fullscreen; gamepad; cross-origin-isolated');
+frame.setAttribute('allowfullscreen', '');
+frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">loading pizza unblocked...</body>';
+document.getElementById('site').appendChild(frame);
+(function go(i) {
+  if (i >= HOSTS.length) { frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">pizza unblocked is unreachable right now</body>'; return; }
+  fetch(HOSTS[i] + '/pusinglefile.html?v=${Date.now()}', { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw 0; return r.text(); })
+    .then(function (h) { frame.srcdoc = '<script>var PU_HOST="' + HOSTS[i] + '";<\\/script>' + h; })
+    .catch(function () { go(i + 1); });
+})(0);
+]]></script></svg>
+`;
+fs.writeFileSync(path.join(root, 'single-file.svg'), svg);
 
 console.log('wrote pusinglefile.html', (html.length / 1024 / 1024).toFixed(1) + 'MB');
-console.log('wrote pizza-unblocked.html (stub → ' + HOSTS.join(' → ') + ')');
+console.log('wrote pizza-unblocked.html + single-file.html + single-file.svg (stub → ' + HOSTS.join(' → ') + ')');
