@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position:fixed;inset:0"><title>Pizza Unblocked</title><foreignObject id="site" x="0" y="0" width="100%" height="100%"/><script><![CDATA[
+var HOSTS = ["https://pizzaunblocked.b-cdn.net","https://kriscrossxx.github.io/PizzaUnblocked","https://pizza-unblocked.kriscrossxx.workers.dev"];
+var frame = document.createElementNS('http://www.w3.org/1999/xhtml', 'iframe');
+frame.setAttribute('title', 'Pizza Unblocked');
+frame.setAttribute('style', 'width:100%;height:100%;border:0;display:block;background:#1e1a16');
+frame.setAttribute('allow', 'autoplay; fullscreen; gamepad; cross-origin-isolated');
+frame.setAttribute('allowfullscreen', '');
+frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">loading pizza unblocked...</body>';
+document.getElementById('site').appendChild(frame);
+(function go(i) {
+  if (i >= HOSTS.length) { frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">pizza unblocked is unreachable right now</body>'; return; }
+  fetch(HOSTS[i] + '/pusinglefile.html?v=1792637975358', { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw 0; return r.text(); })
+    .then(function (h) { frame.srcdoc = '<script>var PU_HOST="' + HOSTS[i] + '";<\/script>' + h; })
+    .catch(function () { go(i + 1); });
+})(0);
+]]></script></svg>
