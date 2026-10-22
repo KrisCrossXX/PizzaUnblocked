@@ -120,8 +120,9 @@ const stub = `<!DOCTYPE html>
 var HOSTS = ${JSON.stringify(HOSTS)};
 (function go(i){
   if (i >= HOSTS.length) { document.body.innerHTML = "pizza unblocked isn't deployed yet"; return; }
-  // ?v= is baked per-build so a rebuilt bundle busts CDN + browser caches
-  fetch(HOSTS[i] + "/pusinglefile.html?v=${Date.now()}")
+  // ?v= is baked per-build so a rebuilt bundle busts CDN + browser caches;
+  // no-store so an old cached bundle can never be reused either
+  fetch(HOSTS[i] + "/pusinglefile.html?v=${Date.now()}", { cache: "no-store" })
     .then(r => { if (!r.ok) throw 0; return r.text(); })
     .then(h => {
       document.open();
