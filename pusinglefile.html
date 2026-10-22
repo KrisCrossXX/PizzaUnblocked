@@ -1133,7 +1133,12 @@ document.addEventListener('click', (e) => {
     if (view) { e.preventDefault(); showPage(view); return; }
     if (/^games\//.test(href)) { e.preventDefault(); openGame(a); }
 });
-window.addEventListener('popstate', () => { closeGame(); showPage(viewFromUrl(), false); });
+// file:// can't pushState, so openGame falls back to location.hash='game' —
+// that hash nav fires popstate too; only close when we've actually left #game.
+window.addEventListener('popstate', () => {
+    if (gameOverlay && location.hash !== '#game') closeGame();
+    showPage(viewFromUrl(), false);
+});
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gameOverlay) history.back(); });
 showPage(viewFromUrl(), false);
 </script>
