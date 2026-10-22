@@ -415,14 +415,14 @@ body {
 .cr-row { display: flex; flex-wrap: wrap; gap: 12px; }
 .cr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
 .cr-card { display: flex; align-items: center; gap: 10px; background: rgba(20,16,12,.92); border: 2px solid #4a3a2a; border-radius: 10px; padding: 10px 12px; min-width: 0; }
-.cr-ava { width: 46px; height: 46px; object-fit: cover; border-radius: 8px; background: #241d16; flex: 0 0 46px; }
-.cr-letter { display: flex; align-items: center; justify-content: center; font-family: 'PT Pig', monospace; font-size: 1.5rem; color: #ffd75e; }
+.cr-ava { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; background: #241d16; flex: 0 0 72px; }
+.cr-letter { display: flex; align-items: center; justify-content: center; font-family: 'PT Pig', monospace; font-size: 2.2rem; color: #ffd75e; }
 .cr-info { display: flex; flex-direction: column; min-width: 0; }
 .cr-name { color: #fff4e0; font-size: 1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cr-role { color: #b8a89a; font-size: .85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cr-row-tiny { margin-top: 10px; }
 .cr-tiny { padding: 6px 10px; border-radius: 8px; }
-.cr-tiny .cr-ava { width: 30px; height: 30px; flex-basis: 30px; }
-.cr-tiny .cr-letter { font-size: 1rem; }
+.cr-tiny .cr-ava { width: 46px; height: 46px; flex-basis: 46px; }
+.cr-tiny .cr-letter { font-size: 1.4rem; }
 .cr-tiny .cr-name { font-size: .85rem; }
 .cr-tiny .cr-role { font-size: .72rem; }

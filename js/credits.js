@@ -1,8 +1,8 @@
 // credits page — site credits + per-game credits (toby-style card grid)
 const SITE_CREDITS = [
     { name: 'floridiann', role: 'made the site', img: 'https://cdn.discordapp.com/avatars/1546007490624364647/9f159cd4a895dad5df44a91a4cee02d3.webp?size=128' },
-    { name: 'devin', role: 'site dev, parts and bugfixes' },
-    { name: 'chatgpt', role: 'site dev help' },
+    { name: 'devin', role: 'site dev, parts and bugfixes', img: 'assets/pfp-devin.png' },
+    { name: 'chatgpt', role: 'site dev help', img: 'assets/pfp-chatgpt.png' },
     { name: 'mcpig', role: 'made pizza tower', img: 'assets/pfp-mcpig.png' },
 ];
 
