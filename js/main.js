@@ -271,15 +271,13 @@ function openGame(a) {
     gameOverlay = document.createElement('div');
     gameOverlay.id = 'gameOverlay';
     gameOverlay.innerHTML =
-        '<div class="go-top"><button class="go-back">&#8249; menu</button><span class="go-title"></span>' +
-        '<button class="go-fs">&#9974; fullscreen</button></div>' +
+        '<button class="game-home" type="button" aria-label="Home — main menu">home</button>' +
         '<iframe allowfullscreen allow="autoplay; fullscreen; gamepad; cross-origin-isolated"></iframe>';
-    gameOverlay.querySelector('.go-title').textContent = name;
+    gameOverlay.querySelector('iframe').title = name;
     gameOverlay.querySelector('iframe').src = url;
-    gameOverlay.querySelector('.go-back').addEventListener('click', () => history.back());
-    gameOverlay.querySelector('.go-fs').addEventListener('click', () => {
-        const f = gameOverlay.querySelector('iframe');
-        (document.fullscreenElement ? document.exitFullscreen() : f.requestFullscreen()).catch(() => {});
+    gameOverlay.querySelector('.game-home').addEventListener('click', () => {
+        closeGame();
+        showPage('home', false);
     });
     document.body.appendChild(gameOverlay);
     document.body.dataset.gameOpen = '1';
