@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pizza Unblocked</title><base href="https://pizza-tower-9iw.pages.dev/"><link rel="icon" href="https://pizza-tower-9iw.pages.dev/assets/pizza-icon.svg"><style>/* Pizza Unblocked — toby-web style layout */
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pizza Unblocked</title><base href="https://pizzaunblocked.b-cdn.net/"><link rel="icon" href="https://pizzaunblocked.b-cdn.net/assets/pizza-icon.svg"><style>/* Pizza Unblocked — toby-web style layout */
 @font-face {
     font-family: 'ptsmall';
-    src: url('https://pizza-tower-9iw.pages.dev/assets/fonts/pizza-tower-small.ttf') format('truetype');
+    src: url('https://pizzaunblocked.b-cdn.net/assets/fonts/pizza-tower-small.ttf') format('truetype');
 }
 
 :root {
@@ -431,20 +431,20 @@ body {
 .cr-tiny .cr-role { font-size: .72rem; }
 </style></head><body>
 
-<img class="bgimg" src="https://pizza-tower-9iw.pages.dev/assets/bg.gif" alt="" aria-hidden="true">
+<img class="bgimg" src="https://pizzaunblocked.b-cdn.net/assets/bg.gif" alt="" aria-hidden="true">
 
-<a class="logo" href="credits.html"><img src="https://pizza-tower-9iw.pages.dev/assets/logo.png" alt="Pizza Unblocked"></a>
+<a class="logo" href="credits.html"><img src="https://pizzaunblocked.b-cdn.net/assets/logo.png" alt="Pizza Unblocked"></a>
 
 <nav class="topicons">
-    <button class="icon-btn" id="gearBtn" data-sfx="buttons" title="settings"><img src="https://pizza-tower-9iw.pages.dev/assets/icon-gear.png" alt="settings"></button>
-    <button class="icon-btn" id="clBtn" data-sfx="buttons" title="changelog"><img src="https://pizza-tower-9iw.pages.dev/assets/icon-pillar.png" alt="changelog"></button>
-    <button class="icon-btn" id="dlBtn" data-sfx="buttons" title="discord"><img src="https://pizza-tower-9iw.pages.dev/assets/icon-arrow.png" alt="discord"></button>
+    <button class="icon-btn" id="gearBtn" data-sfx="buttons" title="settings"><img src="https://pizzaunblocked.b-cdn.net/assets/icon-gear.png" alt="settings"></button>
+    <button class="icon-btn" id="clBtn" data-sfx="buttons" title="changelog"><img src="https://pizzaunblocked.b-cdn.net/assets/icon-pillar.png" alt="changelog"></button>
+    <button class="icon-btn" id="dlBtn" data-sfx="buttons" title="discord"><img src="https://pizzaunblocked.b-cdn.net/assets/icon-arrow.png" alt="discord"></button>
 </nav>
 
 <main class="menu" id="pageHome">
-    <a class="gbtn" href="games/pizzatower/" data-sfx="pizzatower"><img src="https://pizza-tower-9iw.pages.dev/assets/btn-pizzatower.png" alt="PIZZA TOWER"></a>
-    <a class="gbtn" href="mods.html" data-sfx="mods"><img src="https://pizza-tower-9iw.pages.dev/assets/btn-mods.png" alt="MODS"></a>
-    <a class="gbtn" href="extras.html" data-sfx="extras"><img src="https://pizza-tower-9iw.pages.dev/assets/btn-extras.png" alt="EXTRAS"></a>
+    <a class="gbtn" href="games/pizzatower/" data-sfx="pizzatower"><img src="https://pizzaunblocked.b-cdn.net/assets/btn-pizzatower.png" alt="PIZZA TOWER"></a>
+    <a class="gbtn" href="mods.html" data-sfx="mods"><img src="https://pizzaunblocked.b-cdn.net/assets/btn-mods.png" alt="MODS"></a>
+    <a class="gbtn" href="extras.html" data-sfx="extras"><img src="https://pizzaunblocked.b-cdn.net/assets/btn-extras.png" alt="EXTRAS"></a>
 </main>
 
 <main class="page" id="pageMods" hidden>
@@ -468,7 +468,7 @@ body {
     </div>
 </main>
 
-<button class="pizza-icon" data-sfx="buttons" onclick="showPage('home')" title="home"><img src="https://pizza-tower-9iw.pages.dev/assets/pizza-icon.png" alt="pizza"></button>
+<button class="pizza-icon" data-sfx="buttons" onclick="showPage('home')" title="home"><img src="https://pizzaunblocked.b-cdn.net/assets/pizza-icon.png" alt="pizza"></button>
 
 <!-- popups -->
 <div class="overlay" id="popSettings" hidden>
@@ -586,54 +586,54 @@ body {
 <script>
 /* Catalog — entries show up as cards on the mods/extras pages.
    dir = folder under games/ containing a web port (index.html + runner files).
-   img = thumbnail under https://pizza-tower-9iw.pages.dev/assets/. */
+   img = thumbnail under https://pizzaunblocked.b-cdn.net/assets/. */
 
 const MODS = [
-    { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-scoutdigo.png' },
-    { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-coop.png' },
-    { name: 'cheesed up (old)', desc: 'classic build', dir: 'cheesedupold', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-cheesedup.jpg' },
-    { name: 'loco tower', desc: '', dir: 'locotower', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-loco.png' },
-    { name: 'stuffed crust', desc: '', dir: 'stuffedcrust', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-stuffed.png' },
-    { name: "chef's kiss", desc: '', dir: 'chefskiss', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-chefskiss.png' },
-    { name: 'final round', desc: '', dir: 'finalround', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-finalround.png' },
-    { name: 'pizza massacre', desc: '', dir: 'pizzamassacre', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-pizzamassacre.png' },
-    { name: 'swabs expedition', desc: '', dir: 'swabs', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-swabs.png' },
-    { name: 'super bo noise', desc: '', dir: 'superbonoise', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-sbn.png' },
-    { name: 'sage 19 plus', desc: 'sage 2019 demo', dir: 'sage19plus', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-sage19plus.png' },
-    { name: 'pizza tower: meta', desc: '', dir: 'ptmeta', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-ptmeta.png' },
-    { name: 'frenzy worlds', desc: '', dir: 'frenzyworlds', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-frenzy.png' },
-    { name: 'septastic', desc: '', dir: 'septastic', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-septastic.png' },
-    { name: 'weenie cop', desc: 'food fighter', dir: 'weeniecop', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-weeniecop.png' },
-    { name: 'virdesert', desc: 'bo noise mod', dir: 'virdesert', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-virdesert.png' },
-    { name: 'demo 3', desc: 'leaked dev build', dir: 'demo3', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-demo3.png' },
-    { name: 'pt: gba edition', desc: '', dir: 'ptgba', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-ptgba.png' },
-    { name: 'pt: april 2021 build', desc: 'early dev build', dir: 'april2021', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-april2021.png' },
+    { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-scoutdigo.png' },
+    { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-coop.png' },
+    { name: 'cheesed up (old)', desc: 'classic build', dir: 'cheesedupold', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-cheesedup.jpg' },
+    { name: 'loco tower', desc: '', dir: 'locotower', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-loco.png' },
+    { name: 'stuffed crust', desc: '', dir: 'stuffedcrust', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-stuffed.png' },
+    { name: "chef's kiss", desc: '', dir: 'chefskiss', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-chefskiss.png' },
+    { name: 'final round', desc: '', dir: 'finalround', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-finalround.png' },
+    { name: 'pizza massacre', desc: '', dir: 'pizzamassacre', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-pizzamassacre.png' },
+    { name: 'swabs expedition', desc: '', dir: 'swabs', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-swabs.png' },
+    { name: 'super bo noise', desc: '', dir: 'superbonoise', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-sbn.png' },
+    { name: 'sage 19 plus', desc: 'sage 2019 demo', dir: 'sage19plus', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-sage19plus.png' },
+    { name: 'pizza tower: meta', desc: '', dir: 'ptmeta', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-ptmeta.png' },
+    { name: 'frenzy worlds', desc: '', dir: 'frenzyworlds', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-frenzy.png' },
+    { name: 'septastic', desc: '', dir: 'septastic', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-septastic.png' },
+    { name: 'weenie cop', desc: 'food fighter', dir: 'weeniecop', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-weeniecop.png' },
+    { name: 'virdesert', desc: 'bo noise mod', dir: 'virdesert', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-virdesert.png' },
+    { name: 'demo 3', desc: 'leaked dev build', dir: 'demo3', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-demo3.png' },
+    { name: 'pt: gba edition', desc: '', dir: 'ptgba', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-ptgba.png' },
+    { name: 'pt: april 2021 build', desc: 'early dev build', dir: 'april2021', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-april2021.png' },
 ];
 
 const FANGAMES = [
-    { name: 'sugary spire', desc: '', dir: 'sugaryspire', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-ss.png' },
-    { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-pat.png' },
-    { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-killnoise.gif' },
-    { name: 'john wick vs lario', desc: '', dir: 'jwvl', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-jwl.png' },
-    { name: 'internship', desc: '', dir: 'internship', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-internship.jpg' },
-    { name: "five nights at peppino's", desc: '', dir: 'fnap', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-fnap.png' },
-    { name: 'vigilante build', desc: 'old pt build', dir: 'ptwv', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-ptwv.png' },
-    { name: 'demo 1 engine', desc: 'pt fangame engine', dir: 'demo1', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-demo1.png' },
-    { name: 'pizza tower network', desc: 'online multiplayer', dir: 'ptn', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-ptn.png' },
-    { name: 'rando-laps', desc: 'lap hell engine mod', dir: 'randolap', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-randolap.png' },
-    { name: 'hungry pepperman', desc: '', dir: 'pepperman', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-pepperman.png' },
-    { name: 'punch-out!! pt edition', desc: '', dir: 'popte', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-popte.png' },
-    { name: "peppino's party at the tower", desc: '', dir: 'partytower', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-partytower.png' },
-    { name: 'pat the peppino: expansion', desc: '', dir: 'patpeppinox', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-patpeppinox.png' },
-    { name: 'flappy peppino', desc: '', dir: 'flappypeppino', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-flappypeppino.png' },
-    { name: 'tower pasta', desc: '', dir: 'towerpasta', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-towerpasta.png' },
-    { name: 'noise crusher', desc: 'level editor demo', dir: 'noisecrusher', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-noisecrusher.png' },
-    { name: "cooldude's lap mod", desc: 'lap mod v1.7', dir: 'ptlapmod', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-ptlapmod.png' },
-    { name: 'pizza tower network 2', desc: 'play test 2', dir: 'ptn2', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-ptn2.png' },
-    { name: 'mininoise', desc: '', dir: 'mininoise', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-mininoise.png' },
-    { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-toobigtofail.png' },
-    { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-onafpeppino.png' },
-    { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'https://pizza-tower-9iw.pages.dev/assets/thumb-smashbash.png' },
+    { name: 'sugary spire', desc: '', dir: 'sugaryspire', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-ss.png' },
+    { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-pat.png' },
+    { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-killnoise.gif' },
+    { name: 'john wick vs lario', desc: '', dir: 'jwvl', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-jwl.png' },
+    { name: 'internship', desc: '', dir: 'internship', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-internship.jpg' },
+    { name: "five nights at peppino's", desc: '', dir: 'fnap', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-fnap.png' },
+    { name: 'vigilante build', desc: 'old pt build', dir: 'ptwv', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-ptwv.png' },
+    { name: 'demo 1 engine', desc: 'pt fangame engine', dir: 'demo1', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-demo1.png' },
+    { name: 'pizza tower network', desc: 'online multiplayer', dir: 'ptn', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-ptn.png' },
+    { name: 'rando-laps', desc: 'lap hell engine mod', dir: 'randolap', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-randolap.png' },
+    { name: 'hungry pepperman', desc: '', dir: 'pepperman', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-pepperman.png' },
+    { name: 'punch-out!! pt edition', desc: '', dir: 'popte', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-popte.png' },
+    { name: "peppino's party at the tower", desc: '', dir: 'partytower', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-partytower.png' },
+    { name: 'pat the peppino: expansion', desc: '', dir: 'patpeppinox', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-patpeppinox.png' },
+    { name: 'flappy peppino', desc: '', dir: 'flappypeppino', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-flappypeppino.png' },
+    { name: 'tower pasta', desc: '', dir: 'towerpasta', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-towerpasta.png' },
+    { name: 'noise crusher', desc: 'level editor demo', dir: 'noisecrusher', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-noisecrusher.png' },
+    { name: "cooldude's lap mod", desc: 'lap mod v1.7', dir: 'ptlapmod', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-ptlapmod.png' },
+    { name: 'pizza tower network 2', desc: 'play test 2', dir: 'ptn2', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-ptn2.png' },
+    { name: 'mininoise', desc: '', dir: 'mininoise', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-mininoise.png' },
+    { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-toobigtofail.png' },
+    { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-onafpeppino.png' },
+    { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'https://pizzaunblocked.b-cdn.net/assets/thumb-smashbash.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -783,9 +783,9 @@ const CHANGELOG = [
 // credits page — site credits + per-game credits (toby-style card grid)
 const SITE_CREDITS = [
     { name: 'floridiann', role: 'made the site', img: 'https://cdn.discordapp.com/avatars/1546007490624364647/9f159cd4a895dad5df44a91a4cee02d3.webp?size=128' },
-    { name: 'devin', role: 'site dev, parts and bugfixes', img: 'https://pizza-tower-9iw.pages.dev/assets/pfp-devin.png' },
-    { name: 'chatgpt', role: 'site dev help', img: 'https://pizza-tower-9iw.pages.dev/assets/pfp-chatgpt.png' },
-    { name: 'mcpig', role: 'made pizza tower', img: 'https://pizza-tower-9iw.pages.dev/assets/pfp-mcpig.png' },
+    { name: 'devin', role: 'site dev, parts and bugfixes', img: 'https://pizzaunblocked.b-cdn.net/assets/pfp-devin.png' },
+    { name: 'chatgpt', role: 'site dev help', img: 'https://pizzaunblocked.b-cdn.net/assets/pfp-chatgpt.png' },
+    { name: 'mcpig', role: 'made pizza tower', img: 'https://pizzaunblocked.b-cdn.net/assets/pfp-mcpig.png' },
 ];
 
 // helpers — tiny cards under the main row
@@ -916,7 +916,7 @@ function renderCredits() {
     }
     // game credits — pull thumbnails from the catalog so cards match
     games.innerHTML = '';
-    const all = [{ name: 'pizza tower', img: 'https://pizza-tower-9iw.pages.dev/assets/btn-pizzatower.png' }, ...MODS, ...FANGAMES];
+    const all = [{ name: 'pizza tower', img: 'https://pizzaunblocked.b-cdn.net/assets/btn-pizzatower.png' }, ...MODS, ...FANGAMES];
     for (const g of all) {
         const card = document.createElement('a');
         card.className = 'cr-card cr-game';
@@ -941,11 +941,11 @@ renderCredits();
 // Site themes: bg = background image, song = music track.
 // cls = optional extra class on .bgimg.
 const PU_THEMES = [
-    { name: 'pizzascare',     bg: 'https://pizza-tower-9iw.pages.dev/assets/halloween.png',     song: 'https://pizza-tower-9iw.pages.dev/assets/theme-halloween.ogg' },
-    { name: 'the tower',      bg: 'https://pizza-tower-9iw.pages.dev/assets/bg.gif',            song: 'https://pizza-tower-9iw.pages.dev/assets/theme.mp3' },
-    { name: 'oregano desert', bg: 'https://pizza-tower-9iw.pages.dev/assets/bg-desert.webp',    song: 'https://pizza-tower-9iw.pages.dev/assets/theme-desert.ogg' },
-    { name: 'pizzaland',      bg: 'https://pizza-tower-9iw.pages.dev/assets/bg-pizzaland.webp', song: 'https://pizza-tower-9iw.pages.dev/assets/theme-funiculi.ogg' },
-    { name: "what's with these pizza guys?", bg: 'https://pizza-tower-9iw.pages.dev/assets/bg-pizzaguys.png', song: 'https://pizza-tower-9iw.pages.dev/assets/theme-pizzaguys.mp3' },
+    { name: 'pizzascare',     bg: 'https://pizzaunblocked.b-cdn.net/assets/halloween.png',     song: 'https://pizzaunblocked.b-cdn.net/assets/theme-halloween.ogg' },
+    { name: 'the tower',      bg: 'https://pizzaunblocked.b-cdn.net/assets/bg.gif',            song: 'https://pizzaunblocked.b-cdn.net/assets/theme.mp3' },
+    { name: 'oregano desert', bg: 'https://pizzaunblocked.b-cdn.net/assets/bg-desert.webp',    song: 'https://pizzaunblocked.b-cdn.net/assets/theme-desert.ogg' },
+    { name: 'pizzaland',      bg: 'https://pizzaunblocked.b-cdn.net/assets/bg-pizzaland.webp', song: 'https://pizzaunblocked.b-cdn.net/assets/theme-funiculi.ogg' },
+    { name: "what's with these pizza guys?", bg: 'https://pizzaunblocked.b-cdn.net/assets/bg-pizzaguys.png', song: 'https://pizzaunblocked.b-cdn.net/assets/theme-pizzaguys.mp3' },
 ];
 
 const puTheme = PU_THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || PU_THEMES[0];
@@ -1029,7 +1029,7 @@ function setupSearch(inputEl, gridEl, emptyEl, list) {
 }
 
 // hover sfx
-const hoverSfx = new Audio('https://pizza-tower-9iw.pages.dev/assets/sfx/buttons.ogg');
+const hoverSfx = new Audio('https://pizzaunblocked.b-cdn.net/assets/sfx/buttons.ogg');
 hoverSfx.volume = 0.6;
 hoverSfx.preload = 'auto';
 document.addEventListener('mouseover', (e) => {
@@ -1064,7 +1064,7 @@ document.addEventListener('mouseover', (e) => {
 // ---------- icon sfx ----------
 const sfx = {};
 function playSfx(name) {
-    if (!sfx[name]) { sfx[name] = new Audio('https://pizza-tower-9iw.pages.dev/assets/sfx/' + name + '.ogg'); sfx[name].preload = 'auto'; }
+    if (!sfx[name]) { sfx[name] = new Audio('https://pizzaunblocked.b-cdn.net/assets/sfx/' + name + '.ogg'); sfx[name].preload = 'auto'; }
     const a = sfx[name];
     a.currentTime = 0;
     a.play().catch(() => {});
@@ -1175,7 +1175,7 @@ function applyCloak(key) {
     document.title = c ? c[0] : VIEW_TITLES[curView];
     let link = document.querySelector('link[rel="icon"]');
     if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
-    link.href = c ? c[1] : 'https://pizza-tower-9iw.pages.dev/assets/pizza-icon.svg';
+    link.href = c ? c[1] : 'https://pizzaunblocked.b-cdn.net/assets/pizza-icon.svg';
 }
 cloakSel.value = localStorage.getItem('pu_cloak') || '';
 cloakSel.addEventListener('change', () => {
@@ -1287,10 +1287,10 @@ document.getElementById('copyLogBtn').addEventListener('click', () => {
 // URLs look like index.html/mods — the server (or 404.html on static hosts)
 // maps them back to index.html.
 const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras', credits: 'pageCredits' };
-// pushed paths like index.html/mods would break relative links (games/, https://pizza-tower-9iw.pages.dev/assets/)
+// pushed paths like index.html/mods would break relative links (games/, https://pizzaunblocked.b-cdn.net/assets/)
 // — pin document.baseURI to the app directory so they always resolve correctly.
 const appBase = document.createElement('base');
-appBase.href = 'https://pizza-tower-9iw.pages.dev/';
+appBase.href = 'https://pizzaunblocked.b-cdn.net/';
 document.head.prepend(appBase);
 function viewFromUrl() {
     const m = location.pathname.match(/\/(mods|extras|credits)\/?$/)
@@ -1607,7 +1607,7 @@ const PU_SAVES = (() => {
             else {
                 out = {};
                 for (const f of FILES101) {
-                    const r = await fetch('https://pizza-tower-9iw.pages.dev/assets/saves101/' + f);
+                    const r = await fetch('https://pizzaunblocked.b-cdn.net/assets/saves101/' + f);
                     if (r.ok) out[f] = await r.text();
                 }
             }
