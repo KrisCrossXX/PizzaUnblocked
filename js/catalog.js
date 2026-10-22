@@ -3,18 +3,16 @@
    img = thumbnail under assets/. */
 
 const MODS = [
-    { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', img: 'assets/thumb-scoutdigo.png' },
-    { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', img: 'assets/thumb-coop.png' },
-    { name: 'cheesed up (old)', desc: 'classic build', dir: 'cheesedupold', img: 'assets/thumb-cheesedup.jpg' },
+    { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', save101: true, img: 'assets/thumb-scoutdigo.png' },
+    { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', save101: true, img: 'assets/thumb-coop.png' },
     { name: 'loco tower', desc: '', dir: 'locotower', img: 'assets/thumb-loco.png' },
-    { name: 'stuffed crust', desc: '', dir: 'stuffedcrust', img: 'assets/thumb-stuffed.png' },
-    { name: "chef's kiss", desc: '', dir: 'chefskiss', img: 'assets/thumb-chefskiss.png' },
-    { name: 'final round', desc: '', dir: 'finalround', img: 'assets/thumb-finalround.png' },
+    { name: "chef's kiss", desc: '', dir: 'chefskiss', save101: true, img: 'assets/thumb-chefskiss.png' },
+    { name: 'final round', desc: '', dir: 'finalround', save101: true, img: 'assets/thumb-finalround.png' },
     { name: 'pizza massacre', desc: '', dir: 'pizzamassacre', img: 'assets/thumb-pizzamassacre.png' },
     { name: 'swabs expedition', desc: '', dir: 'swabs', img: 'assets/thumb-swabs.png' },
     { name: 'super bo noise', desc: '', dir: 'superbonoise', img: 'assets/thumb-sbn.png' },
     { name: 'sage 19 plus', desc: 'sage 2019 demo', dir: 'sage19plus', img: 'assets/thumb-sage19plus.png' },
-    { name: 'pizza tower: meta', desc: '', dir: 'ptmeta', img: 'assets/thumb-ptmeta.png' },
+    { name: 'pizza tower: meta', desc: '', dir: 'ptmeta', save101: true, img: 'assets/thumb-ptmeta.png' },
     { name: 'frenzy worlds', desc: '', dir: 'frenzyworlds', img: 'assets/thumb-frenzy.png' },
     { name: 'septastic', desc: '', dir: 'septastic', img: 'assets/thumb-septastic.png' },
     { name: 'weenie cop', desc: 'food fighter', dir: 'weeniecop', img: 'assets/thumb-weeniecop.png' },
@@ -22,6 +20,9 @@ const MODS = [
     { name: 'demo 3', desc: 'leaked dev build', dir: 'demo3', img: 'assets/thumb-demo3.png' },
     { name: 'pt: gba edition', desc: '', dir: 'ptgba', img: 'assets/thumb-ptgba.png' },
     { name: 'pt: april 2021 build', desc: 'early dev build', dir: 'april2021', img: 'assets/thumb-april2021.png' },
+    { name: 'PT: Cheesed Up', desc: 'B1.5.4 web port', dir: 'cheesypizza', save101: true, img: 'assets/thumb-cheesypizza.png' },
+    { name: 'PT: Chessey Chasedown', desc: 'Cheesy Chasedown web port', dir: 'cheesychasedown', save101: true, img: 'assets/thumb-cheesychasedown.png' },
+    { name: 'lap hell: pp pursuit', desc: 'butterscotch web port', dir: 'laphell', save101: true, img: 'assets/thumb-laphell.png' },
 ];
 
 const FANGAMES = [
@@ -48,6 +49,9 @@ const FANGAMES = [
     { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'assets/thumb-toobigtofail.png' },
     { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-onafpeppino.png' },
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
+    { name: 'toadlegette', desc: '', dir: 'toadlegette', save: true, img: 'assets/thumb-ptwv.png' },
+    { name: 'beeder big adventure', desc: '', dir: 'beeders', save: true, img: 'assets/thumb-demo1.png' },
+    { name: 'idlv', desc: '', dir: 'ihv', save: true, img: 'assets/thumb-noisecrusher.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -55,8 +59,23 @@ const FANGAMES = [
 const CHANGELOG = [
     {
         title: 'update 1.1',
-        date: 'october 21, 2026',
+        date: 'october 22, 2026',
         groups: [
+            { label: 'mirror hosting', items: [
+                'each mirror now serves its own game files and thumbnails',
+                'game cards open the selected game on the same site',
+            ]},
+            { label: 'new ports', items: [
+                'PT: Cheesed Up',
+                'PT: Chessey Chasedown',
+                'lap hell: pp pursuit',
+                'toadlegette',
+                'beeder big adventure',
+                'idlv',
+            ]},
+            { label: 'credits', items: [
+                'added Tornado, sonicfan2010, Kris13422, and Milliemeter to beta testing',
+            ]},
             { label: 'new features', items: [
                 'replaced the game toolbar with a home button in the pizza tower font',
                 'the home button returns to the main menu from every game',
@@ -74,6 +93,8 @@ const CHANGELOG = [
         groups: [
             { label: 'new ports', items: [
                 'pt: april 2021 build',
+                'pizza tower cheesed up',
+                'cheesy pizza b1.5.4',
                 'weenie cop',
                 'virdesert',
                 'internship',
@@ -104,7 +125,6 @@ const CHANGELOG = [
             { label: 'new ports', items: [
                 'cheesed up (old)',
                 'loco tower',
-                'stuffed crust',
                 "chef's kiss",
                 'final round',
                 'pizza massacre',

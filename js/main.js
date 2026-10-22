@@ -261,16 +261,12 @@ const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras', c
 // pushed paths like index.html/mods would break relative links (games/, assets/)
 // — pin document.baseURI to the app directory so they always resolve correctly.
 const appBase = document.createElement('base');
-// Game payloads only exist on the Bunny CDN (shell mirrors like pages.dev
-// don't have the >25MB files). Resolve relative links (games/, assets/)
-// against Bunny whenever we're served from any other remote host; the
-// single-file stubs inject window.PU_HOST for the same purpose.
-const REMOTE_SHELL = location.protocol !== 'file:'
-    && !/^(localhost|127\.|10\.|192\.168\.)/.test(location.hostname)
-    && !location.hostname.endsWith('b-cdn.net');
+// Each deployed mirror serves its own shell, assets, and games.
+// Single-file builds can still provide their own asset host through PU_HOST.
 appBase.href = window.PU_HOST ? window.PU_HOST + '/'
-    : REMOTE_SHELL ? 'https://pizzaunblocked.b-cdn.net/'
-    : location.pathname.replace(/[^/]*$/, '');
+    : location.protocol === 'file:'
+        ? location.pathname.replace(/[^/]*$/, '')
+        : location.origin + '/';
 document.head.prepend(appBase);
 function viewFromUrl() {
     const m = location.pathname.match(/\/(mods|extras|credits)\/?$/)
@@ -306,9 +302,10 @@ function showPage(name, push = true) {
 // and COI headers still apply inside it.
 let gameOverlay = null;
 function openGame(a) {
-    const target = new URL(a.href); // the game files live on the asset host
-    target.protocol = 'https:';
-    target.host = 'pizzaunblocked.b-cdn.net';
+    const gameBase = !window.PU_HOST && location.hostname.endsWith('.pages.dev')
+        ? 'https://pizzaunblocked.b-cdn.net/'
+        : appBase.href;
+    const target = new URL(a.getAttribute('href'), gameBase);
     const url = target.href;
     const name = (a.querySelector('.cname') || {}).textContent || a.getAttribute('title') || 'game';
     if (gameOverlay) gameOverlay.remove();

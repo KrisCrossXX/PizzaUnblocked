@@ -1,7 +1,7 @@
 /* Pizza Unblocked — toby-web style layout */
 @font-face {
     font-family: 'ptsmall';
-    src: url('../assets/fonts/pizza-tower-small.ttf') format('truetype');
+    src: url('https://cdn.jsdelivr.net/gh/KrisCrossXX/PizzaUnblocked@main/assets/fonts/pizza-tower-small.ttf') format('truetype');
 }
 
 :root {
@@ -31,7 +31,15 @@ body {
     height: 100%;
     object-fit: fill;
     image-rendering: pixelated;
-    z-index: -2;
+    z-index: 0;
+    pointer-events: none;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--bg);
     pointer-events: none;
 }
 /* theme variants (applied to .bgimg) */
@@ -156,6 +164,20 @@ body {
     border: none;
     cursor: pointer;
     padding: 0;
+}
+.presence-count {
+    position: absolute;
+    left: calc(100% + 8px);
+    bottom: 5px;
+    white-space: nowrap;
+    padding: 4px 8px;
+    border: 1px solid rgba(255,255,255,.65);
+    border-radius: 999px;
+    background: rgba(25, 18, 18, .9);
+    color: #39e75f;
+    font: 12px/1.2 'ptsmall', 'Courier New', monospace;
+    text-shadow: 0 1px 2px #000, 0 0 5px rgba(57, 231, 95, .65);
+    pointer-events: none;
 }
 .pizza-icon img { width: 100%; display: block; }
 .pizza-icon:hover img { filter: brightness(1.2); }
