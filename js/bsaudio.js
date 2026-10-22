@@ -78,7 +78,7 @@ const PU_AUDIO = (() => {
         if (isMusic(evName)) { startMusic(file); return; }
         const a = makeAudio('../_audio/' + file, instanced);
         sfx.add(a);
-        if (instanced) instances.push({ el: a });
+        if (instanced) instances.push({ el: a, ev: evName });
         a.addEventListener('ended', () => {
             sfx.delete(a); a.src = '';
             const i = instances.findIndex(x => x.el === a);
@@ -87,13 +87,18 @@ const PU_AUDIO = (() => {
         if (sfx.size > 24) { const f = sfx.values().next().value; f.pause(); sfx.delete(f); }
     }
 
-    function doStop() {
-        if (instances.length) {
-            const { el } = instances.pop();
-            el.pause(); sfx.delete(el);
-        } else if (musicEl) {
-            musicEl.pause(); musicEl = null; musicKey = null;
+    function doStop(evName) {
+        // fmod:stop: protocol carries the real event path — match it
+        if (evName) {
+            if (isMusic(evName)) { if (musicEl) { musicEl.pause(); musicEl = null; musicKey = null; } return; }
+            const idx = instances.map(x => x.ev).lastIndexOf(evName);
+            if (idx >= 0) { const { el } = instances.splice(idx, 1)[0]; el.pause(); sfx.delete(el); }
+            return;
         }
+        // butterscotch heuristic — uncorrelated stop kills newest instance, else music
+        const inst = instances.pop();
+        if (inst) { inst.el.pause(); sfx.delete(inst.el); }
+        else if (musicEl) { musicEl.pause(); musicEl = null; musicKey = null; }
     }
 
     function stopAll() {
@@ -126,7 +131,16 @@ const PU_AUDIO = (() => {
     }
 
     function handleLine(t) {
-        let i = t.indexOf('Window title set to:');
+        // fmod_gms_shim protocol (official HTML5 exports) — real event paths
+        let i = t.indexOf('fmod:play:');
+        if (i >= 0) { playNow(t.slice(i + 10).trim(), true); return; }
+        i = t.indexOf('fmod:shot:');
+        if (i >= 0) { playNow(t.slice(i + 10).trim(), false); return; }
+        i = t.indexOf('fmod:stop:');
+        if (i >= 0) { doStop(t.slice(i + 10).trim()); return; }
+        if (t.indexOf('fmod:') >= 0) return; // create/bank — informational only
+
+        i = t.indexOf('Window title set to:');
         if (i >= 0) { onCaption(t.slice(i + 20).trim().replace(/^"|"$/g, '')); return; }
         i = t.indexOf('event:');
         if (i >= 0) {

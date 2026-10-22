@@ -9,8 +9,13 @@ const fs = require('fs');
 const path = require('path');
 const root = __dirname;
 
-// where the bundle is hosted — everything the stub needs resolves from here
-const SITE_ORIGIN = process.env.PU_ORIGIN || 'https://pizza-unblocked.kriscrossxx.workers.dev';
+// candidate hosts for the stub to pull the bundle from, tried in order —
+// whichever one answers becomes the base for all game links
+const HOSTS = [
+    'https://pizzaunblocked.b-cdn.net',
+    'https://kriscrossxx.github.io/PizzaUnblocked',
+    'https://pizza-unblocked.kriscrossxx.workers.dev',
+];
 
 const MIME = { png: 'image/png', gif: 'image/gif', mp3: 'audio/mpeg', ogg: 'audio/ogg', ttf: 'font/ttf', ico: 'image/x-icon', jpg: 'image/jpeg' };
 function dataUri(rel) {
@@ -55,11 +60,11 @@ for (const k in uriMap) catalog = catalog.replaceAll(`'${k}'`, `'${uriMap[k]}'`)
 music = inlineAssets(music); device = inlineAssets(device); cards = inlineAssets(cards);
 mods = inlineAssets(mods); extras = inlineAssets(extras); main = inlineAssets(main);
 
-// pin document.baseURI to the hosted site so game links launch from the real
-// origin even when the bundle runs inside the file:// loader stub
+// baseURI comes from the host that served the bundle (stub sets window.PU_HOST
+// before writing the doc); standalone/local use falls back to its own dir
 main = main.replace(
     "appBase.href = location.pathname.replace(/[^/]*$/, '');",
-    `appBase.href = '${SITE_ORIGIN}/';`
+    "appBase.href = (window.PU_HOST ? window.PU_HOST + '/' : location.pathname.replace(/[^/]*$/, ''));"
 );
 
 // extract index body content (logo, icons, menu, pizza-icon, popups)
@@ -95,8 +100,9 @@ ${bodyCore}
 
 fs.writeFileSync(path.join(root, 'pusinglefile.html'), html);
 
-// loader stub — the file you actually share. Fetches the hosted bundle and
-// writes it into the current document, so the real domain never hits history.
+// loader stub — the file you actually share. Tries each host in order, then
+// document.writes the bundle in with a PU_HOST var first so game links resolve
+// against whichever origin answered. The real domain never hits history.
 const stub = `<!DOCTYPE html>
 <html>
 <head>
@@ -107,14 +113,18 @@ const stub = `<!DOCTYPE html>
 <body>
 <p>loading pizza unblocked...</p>
 <script>
-fetch("${SITE_ORIGIN}/pusinglefile.html")
-  .then(r => r.text())
-  .then(h => {
-    document.open();
-    document.write(h);
-    document.close();
-  })
-  .catch(e => alert(e));
+var HOSTS = ${JSON.stringify(HOSTS)};
+(function go(i){
+  if (i >= HOSTS.length) { document.body.innerHTML = "pizza unblocked isn't deployed yet"; return; }
+  fetch(HOSTS[i] + "/pusinglefile.html")
+    .then(r => { if (!r.ok) throw 0; return r.text(); })
+    .then(h => {
+      document.open();
+      document.write('<script>var PU_HOST="' + HOSTS[i] + '";<\\/script>' + h);
+      document.close();
+    })
+    .catch(() => go(i + 1));
+})(0);
 </script>
 </body>
 </html>
@@ -122,4 +132,4 @@ fetch("${SITE_ORIGIN}/pusinglefile.html")
 fs.writeFileSync(path.join(root, 'pizza-unblocked.html'), stub);
 
 console.log('wrote pusinglefile.html', (html.length / 1024 / 1024).toFixed(1) + 'MB');
-console.log('wrote pizza-unblocked.html (stub → ' + SITE_ORIGIN + ')');
+console.log('wrote pizza-unblocked.html (stub → ' + HOSTS.join(' → ') + ')');

@@ -4,6 +4,7 @@
 // Site themes: bg = background image, song = music track.
 // cls = optional extra class on .bgimg.
 const PU_THEMES = [
+    { name: 'pizzascare',     bg: 'assets/halloween.png',     song: 'assets/theme-halloween.ogg' },
     { name: 'the tower',      bg: 'assets/bg.gif',            song: 'assets/theme.mp3' },
     { name: 'oregano desert', bg: 'assets/bg-desert.webp',    song: 'assets/theme-desert.ogg' },
     { name: 'pizzaland',      bg: 'assets/bg-pizzaland.webp', song: 'assets/theme-funiculi.ogg' },
