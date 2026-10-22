@@ -33,6 +33,7 @@ let extras = fs.readFileSync(path.join(root, 'js/extras.js'), 'utf8');
 let main = fs.readFileSync(path.join(root, 'js/main.js'), 'utf8');
 let saves = fs.readFileSync(path.join(root, 'js/saves.js'), 'utf8');
 let savepop = fs.readFileSync(path.join(root, 'js/savepop.js'), 'utf8');
+let swreg = fs.readFileSync(path.join(root, 'swreg.js'), 'utf8');
 
 // inline the bundled 101% save files so the popup works standalone
 const saveDir = path.join(root, 'assets/saves101');
@@ -64,12 +65,14 @@ mods = inlineAssets(mods); extras = inlineAssets(extras); main = inlineAssets(ma
 // before writing the doc); standalone/local use falls back to its own dir
 main = main.replace(
     "appBase.href = location.pathname.replace(/[^/]*$/, '');",
-    "appBase.href = (window.PU_HOST ? window.PU_HOST + '/' : location.pathname.replace(/[^/]*$/, ''));"
+    "appBase.href = (window.PU_HOST ? window.PU_HOST + '/' : (location.protocol === 'file:' ? '" + HOSTS[0] + "/' : location.pathname.replace(/[^/]*$/, '')));"
 );
 
-// extract index body content (logo, icons, menu, pizza-icon, popups)
+// extract index body content (logo, icons, menu, pizza-icon, popups) —
+// run its asset refs through inlineAssets too so the bundle is complete
+// even when opened directly as a local file (no host base to resolve against)
 const bodyMatch = index.match(/<body>([\s\S]*)<\/body>/)[1];
-const bodyCore = bodyMatch.replace(/<script[\s\S]*?<\/script>/g, '');
+const bodyCore = inlineAssets(bodyMatch.replace(/<script[\s\S]*?<\/script>/g, ''));
 
 const html = `<!DOCTYPE html>
 <html lang="en">
@@ -91,6 +94,7 @@ ${bodyCore}
 <script>${mods}</script>
 <script>${extras}</script>
 <script>${main}</script>
+<script>${swreg}</script>
 <script>window.PU_SAVE101=${JSON.stringify(save101)};</script>
 <script>${saves}</script>
 <script>${savepop}</script>
