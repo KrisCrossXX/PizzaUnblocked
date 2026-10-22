@@ -6,10 +6,13 @@
 (function () {
     if (window.__puTouch) return;
 
-    const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0
-        || (window.matchMedia && matchMedia('(pointer: coarse)').matches);
+    // Prefer the primary pointer type. Desktop browsers can expose
+    // `ontouchstart` and `maxTouchPoints` even when a mouse/keyboard is the
+    // active input, which incorrectly overlays giant controls on PC.
+    const isTouchDevice = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches
+        && !matchMedia('(pointer: fine)').matches);
     let enabled = localStorage.getItem('pu_touch') != null
-        ? localStorage.getItem('pu_touch') === 'on'
+        ? localStorage.getItem('pu_touch') === 'on' && isTouchDevice
         : isTouchDevice;
 
     const held = new Set();

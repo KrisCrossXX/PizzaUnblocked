@@ -1,11 +1,17 @@
 // shared card renderer + sfx for mods/extras pages
+function siteAssetUrl(path) {
+    if (window.PU_HOST) return new URL(path, window.PU_HOST.replace(/\/?$/, '/') ).href;
+    if (location.protocol === 'file:') return new URL(path, location.pathname.replace(/[^/]*$/, '')).href;
+    return new URL(path, location.origin + '/').href;
+}
+
 function renderCards(gridEl, emptyEl, list) {
     for (const g of list) {
         const a = document.createElement('a');
         a.className = 'card';
         a.href = 'games/' + g.dir + '/';
         const thumbnail = g.img.startsWith('assets/')
-            ? new URL(g.img, location.origin + '/').href
+            ? siteAssetUrl(g.img)
             : g.img;
         a.innerHTML =
             `<div class="thumb"><img src="${thumbnail}" alt="${g.name}"><button class="dots" tabindex="-1">⋮</button></div>` +

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cheesy Chasedown</title>
+<style>
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+#canvas { width: 100vw; height: 100vh; display: block; image-rendering: pixelated; }
+#msg { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+       color: #fff; font-family: monospace; font-size: 20px; background: #000; z-index: 9; }
+#msg[hidden] { display: none; }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div id="msg">loading…</div>
+<script src="../../js/saves.js"></script>
+<script src="../../js/bsaudio.js"></script>
+<script type="module">
+const canvas = document.getElementById('canvas');
+const msg = document.getElementById('msg');
+
+// auto-fullscreen: needs a user gesture, so attempt now and retry on first input
+const goFS = () => {
+    if (!document.fullscreenElement)
+        (document.documentElement.requestFullscreen() || Promise.reject()).catch(() => {});
+};
+goFS();
+addEventListener('pointerdown', ()=>{goFS();PU_AUDIO.unlock();});
+addEventListener('keydown', ()=>{goFS();PU_AUDIO.unlock();});
+
+try {
+    const { default: createModule } = await import('./butterscotch.mjs');
+    const Module = await createModule({
+        canvas,
+        print: t => { console.log('[bs]', t); try{PU_AUDIO.handleLine(t)}catch{} },
+        printErr: t => console.error('[bs]', t),
+    });
+
+    msg.textContent = 'loading wad…';
+    const files = await fetch('files.json').then(r => r.json());
+    let done = 0;
+    for (const f of files) {
+        const buf = await fetch(f).then(r => r.arrayBuffer());
+        const parts = f.split('/');
+        if (parts.length > 1) Module.FS_createPath('/', parts.slice(0, -1).join('/'), true, true);
+        Module.FS.writeFile('/' + f, new Uint8Array(buf));
+        msg.textContent = `loading files… ${++done}/${files.length}`;
+    }
+    const buf = await fetch('data.win').then(r => r.arrayBuffer());
+    Module.FS.writeFile('/data.win', new Uint8Array(buf));
+    msg.textContent = 'parsing…';
+
+    const dw = Module._parseDataWin(Module.stringToNewUTF8('/data.win'));
+    if (dw) {
+        const name = Module.UTF8ToString(Module._getGameDisplayName(dw));
+        console.log('[bs] parsed:', name);
+        document.title = name + ' — Pizza Unblocked';
+        Module._freeDataWin(dw);
+    }
+
+    try { await Module._mountOpfs(); } catch (e) { console.warn('opfs mount failed', e); }
+    const saveKey = PU_SAVES.dirKeyFromPath();
+    Module.FS_createPath('/', 'saves', true, true);
+    await PU_SAVES.restore(Module, saveKey);
+    await PU_SAVES.injectIfPending(Module, saveKey);
+
+    // input wiring — butterscotch takes raw DOM keyCodes
+    addEventListener('keydown', e => { if (!e.repeat) Module._onKeyDown(e.keyCode); });
+    addEventListener('keyup', e => Module._onKeyUp(e.keyCode));
+    canvas.addEventListener('mousemove', e => Module._onMouseMove(e.offsetX, e.offsetY));
+    canvas.addEventListener('mousedown', e => Module._onMouseDown(e.button));
+    canvas.addEventListener('mouseup', e => Module._onMouseUp(e.button));
+    canvas.addEventListener('contextmenu', e => e.preventDefault());
+
+    msg.textContent = 'starting…';
+    const args = ['/data.win', '--save-folder', '/saves'];
+    const argv = Module._malloc((args.length + 1) * 4);
+    args.forEach((a, i) => Module.setValue(argv + i * 4, Module.stringToNewUTF8(a), '*'));
+    Module.setValue(argv + args.length * 4, 0, '*');
+    await PU_AUDIO.load();
+    msg.hidden = true;
+    goFS();
+    PU_SAVES.arm(Module, saveKey);
+    await Module._startRunner(args.length, argv);
+} catch (e) {
+    msg.hidden = false;
+    msg.textContent = 'error: ' + (e && e.message || e);
+    console.error(e);
+}
+</script>
+  <script src="../../js/crashlog.js"></script><script src="../../js/gamepad.js"></script><script src="../../js/touch.js"></script><script src="../../js/panic.js"></script>
+</body>
+</html>
