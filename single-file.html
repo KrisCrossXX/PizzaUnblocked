@@ -404,11 +404,9 @@ body {
 /* game overlay — in-page iframe so game URLs never hit the address bar */
 #gameOverlay { position: fixed; inset: 0; z-index: 500; background: #000; display: flex; flex-direction: column; }
 #gameOverlay iframe { flex: 1; width: 100%; border: 0; display: block; background: #000; }
-#gameOverlay .go-top { flex: 0 0 34px; display: flex; align-items: center; gap: 10px; padding: 0 10px; background: #14100c; font-family: 'PT Pig', monospace; }
-#gameOverlay .go-top button { background: #2a211a; color: #f3e3c2; border: 1px solid #4a3a2a; border-radius: 6px; padding: 4px 12px; font: inherit; font-size: .85rem; cursor: pointer; }
-#gameOverlay .go-top button:hover { filter: brightness(1.3); }
-#gameOverlay .go-title { color: #c9a877; font-size: .85rem; flex: 1; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-#gameOverlay .go-fs { margin-left: auto; }
+#gameOverlay .game-home { position: absolute; top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); z-index: 1; padding: 8px 14px; border: 2px solid #ffd75e; border-radius: 6px; background: #14100ce6; color: #ffd75e; font-family: 'ptsmall', 'Courier New', monospace; font-size: 24px; line-height: 1; text-shadow: 2px 2px #000; cursor: pointer; }
+#gameOverlay .game-home:hover { background: #352510; }
+#gameOverlay .game-home:focus-visible { outline: 3px solid white; outline-offset: 3px; }
 
 /* credits page — toby-style cards */
 .cr-wrap { width: min(1100px, 94vw); margin: 12vh auto 40px; }
@@ -416,15 +414,15 @@ body {
 .cr-row { display: flex; flex-wrap: wrap; gap: 12px; }
 .cr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
 .cr-card { display: flex; align-items: center; gap: 10px; background: rgba(20,16,12,.92); border: 2px solid #4a3a2a; border-radius: 10px; padding: 10px 12px; min-width: 0; }
-.cr-ava { width: 46px; height: 46px; object-fit: cover; border-radius: 8px; background: #241d16; flex: 0 0 46px; }
-.cr-letter { display: flex; align-items: center; justify-content: center; font-family: 'PT Pig', monospace; font-size: 1.5rem; color: #ffd75e; }
+.cr-ava { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; background: #241d16; flex: 0 0 72px; }
+.cr-letter { display: flex; align-items: center; justify-content: center; font-family: 'PT Pig', monospace; font-size: 2.2rem; color: #ffd75e; }
 .cr-info { display: flex; flex-direction: column; min-width: 0; }
 .cr-name { color: #fff4e0; font-size: 1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cr-role { color: #b8a89a; font-size: .85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cr-row-tiny { margin-top: 10px; }
 .cr-tiny { padding: 6px 10px; border-radius: 8px; }
-.cr-tiny .cr-ava { width: 30px; height: 30px; flex-basis: 30px; }
-.cr-tiny .cr-letter { font-size: 1rem; }
+.cr-tiny .cr-ava { width: 46px; height: 46px; flex-basis: 46px; }
+.cr-tiny .cr-letter { font-size: 1.4rem; }
 .cr-tiny .cr-name { font-size: .85rem; }
 .cr-tiny .cr-role { font-size: .72rem; }
 </style></head><body>
@@ -766,9 +764,9 @@ const CHANGELOG = [
 // credits page — site credits + per-game credits (toby-style card grid)
 const SITE_CREDITS = [
     { name: 'floridiann', role: 'made the site', img: 'https://cdn.discordapp.com/avatars/1546007490624364647/9f159cd4a895dad5df44a91a4cee02d3.webp?size=128' },
-    { name: 'devin', role: 'site dev, parts and bugfixes' },
-    { name: 'chatgpt', role: 'site dev help' },
-    { name: 'mcpig', role: 'made pizza tower' },
+    { name: 'devin', role: 'site dev, parts and bugfixes', img: 'https://pizza-tower-9iw.pages.dev/assets/pfp-devin.png' },
+    { name: 'chatgpt', role: 'site dev help', img: 'https://pizza-tower-9iw.pages.dev/assets/pfp-chatgpt.png' },
+    { name: 'mcpig', role: 'made pizza tower', img: 'https://pizza-tower-9iw.pages.dev/assets/pfp-mcpig.png' },
 ];
 
 // helpers — tiny cards under the main row
@@ -1259,15 +1257,13 @@ function openGame(a) {
     gameOverlay = document.createElement('div');
     gameOverlay.id = 'gameOverlay';
     gameOverlay.innerHTML =
-        '<div class="go-top"><button class="go-back">&#8249; menu</button><span class="go-title"></span>' +
-        '<button class="go-fs">&#9974; fullscreen</button></div>' +
+        '<button class="game-home" type="button" aria-label="Home — main menu">home</button>' +
         '<iframe allowfullscreen allow="autoplay; fullscreen; gamepad; cross-origin-isolated"></iframe>';
-    gameOverlay.querySelector('.go-title').textContent = name;
+    gameOverlay.querySelector('iframe').title = name;
     gameOverlay.querySelector('iframe').src = url;
-    gameOverlay.querySelector('.go-back').addEventListener('click', () => history.back());
-    gameOverlay.querySelector('.go-fs').addEventListener('click', () => {
-        const f = gameOverlay.querySelector('iframe');
-        (document.fullscreenElement ? document.exitFullscreen() : f.requestFullscreen()).catch(() => {});
+    gameOverlay.querySelector('.game-home').addEventListener('click', () => {
+        closeGame();
+        showPage('home', false);
     });
     document.body.appendChild(gameOverlay);
     document.body.dataset.gameOpen = '1';
