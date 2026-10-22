@@ -44,12 +44,44 @@ async function downloadFile(name) {
         setTimeout(() => URL.revokeObjectURL(a.href), 5000);
     } catch { /* host unreachable */ }
 }
-document.getElementById('dlHtml').addEventListener('click', () => downloadFile('single-file.html'));
-document.getElementById('dlSvg').addEventListener('click', () => downloadFile('single-file.svg'));
+document.getElementById('dlHtml')?.addEventListener('click', () => downloadFile('single-file.html'));
+document.getElementById('dlSvg')?.addEventListener('click', () => downloadFile('single-file.svg'));
 const pizzaBtn = document.querySelector('.pizza-icon');
 pizzaBtn.removeAttribute('onclick');
 pizzaBtn.title = 'discord';
 pizzaBtn.addEventListener('click', () => window.open(DISCORD_URL, '_blank'));
+
+// Live count of visible browsers connected to the main site.
+(() => {
+    const badge = document.getElementById('viewerCount');
+    if (!badge || !('WebSocket' in window)) return;
+    const endpoint = 'wss://pizza-viewer-count.sm64noahm.workers.dev/ws';
+    let socket, retryTimer, pingTimer;
+    function disconnect() {
+        clearTimeout(retryTimer);
+        clearInterval(pingTimer);
+        if (socket) { socket.onclose = null; socket.close(); socket = null; }
+    }
+    function connect() {
+        disconnect();
+        if (document.visibilityState !== 'visible') return;
+        socket = new WebSocket(endpoint);
+        socket.onmessage = event => {
+            try {
+                const count = Number(JSON.parse(event.data).viewers);
+                if (Number.isInteger(count) && count >= 0) {
+                    badge.textContent = `${count} viewing`;
+                    badge.title = `${count} people currently viewing this site`;
+                }
+            } catch { /* ignore malformed updates */ }
+        };
+        socket.onopen = () => { pingTimer = setInterval(() => socket?.readyState === WebSocket.OPEN && socket.send('ping'), 25000); };
+        socket.onclose = () => { clearInterval(pingTimer); if (document.visibilityState === 'visible') retryTimer = setTimeout(connect, 5000); };
+        socket.onerror = () => socket?.close();
+    }
+    document.addEventListener('visibilitychange', () => document.visibilityState === 'visible' ? connect() : disconnect());
+    connect();
+})();
 
 // ---------- changelog ----------
 function renderChangelog() {
@@ -229,7 +261,16 @@ const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras', c
 // pushed paths like index.html/mods would break relative links (games/, assets/)
 // — pin document.baseURI to the app directory so they always resolve correctly.
 const appBase = document.createElement('base');
-appBase.href = location.pathname.replace(/[^/]*$/, '');
+// Game payloads only exist on the Bunny CDN (shell mirrors like pages.dev
+// don't have the >25MB files). Resolve relative links (games/, assets/)
+// against Bunny whenever we're served from any other remote host; the
+// single-file stubs inject window.PU_HOST for the same purpose.
+const REMOTE_SHELL = location.protocol !== 'file:'
+    && !/^(localhost|127\.|10\.|192\.168\.)/.test(location.hostname)
+    && !location.hostname.endsWith('b-cdn.net');
+appBase.href = window.PU_HOST ? window.PU_HOST + '/'
+    : REMOTE_SHELL ? 'https://pizzaunblocked.b-cdn.net/'
+    : location.pathname.replace(/[^/]*$/, '');
 document.head.prepend(appBase);
 function viewFromUrl() {
     const m = location.pathname.match(/\/(mods|extras|credits)\/?$/)
@@ -265,7 +306,10 @@ function showPage(name, push = true) {
 // and COI headers still apply inside it.
 let gameOverlay = null;
 function openGame(a) {
-    const url = a.href; // already resolved against <base> = the real host
+    const target = new URL(a.href); // the game files live on the asset host
+    target.protocol = 'https:';
+    target.host = 'pizzaunblocked.b-cdn.net';
+    const url = target.href;
     const name = (a.querySelector('.cname') || {}).textContent || a.getAttribute('title') || 'game';
     if (gameOverlay) gameOverlay.remove();
     gameOverlay = document.createElement('div');
