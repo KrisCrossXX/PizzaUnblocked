@@ -9,13 +9,16 @@ const fs = require('fs');
 const path = require('path');
 const root = __dirname;
 
-// candidate hosts for the stub to pull the bundle from, tried in order —
-// whichever one answers becomes the base for all game links
+// candidate hosts for the stub to pull the bundle from, tried in order
 const HOSTS = [
+    'https://pizza-tower-9iw.pages.dev',
     'https://pizzaunblocked.b-cdn.net',
     'https://kriscrossxx.github.io/PizzaUnblocked',
     'https://pizza-unblocked.kriscrossxx.workers.dev',
 ];
+// game + asset links always resolve here — the only host with the full payload
+// (pages.dev drops the big chunked game files)
+const GAME_HOST = 'https://pizzaunblocked.b-cdn.net';
 
 const MIME = { png: 'image/png', gif: 'image/gif', mp3: 'audio/mpeg', ogg: 'audio/ogg', ttf: 'font/ttf', ico: 'image/x-icon', jpg: 'image/jpeg' };
 function dataUri(rel) {
@@ -65,7 +68,7 @@ mods = inlineAssets(mods); extras = inlineAssets(extras); main = inlineAssets(ma
 // before writing the doc); standalone/local use falls back to its own dir
 main = main.replace(
     "appBase.href = location.pathname.replace(/[^/]*$/, '');",
-    "appBase.href = (window.PU_HOST ? window.PU_HOST + '/' : (location.protocol === 'file:' ? '" + HOSTS[0] + "/' : location.pathname.replace(/[^/]*$/, '')));"
+    "appBase.href = ((window.PU_HOST || '" + GAME_HOST + "') + '/');"
 );
 
 // extract index body content (logo, icons, menu, pizza-icon, popups) —
@@ -126,7 +129,7 @@ var HOSTS = ${JSON.stringify(HOSTS)};
     .then(r => { if (!r.ok) throw 0; return r.text(); })
     .then(h => {
       document.open();
-      document.write('<script>var PU_HOST="' + HOSTS[i] + '";<\\/script>' + h);
+      document.write('<script>var PU_HOST="${GAME_HOST}";<\\/script>' + h);
       document.close();
     })
     .catch(() => go(i + 1));
@@ -154,7 +157,7 @@ document.getElementById('site').appendChild(frame);
   if (i >= HOSTS.length) { frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">pizza unblocked is unreachable right now</body>'; return; }
   fetch(HOSTS[i] + '/pusinglefile.html?v=${Date.now()}', { cache: 'no-store' })
     .then(function (r) { if (!r.ok) throw 0; return r.text(); })
-    .then(function (h) { frame.srcdoc = '<script>var PU_HOST="' + HOSTS[i] + '";<\\/script>' + h; })
+    .then(function (h) { frame.srcdoc = '<script>var PU_HOST="${GAME_HOST}";<\\/script>' + h; })
     .catch(function () { go(i + 1); });
 })(0);
 ]]></script></svg>
