@@ -718,7 +718,7 @@ const FANGAMES = [
    groups = array of { label, items[] } rendered in order. */
 const CHANGELOG = [
     {
-        title: 'update 1.2',
+        title: 'update 1.1 hotfix',
         date: 'october 24, 2026',
         groups: [
             { label: 'new web games', items: [
@@ -735,6 +735,11 @@ const CHANGELOG = [
             { label: 'new features', items: [
                 'itch.io web games open right in the game overlay',
                 'save inject works on pages.dev mirrors (postMessage bridge)',
+            ]},
+            { label: 'fixes', items: [
+                'itch.io games hit itch\'s hotlink wall — now proxied through our worker so they play',
+                'godot web games boot again (cross-origin isolation headers on every mirror)',
+                'beeder\'s big adventure source link works',
             ]},
         ],
     },
