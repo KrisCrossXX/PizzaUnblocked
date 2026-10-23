@@ -1603,13 +1603,10 @@ function showPage(name, push = true) {
 // and COI headers still apply inside it.
 let gameOverlay = null;
 function openGame(a) {
-    const gameBase = !window.PU_HOST && location.hostname.endsWith('.pages.dev')
-        ? 'https://pizza-game-module-proxy.sm64noahm.workers.dev/'
-        : appBase.href;
-    // category links (mods/<dir>, extras/<dir>) are cosmetic — payloads live
-    // under games/<dir> on every origin; the proxy also maps them for pages.dev
+    // Keep game files on the same host as this copy of the site. Each mirror
+    // must carry its own /games tree so a blocked proxy cannot break play.
     const href = a.getAttribute('href').replace(/^(?:mods|extras)\//, 'games/');
-    const target = new URL(href, gameBase);
+    const target = new URL(href, appBase.href);
     const url = target.href;
     const name = (a.querySelector('.cname') || {}).textContent || a.getAttribute('title') || 'game';
     if (gameOverlay) gameOverlay.remove();
