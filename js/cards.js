@@ -9,7 +9,7 @@ function renderCards(gridEl, emptyEl, list) {
     for (const g of list) {
         const a = document.createElement('a');
         a.className = 'card';
-        a.href = 'games/' + g.dir + '/';
+        a.href = g.ext || 'games/' + g.dir + '/';
         const thumbnail = g.img.startsWith('assets/')
             ? siteAssetUrl(g.img)
             : g.img;
