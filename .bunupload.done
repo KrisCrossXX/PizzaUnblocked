@@ -1812,9 +1812,7 @@ games/cheesypizza/game_shaderfixed.unx.part.000
 index.html
 js/cards.js
 js/catalog.js
-js/credits.js
 games/toadlegette/runner.wasm
-js/main.js
 sw.js
 games/laphell/data.win.part.001
 games/toadlegette/game.unx
@@ -1938,6 +1936,15 @@ games/cheesychasedown/sound/Desktop/music.bank
 js/savepop.js
 js/saves.js
 js/gsaves.js
+workers/game-module-proxy/cloudflare.config.ts
+workers/game-module-proxy/.gitignore
 single-file.html
 single-file.svg
+js/main.js
+workers/game-module-proxy/package-lock.json
+js/credits.js
+workers/game-module-proxy/vite.config.ts
+workers/game-module-proxy/tsconfig.json
+workers/game-module-proxy/src/index.ts
+workers/game-module-proxy/package.json
 pusinglefile.html

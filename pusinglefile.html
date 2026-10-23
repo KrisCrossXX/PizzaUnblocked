@@ -1433,7 +1433,7 @@ function showPage(name, push = true) {
 let gameOverlay = null;
 function openGame(a) {
     const gameBase = !window.PU_HOST && location.hostname.endsWith('.pages.dev')
-        ? 'https://pizzaunblocked.b-cdn.net/'
+        ? 'https://pizza-game-module-proxy.sm64noahm.workers.dev/'
         : appBase.href;
     const target = new URL(a.getAttribute('href'), gameBase);
     const url = target.href;
