@@ -305,7 +305,10 @@ function openGame(a) {
     const gameBase = !window.PU_HOST && location.hostname.endsWith('.pages.dev')
         ? 'https://pizza-game-module-proxy.sm64noahm.workers.dev/'
         : appBase.href;
-    const target = new URL(a.getAttribute('href'), gameBase);
+    // category links (mods/<dir>, extras/<dir>) are cosmetic — payloads live
+    // under games/<dir> on every origin; the proxy also maps them for pages.dev
+    const href = a.getAttribute('href').replace(/^(?:mods|extras)\//, 'games/');
+    const target = new URL(href, gameBase);
     const url = target.href;
     const name = (a.querySelector('.cname') || {}).textContent || a.getAttribute('title') || 'game';
     if (gameOverlay) gameOverlay.remove();

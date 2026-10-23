@@ -619,7 +619,6 @@ const MODS = [
     { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', save101: true, img: 'assets/thumb-scoutdigo.png' },
     { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', save101: true, img: 'assets/thumb-coop.png' },
     { name: 'loco tower', desc: '', dir: 'locotower', img: 'assets/thumb-loco.png' },
-    { name: 'stuffed crust', desc: '', dir: 'stuffedcrust', save101: true, img: 'assets/thumb-stuffed.png' },
     { name: "chef's kiss", desc: '', dir: 'chefskiss', save101: true, img: 'assets/thumb-chefskiss.png' },
     { name: 'final round', desc: '', dir: 'finalround', save101: true, img: 'assets/thumb-finalround.png' },
     { name: 'pizza massacre', desc: '', dir: 'pizzamassacre', img: 'assets/thumb-pizzamassacre.png' },
@@ -634,9 +633,9 @@ const MODS = [
     { name: 'demo 3', desc: 'leaked dev build', dir: 'demo3', img: 'assets/thumb-demo3.png' },
     { name: 'pt: gba edition', desc: '', dir: 'ptgba', img: 'assets/thumb-ptgba.png' },
     { name: 'pt: april 2021 build', desc: 'early dev build', dir: 'april2021', img: 'assets/thumb-april2021.png' },
-    { name: 'PT: Cheesed Up', desc: 'B1.5.4 web port', dir: 'cheesypizza', save101: true, img: 'assets/thumb-cheesypizza.png' },
-    { name: 'PT: Chessey Chasedown', desc: 'Cheesy Chasedown web port', dir: 'cheesychasedown', save101: true, img: 'assets/thumb-cheesychasedown.png' },
-    { name: 'lap hell: pp pursuit', desc: 'butterscotch web port', dir: 'laphell', save101: true, img: 'assets/thumb-laphell.png' },
+    { name: 'PT: Cheesed Up', desc: 'B1.5.4 web port', category: 'mods', dir: 'cheesypizza', save101: true, img: 'assets/thumb-cheesypizza.png' },
+    { name: 'PT: Chessey Chasedown', desc: 'Cheesy Chasedown web port', category: 'mods', dir: 'cheesychasedown', save101: true, img: 'assets/thumb-cheesychasedown.png' },
+    { name: 'lap hell: pp pursuit', desc: 'butterscotch web port', category: 'mods', dir: 'laphell', save101: true, img: 'assets/thumb-laphell.png' },
 ];
 
 const FANGAMES = [
@@ -663,9 +662,9 @@ const FANGAMES = [
     { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'assets/thumb-toobigtofail.png' },
     { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-onafpeppino.png' },
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
-    { name: 'toadlegette', desc: '', dir: 'toadlegette', save: true, img: 'assets/thumb-ptwv.png' },
-    { name: 'beeder\'s big adventure', desc: '', dir: 'beeders', save: true, img: 'assets/thumb-demo1.png' },
-    { name: 'idlv', desc: '', dir: 'ihv', save: true, img: 'assets/thumb-noisecrusher.png' },
+    { name: 'toadlegette', desc: '', category: 'extras', dir: 'toadlegette', save: true, img: 'assets/thumb-toadlegette.svg' },
+    { name: 'beeder\'s big adventure', desc: '', category: 'extras', dir: 'beeders', save: true, img: 'assets/thumb-beeders.png' },
+    { name: 'idlv', desc: '', category: 'extras', dir: 'ihv', save: true, img: 'assets/thumb-idlv.png' },
     { name: 'pizza tower academy', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/8187799/index.html', img: 'assets/thumb-ext/pizza-tower-academy-dating-sim.png' },
     { name: 'pizza tower dating sim', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/8051572/index.html', img: 'assets/thumb-ext/pizza-tower-date-sim.png' },
     { name: 'pizza tower webport', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/17123780/index.html', img: 'assets/thumb-ext/pizza-tower-webport.jpg' },
@@ -1235,7 +1234,7 @@ const ITCH_PROXY = 'https://pizza-game-module-proxy.sm64noahm.workers.dev/itch/'
 // itch's htmlgame.js redirects non-itch embeds to its hotlink wall; route
 // embeds through our proxy which strips that script.
 function gameUrl(g) {
-    if (!g.ext) return 'games/' + g.dir + '/';
+    if (!g.ext) return (g.category || 'games') + '/' + g.dir + '/';
     return g.ext.replace(/^https?:\/\/html(-classic)?\.itch\.zone\/html\//, ITCH_PROXY);
 }
 
@@ -1602,7 +1601,10 @@ function openGame(a) {
     const gameBase = !window.PU_HOST && location.hostname.endsWith('.pages.dev')
         ? 'https://pizza-game-module-proxy.sm64noahm.workers.dev/'
         : appBase.href;
-    const target = new URL(a.getAttribute('href'), gameBase);
+    // category links (mods/<dir>, extras/<dir>) are cosmetic — payloads live
+    // under games/<dir> on every origin; the proxy also maps them for pages.dev
+    const href = a.getAttribute('href').replace(/^(?:mods|extras)\//, 'games/');
+    const target = new URL(href, gameBase);
     const url = target.href;
     const name = (a.querySelector('.cname') || {}).textContent || a.getAttribute('title') || 'game';
     if (gameOverlay) gameOverlay.remove();
@@ -1647,7 +1649,7 @@ document.addEventListener('click', (e) => {
     const href = a.getAttribute('href');
     const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'credits.html' ? 'credits' : href === 'index.html' ? 'home' : null;
     if (view) { e.preventDefault(); showPage(view); return; }
-    if (/^games\//.test(href) || (a.classList.contains('card') && /^https?:/.test(href))) { e.preventDefault(); openGame(a); }
+    if (/^(?:games|mods|extras)\//.test(href) || (a.classList.contains('card') && /^https?:/.test(href))) { e.preventDefault(); openGame(a); }
 });
 // file:// can't pushState, so openGame falls back to location.hash='game' —
 // that hash nav fires popstate too; only close when we've actually left #game.
@@ -1945,7 +1947,7 @@ const PU_SAVES = (() => {
     document.addEventListener('click', (e) => {
         const a = e.target.closest('a[href]');
         if (!a) return;
-        const m = (a.getAttribute('href') || '').match(/^games\/([^/]+)\/?$/);
+        const m = (a.getAttribute('href') || '').match(/^(?:games|mods|extras)\/([^/]+)\/?$/);
         if (!m || !SAVE_DIRS.has(m[1])) return;
         e.preventDefault();
         e.stopImmediatePropagation();
