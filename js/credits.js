@@ -109,8 +109,7 @@ const GAME_CREDITS = {
     'pizza tower in scratch': 'zerpa',
     'pizza tower ripoff': 'its-notalex',
     'sugary spire: world 2 build': 'necogaming12',
-    'sugary descent': 'thediamonds559',
-    'sugary nightmare': 'fava-beans',
+
     'pizza tower engine': 'springtrap45',
     'pizza tower matu build': 'matuthedragoncat',
     'woaging simulator': 'geo789',
@@ -205,8 +204,7 @@ const GAME_CREDIT_LINKS = {
     'pizza tower in scratch': 'https://zerpa.itch.io/pizza-tower-in-scratch3',
     'pizza tower ripoff': 'https://its-notalex.itch.io/pizza-tower-ripoff',
     'sugary spire: world 2 build': 'https://necogaming12.itch.io/sugar-spirey-word-two-clicked-built',
-    'sugary descent': 'https://thediamonds559.itch.io/sugary-descent',
-    'sugary nightmare': 'https://fava-beans.itch.io/sugary-nightmare',
+
     'pizza tower engine': 'https://springtrap45.itch.io/pizza-tower-engine',
     'pizza tower matu build': 'https://matuthedragoncat.itch.io/pizza-tower-matu-build-wip',
     'woaging simulator': 'https://geo789.itch.io/woaging-simulator',

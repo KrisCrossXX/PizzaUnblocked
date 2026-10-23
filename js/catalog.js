@@ -91,8 +91,7 @@ const FANGAMES = [
     { name: 'pizza tower in scratch', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/7709082/index.html?v=1782594742', img: 'assets/thumb-ext/pizza-tower-in-scratch3.png' },
     { name: 'pizza tower ripoff', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/9958073/index.html?v=1782539743', img: 'assets/thumb-ext/pizza-tower-ripoff.png' },
     { name: 'sugary spire: world 2 build', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/8967206/index.html?v=1782680864', img: 'assets/thumb-ext/sugar-spirey-word-two-clicked-built.png' },
-    { name: 'sugary descent', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/6631397/index.html?v=1787767136', img: 'assets/thumb-ext/sugary-descent.png' },
-    { name: 'sugary nightmare', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/9028015/Sugary%20Nightmare%20v3/index.html?v=1782786035', img: 'assets/thumb-ext/sugary-nightmare.jpg' },
+
     { name: 'pizza tower engine', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/10658779/index.html?v=1782986921', img: 'assets/thumb-ext/pizza-tower-engine.jpg' },
     { name: 'pizza tower matu build', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/7576111/index.html?v=1782635104', img: 'assets/thumb-ext/pizza-tower-matu-build-wip.png' },
     { name: 'woaging simulator', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/13211643/index.html?v=1782550514', img: 'assets/thumb-ext/woaging-simulator.png' },
