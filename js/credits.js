@@ -116,6 +116,8 @@ const GAME_CREDITS = {
     'woaging simulator': 'geo789',
     'patrick\'s fortress': 'Sprite.Noise',
     'the noise update in scratch': 'Sunky!',
+    "pizzaface maze idk": "flowcheer",
+    "you, me, & pizzaface": "ZojitrA",
 };
 
 const GAME_CREDIT_LINKS = {
@@ -210,6 +212,8 @@ const GAME_CREDIT_LINKS = {
     'woaging simulator': 'https://geo789.itch.io/woaging-simulator',
     'patrick\'s fortress': 'https://spritenoise.itch.io/patricks-fortressfull-game',
     'the noise update in scratch': 'https://sunkydacooldude.itch.io/noiseiscallingpickupphone',
+    "pizzaface maze idk": "https://flowcheer.itch.io/pizzaface-maze-idk",
+    "you, me, & pizzaface": "https://zojitra.itch.io/you-me-pizzaface",
 };
 
 function creditImage(path) {

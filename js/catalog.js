@@ -98,6 +98,8 @@ const FANGAMES = [
     { name: 'woaging simulator', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/13211643/index.html?v=1782550514', img: 'assets/thumb-ext/woaging-simulator.png' },
     { name: 'patrick\'s fortress', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/15733982/index.html?v=1782829445', img: 'assets/thumb-ext/patricks-fortress.png' },
     { name: 'the noise update in scratch', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/10247986/index.html?v=1783946477', img: 'assets/thumb-ext/noiseiscallingpickupphone.png' },
+    { name: "pizzaface maze idk", desc: "itch.io web game", ext: "https://html.itch.zone/html/9572997/index.html?v=1785116854", img: "assets/thumb-ext/pizzaface-maze-idk.png" },
+    { name: "you, me, & pizzaface", desc: "itch.io web game", ext: "https://html-classic.itch.zone/html/1279310/Tokyo_Boy/index.html?v=1782580412", img: "assets/thumb-ext/you-me-pizzaface.png" },
 ];
 
 /* Changelog entries shown in the changelog popup.
