@@ -1,7 +1,6 @@
 // site mirror — proxies the whole Pizza Unblocked tree to Bunny CDN.
 // Any non-file path falls back to index.html so deep links work.
 const ORIGIN = "https://pizzaunblocked.b-cdn.net";
-const PROXY_HOST = "pizza-game-module-proxy.sm64noahm.workers.dev";
 
 const MIME_TYPES: Record<string, string> = {
 	css: "text/css; charset=utf-8",
@@ -38,7 +37,7 @@ async function upstream(pathname: string, search: string, request: Request): Pro
 	}
 	// game payloads go through the game proxy so this worker stays within
 	// the per-request limits on the free plan.
-	const host = pathname.startsWith("/games/") ? `https://${PROXY_HOST}` : ORIGIN;
+	const host = ORIGIN;
 	const res = await fetch(`${host}${pathname}${search}`, { method: request.method, headers });
 	const rh = new Headers(res.headers);
 	const ext = pathname.split(".").pop()?.toLowerCase() ?? "";
@@ -47,6 +46,8 @@ async function upstream(pathname: string, search: string, request: Request): Pro
 	rh.set("X-Content-Type-Options", "nosniff");
 	rh.delete("Content-Security-Policy");
 	rh.delete("X-Frame-Options");
+	rh.set("Cross-Origin-Opener-Policy", "same-origin");
+	rh.set("Cross-Origin-Embedder-Policy", "credentialless");
 	return new Response(res.body, { status: res.status, statusText: res.statusText, headers: rh });
 }
 

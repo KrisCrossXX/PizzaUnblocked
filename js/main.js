@@ -350,7 +350,7 @@ document.addEventListener('click', (e) => {
     const href = a.getAttribute('href');
     const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'credits.html' ? 'credits' : href === 'index.html' ? 'home' : null;
     if (view) { e.preventDefault(); showPage(view); return; }
-    if (/^games\//.test(href) || (a.classList.contains('card') && /^https?:/.test(href))) { e.preventDefault(); openGame(a); }
+    if (/^(?:games|mods|extras)\//.test(href) || (a.classList.contains('card') && /^https?:/.test(href))) { e.preventDefault(); openGame(a); }
 });
 // file:// can't pushState, so openGame falls back to location.hash='game' —
 // that hash nav fires popstate too; only close when we've actually left #game.

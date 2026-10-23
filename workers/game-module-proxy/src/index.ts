@@ -25,6 +25,39 @@ const MIME_TYPES: Record<string, string> = {
 
 const ITCH_ORIGIN = "https://html-classic.itch.zone";
 
+// Category URLs are the public links; keep each game payload in its own
+// /games/<slug>/ directory on the static origin.
+const CATEGORY_GAMES: Record<string, string> = {
+	"/mods/cheesypizza": "cheesypizza",
+	"/mods/cheesychasedown": "cheesychasedown",
+	"/mods/laphell": "laphell",
+	"/extras/toadlegette": "toadlegette",
+	"/extras/beeders": "beeders",
+	"/extras/ihv": "ihv",
+};
+
+const SHARED_GAME_SCRIPTS = new Set([
+	"/js/bsaudio.js",
+	"/js/crashlog.js",
+	"/js/gamepad.js",
+	"/js/gsaves.js",
+	"/js/panic.js",
+	"/js/saves.js",
+	"/js/touch.js",
+]);
+
+function gameOriginPath(pathname: string): string | null {
+	if (pathname.startsWith("/games/")) return pathname;
+	if (SHARED_GAME_SCRIPTS.has(pathname)) return pathname;
+	for (const [prefix, slug] of Object.entries(CATEGORY_GAMES)) {
+		if (pathname === prefix || pathname.startsWith(prefix + "/")) {
+			const suffix = pathname.slice(prefix.length);
+			return `/games/${slug}${suffix}`;
+		}
+	}
+	return null;
+}
+
 // itch.io injects static.itch.io/htmlgame.js into every HTML5 game page; it
 // reads ancestorOrigins/referrer and redirects non-itch parents to the
 // embed-hotlink wall. Strip it plus any inline hotlink/beacon scripts so the
@@ -67,6 +100,10 @@ async function proxyItch(request: Request, url: URL): Promise<Response> {
 	responseHeaders.set("X-Content-Type-Options", "nosniff");
 	responseHeaders.set("Cross-Origin-Resource-Policy", "cross-origin");
 	responseHeaders.set("Access-Control-Allow-Origin", "*");
+	// credentialless COEP + COOP lets the framed page become crossOriginIsolated
+	// (Godot/SAB games) when the top page sends matching headers.
+	responseHeaders.set("Cross-Origin-Opener-Policy", "same-origin");
+	responseHeaders.set("Cross-Origin-Embedder-Policy", "credentialless");
 	if (upstream.ok && contentType.includes("text/html") && request.method === "GET") {
 		const html = stripItchHotlink(await upstream.text());
 		responseHeaders.delete("Content-Length");
@@ -104,7 +141,8 @@ export default {
 				});
 			}
 		}
-		if (!url.pathname.startsWith("/games/")) {
+		const upstreamPath = gameOriginPath(url.pathname);
+		if (!upstreamPath) {
 			return new Response("Not found", { status: 404 });
 		}
 
@@ -115,7 +153,7 @@ export default {
 		}
 
 		try {
-			const upstream = await fetch(`${GAME_ORIGIN}${url.pathname}${url.search}`, {
+			const upstream = await fetch(`${GAME_ORIGIN}${upstreamPath}${url.search}`, {
 				method: request.method,
 				headers,
 			});

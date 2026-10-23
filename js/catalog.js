@@ -6,7 +6,6 @@ const MODS = [
     { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', save101: true, img: 'assets/thumb-scoutdigo.png' },
     { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', save101: true, img: 'assets/thumb-coop.png' },
     { name: 'loco tower', desc: '', dir: 'locotower', img: 'assets/thumb-loco.png' },
-    { name: 'stuffed crust', desc: '', dir: 'stuffedcrust', save101: true, img: 'assets/thumb-stuffed.png' },
     { name: "chef's kiss", desc: '', dir: 'chefskiss', save101: true, img: 'assets/thumb-chefskiss.png' },
     { name: 'final round', desc: '', dir: 'finalround', save101: true, img: 'assets/thumb-finalround.png' },
     { name: 'pizza massacre', desc: '', dir: 'pizzamassacre', img: 'assets/thumb-pizzamassacre.png' },
@@ -21,9 +20,9 @@ const MODS = [
     { name: 'demo 3', desc: 'leaked dev build', dir: 'demo3', img: 'assets/thumb-demo3.png' },
     { name: 'pt: gba edition', desc: '', dir: 'ptgba', img: 'assets/thumb-ptgba.png' },
     { name: 'pt: april 2021 build', desc: 'early dev build', dir: 'april2021', img: 'assets/thumb-april2021.png' },
-    { name: 'PT: Cheesed Up', desc: 'B1.5.4 web port', dir: 'cheesypizza', save101: true, img: 'assets/thumb-cheesypizza.png' },
-    { name: 'PT: Chessey Chasedown', desc: 'Cheesy Chasedown web port', dir: 'cheesychasedown', save101: true, img: 'assets/thumb-cheesychasedown.png' },
-    { name: 'lap hell: pp pursuit', desc: 'butterscotch web port', dir: 'laphell', save101: true, img: 'assets/thumb-laphell.png' },
+    { name: 'PT: Cheesed Up', desc: 'B1.5.4 web port', category: 'mods', dir: 'cheesypizza', save101: true, img: 'assets/thumb-cheesypizza.png' },
+    { name: 'PT: Chessey Chasedown', desc: 'Cheesy Chasedown web port', category: 'mods', dir: 'cheesychasedown', save101: true, img: 'assets/thumb-cheesychasedown.png' },
+    { name: 'lap hell: pp pursuit', desc: 'butterscotch web port', category: 'mods', dir: 'laphell', save101: true, img: 'assets/thumb-laphell.png' },
 ];
 
 const FANGAMES = [
@@ -50,9 +49,9 @@ const FANGAMES = [
     { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'assets/thumb-toobigtofail.png' },
     { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-onafpeppino.png' },
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
-    { name: 'toadlegette', desc: '', dir: 'toadlegette', save: true, img: 'assets/thumb-ptwv.png' },
-    { name: 'beeder\'s big adventure', desc: '', dir: 'beeders', save: true, img: 'assets/thumb-demo1.png' },
-    { name: 'idlv', desc: '', dir: 'ihv', save: true, img: 'assets/thumb-noisecrusher.png' },
+    { name: 'toadlegette', desc: '', category: 'extras', dir: 'toadlegette', save: true, img: 'assets/thumb-toadlegette.png' },
+    { name: 'beeder\'s big adventure', desc: '', category: 'extras', dir: 'beeders', save: true, img: 'assets/thumb-beeders.png' },
+    { name: 'idlv', desc: '', category: 'extras', dir: 'ihv', save: true, img: 'assets/thumb-idlv.png' },
     { name: 'pizza tower academy', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/8187799/index.html', img: 'assets/thumb-ext/pizza-tower-academy-dating-sim.png' },
     { name: 'pizza tower dating sim', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/8051572/index.html', img: 'assets/thumb-ext/pizza-tower-date-sim.png' },
     { name: 'pizza tower webport', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/17123780/index.html', img: 'assets/thumb-ext/pizza-tower-webport.jpg' },
@@ -105,7 +104,7 @@ const FANGAMES = [
    groups = array of { label, items[] } rendered in order. */
 const CHANGELOG = [
     {
-        title: 'update 1.2',
+        title: 'update 1.1 hotfix',
         date: 'october 24, 2026',
         groups: [
             { label: 'new web games', items: [
@@ -122,6 +121,11 @@ const CHANGELOG = [
             { label: 'new features', items: [
                 'itch.io web games open right in the game overlay',
                 'save inject works on pages.dev mirrors (postMessage bridge)',
+            ]},
+            { label: 'fixes', items: [
+                'itch.io games hit itch\'s hotlink wall — now proxied through our worker so they play',
+                'godot web games boot again (cross-origin isolation headers on every mirror)',
+                'beeder\'s big adventure source link works',
             ]},
         ],
     },

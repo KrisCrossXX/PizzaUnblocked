@@ -46,6 +46,8 @@ async function upstream(pathname: string, search: string, request: Request): Pro
 	rh.set("X-Content-Type-Options", "nosniff");
 	rh.delete("Content-Security-Policy");
 	rh.delete("X-Frame-Options");
+	rh.set("Cross-Origin-Opener-Policy", "same-origin");
+	rh.set("Cross-Origin-Embedder-Policy", "credentialless");
 	return new Response(res.body, { status: res.status, statusText: res.statusText, headers: rh });
 }
 

@@ -3,7 +3,7 @@ const ITCH_PROXY = 'https://pizza-game-module-proxy.sm64noahm.workers.dev/itch/'
 // itch's htmlgame.js redirects non-itch embeds to its hotlink wall; route
 // embeds through our proxy which strips that script.
 function gameUrl(g) {
-    if (!g.ext) return 'games/' + g.dir + '/';
+    if (!g.ext) return (g.category || 'games') + '/' + g.dir + '/';
     return g.ext.replace(/^https?:\/\/html(-classic)?\.itch\.zone\/html\//, ITCH_PROXY);
 }
 

@@ -45,6 +45,9 @@ async function upstream(pathname, search, request) {
 	rh.set("X-Content-Type-Options", "nosniff");
 	rh.delete("Content-Security-Policy");
 	rh.delete("X-Frame-Options");
+	// credentialless COEP + COOP keeps framed games crossOriginIsolated
+	rh.set("Cross-Origin-Opener-Policy", "same-origin");
+	rh.set("Cross-Origin-Embedder-Policy", "credentialless");
 	return new Response(res.body, { status: res.status, statusText: res.statusText, headers: rh });
 }
 

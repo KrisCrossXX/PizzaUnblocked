@@ -21,7 +21,7 @@
     document.addEventListener('click', (e) => {
         const a = e.target.closest('a[href]');
         if (!a) return;
-        const m = (a.getAttribute('href') || '').match(/^games\/([^/]+)\/?$/);
+        const m = (a.getAttribute('href') || '').match(/^(?:games|mods|extras)\/([^/]+)\/?$/);
         if (!m || !SAVE_DIRS.has(m[1])) return;
         e.preventDefault();
         e.stopImmediatePropagation();
