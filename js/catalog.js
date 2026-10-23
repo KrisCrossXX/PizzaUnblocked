@@ -49,7 +49,7 @@ const FANGAMES = [
     { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'assets/thumb-toobigtofail.png' },
     { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-onafpeppino.png' },
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
-    { name: 'toadlegette', desc: '', category: 'extras', dir: 'toadlegette', save: true, img: 'assets/thumb-toadlegette.png' },
+    { name: 'toadlegette', desc: '', category: 'extras', dir: 'toadlegette', save: true, img: 'assets/thumb-toadlegette.svg' },
     { name: 'beeder\'s big adventure', desc: '', category: 'extras', dir: 'beeders', save: true, img: 'assets/thumb-beeders.png' },
     { name: 'idlv', desc: '', category: 'extras', dir: 'ihv', save: true, img: 'assets/thumb-idlv.png' },
     { name: 'pizza tower academy', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/8187799/index.html', img: 'assets/thumb-ext/pizza-tower-academy-dating-sim.png' },

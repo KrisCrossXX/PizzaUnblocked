@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-labelledby="title">
+  <title id="title">Toadlegette</title>
+  <rect width="320" height="180" fill="#17120e"/>
+  <path d="M14 14h292v152H14z" fill="#24180e" stroke="#ffd75e" stroke-width="6"/>
+  <path d="M34 42h252" stroke="#a6323a" stroke-width="5"/>
+  <text x="160" y="88" fill="#ffd75e" font-family="Arial,sans-serif" font-size="28" font-weight="900" text-anchor="middle">TOADLEGETTE</text>
+  <text x="160" y="125" fill="#fff4e0" font-family="Arial,sans-serif" font-size="16" font-weight="700" text-anchor="middle">A Pizza Tower fan game</text>
+</svg>
