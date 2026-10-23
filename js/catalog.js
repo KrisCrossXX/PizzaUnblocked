@@ -6,6 +6,7 @@ const MODS = [
     { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', save101: true, img: 'assets/thumb-scoutdigo.png' },
     { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', save101: true, img: 'assets/thumb-coop.png' },
     { name: 'loco tower', desc: '', dir: 'locotower', img: 'assets/thumb-loco.png' },
+    { name: 'stuffed crust', desc: '', dir: 'stuffedcrust', save101: true, img: 'assets/thumb-stuffed.png' },
     { name: "chef's kiss", desc: '', dir: 'chefskiss', save101: true, img: 'assets/thumb-chefskiss.png' },
     { name: 'final round', desc: '', dir: 'finalround', save101: true, img: 'assets/thumb-finalround.png' },
     { name: 'pizza massacre', desc: '', dir: 'pizzamassacre', img: 'assets/thumb-pizzamassacre.png' },
