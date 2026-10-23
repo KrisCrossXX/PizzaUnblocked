@@ -3,15 +3,27 @@
    sessionStorage['pu_saveinject_<dir>'] before navigating here; this script
    wraps window.oprt.gameStorage so the runner sees those files as if they
    were already on disk. Nothing is written to localStorage — when the game
-   later saves over a slot the real write wins. */
+   later saves over a slot the real write wins.
+
+   Cross-origin shells (e.g. a pages.dev front-end serving games from the
+   CDN) can't share sessionStorage with this frame — the parent posts the
+   payload via postMessage instead and it lands in `pending` the same way. */
 (function () {
     const dir = location.pathname.split('/').filter(Boolean).pop() || 'unknown';
-    let files = null;
-    try { files = JSON.parse(sessionStorage.getItem('pu_saveinject_' + dir) || 'null'); } catch (e) {}
-    if (!files || !Object.keys(files).length) return;
-    sessionStorage.removeItem('pu_saveinject_' + dir);
-
-    const pending = Object.assign({}, files);
+    const pending = {};
+    try {
+        const files = JSON.parse(sessionStorage.getItem('pu_saveinject_' + dir) || 'null');
+        if (files) Object.assign(pending, files);
+        sessionStorage.removeItem('pu_saveinject_' + dir);
+    } catch (e) {}
+    window.addEventListener('message', (e) => {
+        const d = e.data;
+        if (d && d.pu_saveinject && d.pu_saveinject.dir === dir && typeof d.pu_saveinject.files === 'object')
+            Object.assign(pending, d.pu_saveinject.files);
+    });
+    // A message can still arrive after this script evals — the listener above
+    // fills `pending`, and the wrapper below serves whatever lands before the
+    // runner reads saves.
     const find = (k) => pending[k] !== undefined ? pending[k] : pending[k.split('/').pop()];
 
     const wrap = (gs) => {

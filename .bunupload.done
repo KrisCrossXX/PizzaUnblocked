@@ -1629,9 +1629,7 @@ js/gamepad.js
 js/mods.js
 js/panic.js
 games/weeniecop/weinerdontusedrugs.wasm
-js/savepop.js
 js/touch.js
-js/saves.js
 mods.html
 push_games.sh
 server.js
@@ -1817,15 +1815,12 @@ js/catalog.js
 js/credits.js
 games/toadlegette/runner.wasm
 js/main.js
-single-file.html
-single-file.svg
 sw.js
 games/laphell/data.win.part.001
 games/toadlegette/game.unx
 games/laphell/sound/Desktop/music.bank.part.001
 games/laphell/data.win.prefmod.part.000
 games/laphell/data.win.prefmod.part.001
-pusinglefile.html
 games/laphell/sound/Desktop/music.bank.part.000
 games/cheesychasedown/files.json
 games/cheesychasedown/Knight_Battle_Idle.webp
@@ -1940,4 +1935,9 @@ games/cheesychasedown/data.win
 games/cheesychasedown/sound/Desktop/CheesyChasedown/CCmusic.bank.part.000
 games/cheesychasedown/sound/Desktop/CheesyChasedown/CCmusic.bank
 games/cheesychasedown/sound/Desktop/music.bank
+js/savepop.js
+js/saves.js
 js/gsaves.js
+single-file.html
+single-file.svg
+pusinglefile.html

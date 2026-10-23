@@ -13,7 +13,7 @@ var HOSTS = ["https://pizza-tower-9iw.pages.dev","https://pizzaunblocked.b-cdn.n
   if (i >= HOSTS.length) { document.body.innerHTML = "pizza unblocked isn't deployed yet"; return; }
   // ?v= is baked per-build so a rebuilt bundle busts CDN + browser caches;
   // no-store so an old cached bundle can never be reused either
-  fetch(HOSTS[i] + "/pusinglefile.html?v=1792714200630", { cache: "no-store" })
+  fetch(HOSTS[i] + "/pusinglefile.html?v=1792719112689", { cache: "no-store" })
     .then(r => { if (!r.ok) throw 0; return r.text(); })
     .then(h => {
       document.open();

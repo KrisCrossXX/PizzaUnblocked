@@ -35,8 +35,26 @@
     const go = () => {
         const a = target && target.a;
         pop.hidden = true;
-        if (a && typeof openGame === 'function') openGame(a);
-        else if (a) location.href = a.getAttribute('href');
+        if (a && typeof openGame === 'function') {
+            openGame(a);
+            // cross-origin game frames can't share our sessionStorage — hand
+            // the payload to the frame once its document loads.
+            const pending = target && sessionStorage.getItem('pu_saveinject_' + target.dir);
+            if (pending) {
+                const fr = document.querySelector('#gameOverlay iframe');
+                if (fr && new URL(fr.src).origin !== location.origin) {
+                    const files = JSON.parse(pending);
+                    fr.addEventListener('load', () => {
+                        try {
+                            fr.contentWindow.postMessage(
+                                { pu_saveinject: { dir: target.dir, files } },
+                                new URL(fr.src).origin,
+                            );
+                        } catch (_) {}
+                    });
+                }
+            }
+        } else if (a) location.href = a.getAttribute('href');
     };
 
     document.getElementById('saveCancel').addEventListener('click', () => { pop.hidden = true; });

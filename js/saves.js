@@ -6,6 +6,20 @@ const PU_SAVES = (() => {
     const ROOT = 'pu-saves';
     const SAVE_FS = '/saves';
 
+    // cross-origin shells post the 101% payload via postMessage — land it in
+    // sessionStorage where injectIfPending picks it up on boot.
+    window.addEventListener('message', (e) => {
+        const d = e.data;
+        if (d && d.pu_saveinject && typeof d.pu_saveinject.files === 'object') {
+            try {
+                sessionStorage.setItem(
+                    'pu_saveinject_' + d.pu_saveinject.dir,
+                    JSON.stringify(d.pu_saveinject.files),
+                );
+            } catch (_) {}
+        }
+    });
+
     function dirKeyFromPath() {
         const parts = location.pathname.split('/').filter(Boolean);
         return parts[parts.length - 1] || 'unknown';
