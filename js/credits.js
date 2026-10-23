@@ -113,6 +113,9 @@ const GAME_CREDITS = {
     'sugary nightmare': 'fava-beans',
     'pizza tower engine': 'springtrap45',
     'pizza tower matu build': 'matuthedragoncat',
+    'woaging simulator': 'geo789',
+    'patrick\'s fortress': 'Sprite.Noise',
+    'the noise update in scratch': 'Sunky!',
 };
 
 const GAME_CREDIT_LINKS = {
@@ -204,6 +207,9 @@ const GAME_CREDIT_LINKS = {
     'sugary nightmare': 'https://fava-beans.itch.io/sugary-nightmare',
     'pizza tower engine': 'https://springtrap45.itch.io/pizza-tower-engine',
     'pizza tower matu build': 'https://matuthedragoncat.itch.io/pizza-tower-matu-build-wip',
+    'woaging simulator': 'https://geo789.itch.io/woaging-simulator',
+    'patrick\'s fortress': 'https://spritenoise.itch.io/patricks-fortressfull-game',
+    'the noise update in scratch': 'https://sunkydacooldude.itch.io/noiseiscallingpickupphone',
 };
 
 function creditImage(path) {

@@ -51,7 +51,7 @@ const FANGAMES = [
     { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-onafpeppino.png' },
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
     { name: 'toadlegette', desc: '', dir: 'toadlegette', save: true, img: 'assets/thumb-ptwv.png' },
-    { name: 'beeder big adventure', desc: '', dir: 'beeders', save: true, img: 'assets/thumb-demo1.png' },
+    { name: 'beeder\'s big adventure', desc: '', dir: 'beeders', save: true, img: 'assets/thumb-demo1.png' },
     { name: 'idlv', desc: '', dir: 'ihv', save: true, img: 'assets/thumb-noisecrusher.png' },
     { name: 'pizza tower academy', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/8187799/index.html', img: 'assets/thumb-ext/pizza-tower-academy-dating-sim.png' },
     { name: 'pizza tower dating sim', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/8051572/index.html', img: 'assets/thumb-ext/pizza-tower-date-sim.png' },
@@ -95,6 +95,9 @@ const FANGAMES = [
     { name: 'sugary nightmare', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/9028015/Sugary%20Nightmare%20v3/index.html?v=1782786035', img: 'assets/thumb-ext/sugary-nightmare.jpg' },
     { name: 'pizza tower engine', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/10658779/index.html?v=1782986921', img: 'assets/thumb-ext/pizza-tower-engine.jpg' },
     { name: 'pizza tower matu build', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/7576111/index.html?v=1782635104', img: 'assets/thumb-ext/pizza-tower-matu-build-wip.png' },
+    { name: 'woaging simulator', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/13211643/index.html?v=1782550514', img: 'assets/thumb-ext/woaging-simulator.png' },
+    { name: 'patrick\'s fortress', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/15733982/index.html?v=1782829445', img: 'assets/thumb-ext/patricks-fortress.png' },
+    { name: 'the noise update in scratch', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/10247986/index.html?v=1783946477', img: 'assets/thumb-ext/noiseiscallingpickupphone.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.
@@ -134,7 +137,7 @@ const CHANGELOG = [
                 'PT: Chessey Chasedown',
                 'lap hell: pp pursuit',
                 'toadlegette',
-                'beeder big adventure',
+                'beeder\'s big adventure',
                 'idlv',
             ]},
             { label: 'credits', items: [
