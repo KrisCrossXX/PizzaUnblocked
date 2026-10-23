@@ -1942,12 +1942,7 @@ workers/game-module-proxy/tsconfig.json
 workers/game-module-proxy/src/index.ts
 workers/game-module-proxy/package.json
 js/cards.js
-single-file.html
-single-file.svg
 js/main.js
-js/catalog.js
-js/credits.js
-pusinglefile.html
 assets/thumb-ext/doogy-tower.png
 assets/thumb-ext/peppibo-run-v15.jpg
 assets/thumb-ext/peppino-plinko.jpg
@@ -1961,7 +1956,6 @@ assets/thumb-ext/pizza-tower-lappers-crisis-demo.png
 assets/thumb-ext/pizza-tower-engine.jpg
 assets/thumb-ext/memesspire.png
 assets/thumb-ext/pizza-tower-clicker.png
-assets/thumb-ext/pizza-tower-on-itchio.png
 assets/thumb-ext/pizza-tower-matu-build-wip.png
 assets/thumb-ext/pizza-tower-maker-wip-pizza.png
 assets/thumb-ext/pizza-tower-pocket-demo-1.png
@@ -1991,3 +1985,9 @@ assets/thumb-ext/sugary-spire-packed-sugary-spire-together.png
 assets/thumb-ext/teeny-tiny-pls.png
 assets/thumb-ext/sugary-nightmare.jpg
 assets/thumb-ext/wssd.gif
+single-file.svg
+pizza-unblocked.html
+js/credits.js
+single-file.html
+js/catalog.js
+pusinglefile.html

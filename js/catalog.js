@@ -95,7 +95,6 @@ const FANGAMES = [
     { name: 'sugary nightmare', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/9028015/Sugary%20Nightmare%20v3/index.html?v=1782786035', img: 'assets/thumb-ext/sugary-nightmare.jpg' },
     { name: 'pizza tower engine', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/10658779/index.html?v=1782986921', img: 'assets/thumb-ext/pizza-tower-engine.jpg' },
     { name: 'pizza tower matu build', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/7576111/index.html?v=1782635104', img: 'assets/thumb-ext/pizza-tower-matu-build-wip.png' },
-    { name: 'pizza tower html?', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/13491229/index.html?v=1784067299', img: 'assets/thumb-ext/pizza-tower-on-itchio.png' },
 ];
 
 /* Changelog entries shown in the changelog popup.

@@ -113,7 +113,6 @@ const GAME_CREDITS = {
     'sugary nightmare': 'fava-beans',
     'pizza tower engine': 'springtrap45',
     'pizza tower matu build': 'matuthedragoncat',
-    'pizza tower html?': 'oldfunnyguy69',
 };
 
 const GAME_CREDIT_LINKS = {
@@ -205,7 +204,6 @@ const GAME_CREDIT_LINKS = {
     'sugary nightmare': 'https://fava-beans.itch.io/sugary-nightmare',
     'pizza tower engine': 'https://springtrap45.itch.io/pizza-tower-engine',
     'pizza tower matu build': 'https://matuthedragoncat.itch.io/pizza-tower-matu-build-wip',
-    'pizza tower html?': 'https://oldfunnyguy69.itch.io/pizza-tower-on-itchio',
 };
 
 function creditImage(path) {
