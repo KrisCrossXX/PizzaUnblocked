@@ -1,11 +1,18 @@
 const GAME_ORIGIN = "https://pizzaunblocked.b-cdn.net";
 
-function withSiteHeaders(response) {
+// Bunny serves unknown extensions as octet-stream — fix script/wasm types
+const MIME_FIX = { mjs: "text/javascript", js: "text/javascript", wasm: "application/wasm", json: "application/json", css: "text/css", svg: "image/svg+xml" };
+
+function withSiteHeaders(response, pathname) {
 	const headers = new Headers(response.headers);
 	headers.delete("X-Frame-Options");
 	headers.delete("Content-Security-Policy");
 	headers.set("Cross-Origin-Opener-Policy", "same-origin");
 	headers.set("Cross-Origin-Embedder-Policy", "credentialless");
+	const ext = (pathname?.match(/\.([a-z0-9]{1,10})$/i) || [])[1]?.toLowerCase();
+	if (MIME_FIX[ext] && headers.get("content-type") === "application/octet-stream") {
+		headers.set("content-type", MIME_FIX[ext]);
+	}
 	return new Response(response.body, {
 		status: response.status,
 		statusText: response.statusText,
@@ -68,9 +75,9 @@ export default {
 				method: request.method,
 				headers,
 			});
-			return withSiteHeaders(upstream);
+			return withSiteHeaders(upstream, url.pathname);
 		}
 
-		return withSiteHeaders(await env.ASSETS.fetch(request));
+		return withSiteHeaders(await env.ASSETS.fetch(request), url.pathname);
 	},
 };

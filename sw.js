@@ -16,6 +16,9 @@ const manifest = () => manifestPromise ||=
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(clients.claim()));
 
+// Bunny serves unknown extensions as octet-stream — fix script/wasm types
+const MIME_FIX = { mjs: 'text/javascript', js: 'text/javascript', wasm: 'application/wasm', json: 'application/json', css: 'text/css', svg: 'image/svg+xml' };
+
 async function fetchPart(key, i) {
     const name = key + '.part.' + String(i).padStart(3, '0');
     const r = await fetch(name);
@@ -39,6 +42,14 @@ async function passthrough(request, url) {
                 'cross-origin-opener-policy': 'same-origin',
                 'cross-origin-embedder-policy': 'credentialless',
             },
+        });
+    }
+    const ext = (url.pathname.match(/\.([a-z0-9]{1,10})$/i) || [])[1]?.toLowerCase();
+    if (MIME_FIX[ext] && up.headers.get('content-type') === 'application/octet-stream') {
+        const h = new Headers(up.headers);
+        h.set('content-type', MIME_FIX[ext]);
+        return new Response(request.method === 'HEAD' ? null : up.body, {
+            status: up.status, statusText: up.statusText, headers: h,
         });
     }
     return up;
