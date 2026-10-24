@@ -53,6 +53,9 @@ games/*
 !games/cheesedupnew/
 !games/cheesypizza/
 !games/laphell/
+!games/elm/
+!games/antonblast/
+!games/smkart/
 !games/toadlegette/
 !games/beeders/
 !games/ihv/
@@ -79,4 +82,6 @@ games/cheesypizza/game_shaderfixed.unx
 games/laphell/data.win
 games/laphell/data.win.prefmod
 games/laphell/sound/Desktop/music.bank
+games/elm/data.win
+games/elm/data.win.prefmod
 games/cheesychasedown/sound/Desktop/music.bank
