@@ -58,6 +58,8 @@ games/*
 !games/smkart/
 !games/toadlegette/
 !games/beeders/
+!games/pizzaboi/
+!games/web/
 !games/ihv/
 !games/cheesychasedown/
 
@@ -85,3 +87,4 @@ games/laphell/sound/Desktop/music.bank
 games/elm/data.win
 games/elm/data.win.prefmod
 games/cheesychasedown/sound/Desktop/music.bank
+games/beatuplightbulb/index.html
