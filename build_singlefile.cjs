@@ -32,9 +32,11 @@ let credits = fs.readFileSync(path.join(root, 'js/credits.js'), 'utf8');
 let music = fs.readFileSync(path.join(root, 'js/music.js'), 'utf8');
 let device = fs.readFileSync(path.join(root, 'js/device.js'), 'utf8');
 let cards = fs.readFileSync(path.join(root, 'js/cards.js'), 'utf8');
+let library = fs.readFileSync(path.join(root, 'js/library.js'), 'utf8');
 let mods = fs.readFileSync(path.join(root, 'js/mods.js'), 'utf8');
 let extras = fs.readFileSync(path.join(root, 'js/extras.js'), 'utf8');
 let main = fs.readFileSync(path.join(root, 'js/main.js'), 'utf8');
+let themes = fs.readFileSync(path.join(root, 'js/themes.js'), 'utf8');
 let saves = fs.readFileSync(path.join(root, 'js/saves.js'), 'utf8');
 let savepop = fs.readFileSync(path.join(root, 'js/savepop.js'), 'utf8');
 let swreg = fs.readFileSync(path.join(root, 'swreg.js'), 'utf8');
@@ -50,7 +52,7 @@ if (fs.existsSync(saveDir))
 css = css.replace(/url\(['"]?\.\.\/([^'")]+)['"]?\)/g, (m, p) => `url("${dataUri(p)}")`);
 
 const assetRefs = new Set();
-for (const s of [catalog, credits, music, device, cards, mods, extras, main]) {
+for (const s of [catalog, credits, music, device, cards, library, mods, extras, main, themes]) {
     for (const m of s.matchAll(/assets\/[\w.\-/ ()]+/g)) assetRefs.add(m[0]);
 }
 let index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
@@ -63,7 +65,8 @@ for (const a of assetRefs) {
 const inlineAssets = (s) => s.replace(/assets\/[\w.\-/ ()]+/g, (m) => uriMap[m] || m);
 for (const k in uriMap) catalog = catalog.replaceAll(`'${k}'`, `'${uriMap[k]}'`);
 credits = inlineAssets(credits); music = inlineAssets(music); device = inlineAssets(device); cards = inlineAssets(cards);
-mods = inlineAssets(mods); extras = inlineAssets(extras); main = inlineAssets(main);
+library = inlineAssets(library);
+mods = inlineAssets(mods); extras = inlineAssets(extras); main = inlineAssets(main); themes = inlineAssets(themes);
 
 // baseURI comes from the host that served the bundle (stub sets window.PU_HOST
 // before writing the doc); standalone/local use falls back to its own dir
@@ -84,7 +87,8 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pizza Unblocked</title>
-<link rel="icon" href="${uriMap['assets/pizza-icon.png']}">
+<link rel="icon" href="${uriMap['assets/favicon-pizza-face.png']}" type="image/png">
+<link rel="apple-touch-icon" href="${uriMap['assets/favicon-pizza-face.png']}">
 <style>${css}</style>
 </head>
 <body>
@@ -96,9 +100,11 @@ ${bodyCore}
 <script>${music}</script>
 <script>${device}</script>
 <script>${cards}</script>
+<script>${library}</script>
 <script>${mods}</script>
 <script>${extras}</script>
 <script>${main}</script>
+<script>${themes}</script>
 <script>${swreg}</script>
 <script>window.PU_SAVE101=${JSON.stringify(save101)};</script>
 <script>${saves}</script>

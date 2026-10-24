@@ -4,8 +4,8 @@
 <meta charset="utf-8"><base href="https://pizza-tower-9iw.pages.dev/">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pizza Unblocked</title>
-<link rel="icon" href="assets/pizza-icon.svg" type="image/svg+xml">
-<link rel="alternate icon" href="assets/pizza-icon.png">
+<link rel="icon" href="assets/favicon-pizza-face.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon-pizza-face.png">
 <style>/* Pizza Unblocked — toby-web style layout */
 @font-face {
     font-family: 'ptsmall';
@@ -21,13 +21,14 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body { min-height: 100%; }
+html, body { min-height: 100%; min-height: 100dvh; }
 
 body {
     background: var(--bg);
     color: var(--text);
     font-family: 'ptsmall', 'Courier New', monospace;
     min-height: 100vh;
+    min-height: 100dvh;
     overflow: hidden;
 }
 
@@ -87,6 +88,113 @@ body::before {
 }
 .theme-card.sel .tname { color: var(--yellow); }
 
+/* ---------- full theme browser ---------- */
+body[data-view="themes"] .logo,
+body[data-view="themes"] .topicons,
+body[data-view="themes"] .pizza-icon { display: none; }
+.themes-page { padding: 0 0 70px; background: rgba(7, 7, 12, .94); }
+.themes-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 54px;
+    padding: 7px 18px;
+    background: #050509;
+    border-bottom: 1px solid #aaa;
+}
+.themes-topbar h1 { font-size: 1.7rem; text-transform: uppercase; }
+.theme-back, .theme-nav-btn, .theme-action {
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    background: #000;
+    color: #fff;
+    font: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.theme-nav { display: flex; gap: 7px; margin-left: auto; }
+.theme-nav-btn.selected, .theme-nav-btn:hover, .theme-back:hover, .theme-action:hover {
+    color: var(--yellow);
+    border-color: var(--yellow);
+}
+.theme-view { padding: 20px 18px 30px; }
+.theme-view h2 { margin-bottom: 20px; font-size: 1.35rem; }
+.theme-view h3 { margin: 16px 0 10px; font-size: 1rem; }
+.themes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.theme-tile { display: flex; flex-direction: column; min-width: 0; background: #000; border: 1px solid #ddd; }
+.theme-tile { position: relative; }
+.theme-favorite { position: absolute; top: 6px; right: 6px; width: 34px; height: 34px; border: 1px solid #fff; border-radius: 50%; background: #000d; color: var(--yellow); font: inherit; font-size: 1.2rem; cursor: pointer; }
+.theme-favorite[aria-pressed="true"] { background: #2a210c; }
+.theme-tile.active { border-color: var(--yellow); }
+.theme-tile-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background: #111;
+    border: 0;
+    border-bottom: 1px solid #777;
+    cursor: pointer;
+}
+.theme-tile-title { padding: 6px 7px 2px; font-size: .85rem; overflow-wrap: anywhere; }
+.theme-tile-creator { padding: 2px 7px 7px; color: var(--muted); font-size: .72rem; }
+.theme-tile-actions { display: flex; gap: 5px; margin-top: auto; padding: 0 6px 6px; }
+.theme-tile-actions .theme-action { flex: 1; font-size: .72rem; }
+.theme-empty { margin: 15px 0; color: var(--muted); }
+.theme-catalog-status, .cr-beta-status { margin: 0 0 12px; color: var(--muted); font-size: .8rem; }
+.theme-load-more { height: 1px; }
+.theme-discover-tools { display: flex; gap: 8px; margin-bottom: 14px; }
+.theme-input {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    background: #050509;
+    color: #fff;
+    font: inherit;
+}
+.theme-discover-tools .theme-input { max-width: 280px; }
+.theme-create-layout { display: grid; grid-template-columns: minmax(280px, 1fr) minmax(300px, 1fr); gap: 22px; }
+.theme-create-form { display: grid; align-content: start; gap: 12px; }
+.theme-form-actions, .theme-draft-tools { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+.theme-draft-tools .sel { min-width: 180px; flex: 1; }
+.card { font: inherit; color: inherit; text-align: left; cursor: pointer; }
+.pop.ost-popup { width: min(760px, 94vw); max-height: 90vh; }
+.ost-popup .pop-body { overflow-y: auto; }
+.ost-embed { display: block; width: 100%; height: min(60vh, 560px); min-height: 352px; margin: 12px 0 8px; border: 0; background: #000; }
+.ost-popup-links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+.ost-popup-links a { color: var(--yellow); font-size: .8rem; }
+.theme-create-form > label { display: grid; gap: 5px; color: var(--muted); font-size: .84rem; text-transform: uppercase; }
+.theme-file { font-size: .78rem; }
+.theme-colors { display: flex; gap: 14px; flex-wrap: wrap; }
+.theme-colors label { display: grid; gap: 5px; color: var(--muted); font-size: .8rem; text-transform: uppercase; }
+.theme-colors input { width: 56px; height: 36px; border: 1px solid #aaa; background: #000; }
+.theme-action.primary { justify-self: start; padding: 8px 18px; }
+.theme-form-note, .theme-stats-note { color: var(--muted); font-size: .8rem; }
+.theme-preview-wrap h3 { margin-top: 0; }
+.theme-preview {
+    display: flex;
+    min-height: 250px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 18px;
+    border: 1px solid #ddd;
+    background: center / cover #1e1a16;
+    color: #fff4e0;
+}
+.preview-title { align-self: center; padding: 5px 12px; background: #000b; font-size: 1.25rem; text-transform: uppercase; }
+.preview-buttons { display: flex; justify-content: space-around; gap: 6px; }
+.theme-preview[data-layout="center"] .preview-buttons { align-items: center; flex-direction: column; }
+.theme-preview[data-layout="left"] .preview-buttons { align-items: flex-start; flex-direction: column; }
+.theme-preview[data-layout="right"] .preview-buttons { align-items: flex-end; flex-direction: column; }
+.preview-buttons i { padding: 7px; background: #000c; border: 1px solid #ffd75e; font-style: normal; text-transform: uppercase; }
+.theme-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+.theme-stat { display: flex; justify-content: space-between; gap: 10px; padding: 12px; border: 1px solid #aaa; background: #000; }
+.theme-stat strong { color: var(--yellow); text-align: right; }
+
 
 
 /* ---------- chrome ---------- */
@@ -140,17 +248,148 @@ body::before {
 .menu {
     position: relative;
     z-index: 1;
-    min-height: 100vh;
+    height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-content: center;
+    align-content: start;
     align-items: center;
     gap: 1vh 4vw;
-    padding: 14vh 8vw 8vh;
+    padding: 18vh 8vw 100px;
+    overflow-y: auto;
 }
 .menu .gbtn:first-child { justify-self: start; }
 .menu .gbtn:nth-child(2) { justify-self: end; }
-.menu .gbtn:last-child { grid-column: 1 / -1; justify-self: center; }
+.menu .gbtn:nth-child(3) { grid-column: 1 / -1; justify-self: center; }
+.menu[data-theme-layout="center"] { grid-template-columns: 1fr; justify-items: center; }
+.menu[data-theme-layout="center"] .gbtn,
+.menu[data-theme-layout="center"] .home-game-entry,
+.menu[data-theme-layout="center"] .gbtn:nth-child(3) { grid-column: 1; justify-self: center !important; }
+.menu[data-theme-layout="left"] { grid-template-columns: 1fr; justify-items: start; }
+.menu[data-theme-layout="left"] .gbtn,
+.menu[data-theme-layout="left"] .home-game-entry,
+.menu[data-theme-layout="left"] .gbtn:nth-child(3) { grid-column: 1; justify-self: start !important; }
+.menu[data-theme-layout="right"] { grid-template-columns: 1fr; justify-items: end; }
+.menu[data-theme-layout="right"] .gbtn,
+.menu[data-theme-layout="right"] .home-game-entry,
+.menu[data-theme-layout="right"] .gbtn:nth-child(3) { grid-column: 1; justify-self: end !important; }
+.home-game-entry { position: relative; display: inline-block; width: fit-content; justify-self: start; }
+.home-game-entry .favorite-toggle { top: -8px; right: -8px; }
+
+.library-launch {
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin: 12px 0 28px;
+    padding: 9px 22px;
+    border: 2px solid var(--yellow);
+    background: #000;
+    color: var(--yellow);
+    font-size: 1.15rem;
+    letter-spacing: .04em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.library-launch:hover, .shelf-link:hover { background: var(--yellow); color: #000; }
+.site-version {
+    display: inline-block;
+    color: #80db79;
+    border: 1px solid currentColor;
+    padding: 3px 8px;
+    font-size: .78rem;
+    letter-spacing: .06em;
+}
+.menu > .site-version { grid-column: 1 / -1; justify-self: center; margin: -24px 0 16px; }
+.library-heading .site-version { margin-left: 8px; vertical-align: middle; }
+
+.home-shelf {
+    grid-column: 1 / -1;
+    width: min(1120px, 100%);
+    justify-self: center;
+    margin: 0 auto 22px;
+    padding: 14px 16px 18px;
+    background: rgba(0, 0, 0, .82);
+    border: 2px solid rgba(255, 215, 94, .7);
+}
+.shelf-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+.shelf-heading h2 { color: var(--yellow); font-size: 1.2rem; text-transform: uppercase; }
+.shelf-heading span { color: var(--muted); font-size: .85rem; }
+.shelf-link {
+    margin-left: auto;
+    padding: 4px 10px;
+    border: 1px solid var(--yellow);
+    background: #000;
+    color: var(--yellow);
+    font: inherit;
+    cursor: pointer;
+}
+.shelf-grid {
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+.shelf-grid:empty { display: none; }
+.home-shelf .empty-note { margin: 8px 0 0; }
+
+.library-page { padding-top: 125px; }
+.library-heading { width: min(1200px, 94vw); margin: 0 auto 14px; text-align: center; }
+.library-heading h1 { color: var(--yellow); font-size: clamp(1.6rem, 4vw, 2.4rem); text-transform: uppercase; }
+.library-heading p { color: var(--muted); margin-top: 4px; }
+.library-toolbar {
+    display: flex;
+    width: min(1200px, 94vw);
+    margin: 0 auto 22px;
+    gap: 12px;
+    align-items: end;
+    flex-wrap: wrap;
+}
+.library-filters { display: flex; gap: 7px; flex-wrap: wrap; flex: 1 1 100%; }
+.library-filter {
+    padding: 7px 12px;
+    border: 2px solid #fff;
+    background: #000;
+    color: #fff;
+    font: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.library-filter:hover, .library-filter.selected { color: var(--yellow); border-color: var(--yellow); }
+.catalog-toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: min(1100px, 94vw);
+    margin: 0 auto 26px;
+}
+.catalog-search {
+    flex: 0 0 auto;
+    width: min(480px, 80vw);
+    margin: 0;
+    padding: 10px 16px;
+    font-size: 1.15rem;
+}
+.catalog-filters { display: flex; width: min(480px, 80vw); gap: 5px; flex-wrap: wrap; }
+.catalog-filter {
+    min-height: 34px;
+    padding: 5px 12px;
+    border: 1px solid #fff;
+    background: #fff;
+    color: #111;
+    font: inherit;
+    font-size: .9rem;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.catalog-filter:hover, .catalog-filter.selected { background: #111; color: var(--yellow); border-color: var(--yellow); }
+.catalog-filter:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.library-select-label { display: grid; gap: 4px; color: var(--muted); font-size: .82rem; text-transform: uppercase; }
+.library-select { min-width: 170px; }
+.library-grid { width: min(1200px, 94vw); }
 
 .gbtn { display: block; }
 .gbtn img {
@@ -368,6 +607,34 @@ body::before {
     background: #000;
     overflow: hidden;
 }
+.library-card { position: relative; min-width: 0; }
+.library-card .card { height: 100%; }
+.library-card .thumb img { width: 88%; height: 88%; object-fit: contain; }
+.favorite-toggle {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    background: rgba(0,0,0,.9);
+    color: #fff;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+.favorite-toggle:hover, .favorite-toggle[aria-pressed="true"] { color: var(--yellow); border-color: var(--yellow); }
+.card-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; padding: 6px 8px 0; }
+.library-tag-pill {
+    padding: 2px 6px;
+    border: 1px solid #655a45;
+    color: var(--muted);
+    font-size: .7rem;
+    text-transform: uppercase;
+}
+.card .cdesc { padding: 5px 9px 9px; color: var(--muted); text-align: center; font-size: .8rem; }
 .card .thumb img {
     max-width: 88%;
     max-height: 88%;
@@ -398,9 +665,18 @@ body::before {
 }
 
 @media (max-width: 720px) {
-    .menu { grid-template-columns: 1fr; gap: 20px; padding: 120px 0 100px; }
+    .themes-topbar { flex-wrap: wrap; gap: 8px; padding: 7px 10px; }
+    .themes-topbar h1 { font-size: 1.3rem; }
+    .theme-nav { order: 3; width: 100%; margin-left: 0; }
+    .theme-nav-btn { flex: 1; padding: 5px 4px; font-size: .82rem; }
+    .theme-view { padding: 16px 10px 24px; }
+    .themes-grid { grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 8px; }
+    .theme-create-layout { grid-template-columns: 1fr; }
+    .menu { grid-template-columns: 1fr; gap: 20px; padding: 132px 5vw 100px; }
+    .home-game-entry { justify-self: center; }
     .menu .gbtn { justify-self: center !important; }
-    .menu .gbtn:last-child { grid-column: auto; }
+    .menu .gbtn:nth-child(3) { grid-column: auto; }
+    .library-launch, .home-shelf { grid-column: auto; }
     .logo img { height: 110px; max-width: 62vw; object-fit: contain; }
     .byline { font-size: 1rem; padding-top: 14px; }
     .icon-btn { width: 58px; height: 52px; }
@@ -410,8 +686,15 @@ body::before {
     .sel { min-width: 0; width: 100%; }
     /* prevent iOS focus-zoom */
     .sel, .searchbox, input { font-size: 16px; }
+    .catalog-search { width: min(480px, 90vw); }
+    .catalog-filters { width: min(480px, 90vw); }
+    .catalog-filter { min-height: 38px; }
     .pop { padding: 12px 14px 16px; }
     .card-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+    .shelf-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .library-toolbar { align-items: stretch; }
+    .library-select-label { flex: 1; }
+    .library-select { width: 100%; min-width: 0; }
     .vol { flex: 1; }
 }
 
@@ -431,7 +714,7 @@ body::before {
 .pop-save .savebtns .sbtn { width: 100%; }
 
 /* game overlay — in-page iframe so game URLs never hit the address bar */
-#gameOverlay { position: fixed; inset: 0; z-index: 500; background: #000; display: flex; flex-direction: column; }
+#gameOverlay { position: fixed; inset: 0; z-index: 500; width: 100vw; height: 100vh; height: 100dvh; background: #000; display: flex; flex-direction: column; }
 #gameOverlay iframe { flex: 1; width: 100%; border: 0; display: block; background: #000; }
 #gameOverlay .game-home { position: absolute; top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); z-index: 1; padding: 8px 14px; border: 2px solid #ffd75e; border-radius: 6px; background: #14100ce6; color: #ffd75e; font-family: 'ptsmall', 'Courier New', monospace; font-size: 24px; line-height: 1; text-shadow: 2px 2px #000; cursor: pointer; }
 #gameOverlay .game-home:hover { background: #352510; }
@@ -464,7 +747,7 @@ body::before {
 // bounce to the hash form before any resources load; the router
 // rewrites the URL back to the clean path afterwards.
 (function () {
-    var m = location.pathname.match(/^(.*?)\/index\.html\/(mods|extras|credits)\/?$/) || location.pathname.match(/^(.*?)\/(mods|extras|credits)\/?$/);
+    var m = location.pathname.match(/^(.*?)\/index\.html\/(mods|extras|library|credits|themes)\/?$/) || location.pathname.match(/^(.*?)\/(mods|extras|library|credits|themes)\/?$/);
     if (m) location.replace(m[1] + '/index.html#/' + m[m.length - 1]);
 })();
 </script>
@@ -479,30 +762,188 @@ body::before {
     <button class="icon-btn" id="gearBtn" data-sfx="buttons" title="settings"><img src="assets/icon-gear.png" alt="settings"></button>
     <button class="icon-btn" id="clBtn" data-sfx="buttons" title="changelog"><img src="assets/icon-pillar.png" alt="changelog"></button>
     <button class="icon-btn" id="dlBtn" data-sfx="buttons" title="discord"><img src="assets/icon-arrow.png" alt="discord"></button>
+    <button class="icon-btn" id="themeBtn" data-sfx="buttons" title="themes"><img src="assets/icon-themes.png" alt="themes"></button>
 </nav>
 
 <main class="menu" id="pageHome">
-    <a class="gbtn" href="games/pizzatower/" data-sfx="pizzatower"><img src="assets/btn-pizzatower.png" alt="PIZZA TOWER"></a>
+    <div class="home-game-entry">
+        <a class="gbtn" href="games/pizzatower/" data-game-key="game%3Apizzatower" data-sfx="pizzatower"><img src="assets/btn-pizzatower.png" alt="PIZZA TOWER"></a>
+        <button class="favorite-toggle" type="button" data-game-key="game%3Apizzatower" aria-label="Add Pizza Tower to favorites" aria-pressed="false" title="add favorite">☆</button>
+    </div>
     <a class="gbtn" href="mods.html" data-sfx="mods"><img src="assets/btn-mods.png" alt="MODS"></a>
     <a class="gbtn" href="extras.html" data-sfx="extras"><img src="assets/btn-extras.png" alt="EXTRAS"></a>
 </main>
 
+<main class="page themes-page" id="pageThemes" hidden>
+    <header class="themes-topbar">
+        <button class="theme-back" id="themeBack" type="button">back</button>
+        <h1>themes</h1>
+        <nav class="theme-nav" id="themeNav" aria-label="Theme pages">
+            <button class="theme-nav-btn selected" type="button" data-theme-tab="mine">my themes</button>
+            <button class="theme-nav-btn" type="button" data-theme-tab="discover">discover</button>
+            <button class="theme-nav-btn" type="button" data-theme-tab="create">create</button>
+            <button class="theme-nav-btn" type="button" data-theme-tab="stats">stats</button>
+        </nav>
+    </header>
+
+    <section class="theme-view" id="themeViewMine">
+        <h2>my themes</h2>
+        <h3>official themes</h3>
+        <div class="themes-grid" id="themeOfficialGrid"></div>
+        <h3>installed themes</h3>
+        <div class="themes-grid" id="themeInstalledGrid"></div>
+        <p class="theme-empty" id="themeInstalledEmpty" hidden>no custom themes installed yet</p>
+    </section>
+
+    <section class="theme-view" id="themeViewDiscover" hidden>
+        <h2>discover</h2>
+        <div class="theme-discover-tools">
+            <input class="theme-input" id="themeSearch" type="search" placeholder="search themes..." autocomplete="off">
+            <select class="sel" id="themeSort" aria-label="Sort themes">
+                <option value="newest">newest</option>
+                <option value="az">A–Z</option>
+                <option value="favorites">favorites</option>
+            </select>
+        </div>
+        <p class="theme-catalog-status" id="themeCatalogStatus" role="status">community catalog is temporarily unavailable; showing built-in themes</p>
+        <div class="themes-grid" id="themeDiscoverGrid"></div>
+        <div id="themeDiscoverMore" class="theme-load-more" aria-hidden="true"></div>
+        <p class="theme-empty" id="themeDiscoverEmpty" hidden>no themes match your search</p>
+    </section>
+
+    <section class="theme-view" id="themeViewCreate" hidden>
+        <h2>create theme</h2>
+        <div class="theme-create-layout">
+            <form class="theme-create-form" id="themeCreateForm">
+                <label>theme name<input class="theme-input" id="themeName" maxlength="36" required placeholder="my theme"></label>
+                <label>creator<input class="theme-input" id="themeCreator" maxlength="36" placeholder="local creator"></label>
+                <label>description<textarea class="theme-input" id="themeDescription" maxlength="180" rows="3" placeholder="a short description"></textarea></label>
+                <label>background image (up to 30 MB)<input class="theme-input theme-file" id="themeBackground" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></label>
+                <label>music (up to 50 MB)<input class="theme-input theme-file" id="themeMusic" type="file" accept="audio/mpeg,audio/ogg,audio/wav,audio/mp4,audio/aac"></label>
+                <label>home button layout
+                    <select class="sel" id="themeButtonLayout">
+                        <option value="default">default</option>
+                        <option value="center">stacked center</option>
+                        <option value="left">stacked left</option>
+                        <option value="right">stacked right</option>
+                    </select>
+                </label>
+                <div class="theme-colors">
+                    <label>accent<input id="themeAccent" type="color" value="#ffd75e"></label>
+                    <label>text<input id="themeText" type="color" value="#fff4e0"></label>
+                    <label>background<input id="themeColorBg" type="color" value="#1e1a16"></label>
+                </div>
+                <div class="theme-form-actions">
+                    <button class="theme-action primary" type="submit">save theme</button>
+                    <button class="theme-action" id="themeSaveDraft" type="button">save draft</button>
+                </div>
+                <div class="theme-draft-tools">
+                    <select class="sel" id="themeDraftSelect" aria-label="Saved theme drafts"><option value="">select a draft</option></select>
+                    <button class="theme-action" id="themeLoadDraft" type="button">load</button>
+                    <button class="theme-action" id="themeDeleteDraft" type="button">delete</button>
+                </div>
+                <p class="theme-form-note" id="themeFormNote" aria-live="polite">themes are saved in this browser</p>
+            </form>
+            <div class="theme-preview-wrap">
+                <h3>preview</h3>
+                <div class="theme-preview" id="themePreview">
+                    <span class="preview-title">pizza unblocked</span>
+                    <span class="preview-buttons"><i>pizza tower</i><i>mods</i><i>extras</i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="theme-view" id="themeViewStats" hidden>
+        <h2>theme stats</h2>
+        <p class="theme-stats-note">your theme activity on this device</p>
+        <div class="theme-stats-grid" id="themeStats"></div>
+    </section>
+</main>
+
+<main class="page library-page" id="pageLibrary" hidden>
+    <div class="library-heading">
+        <h1>game library</h1>
+        <p>find a game, pick a tag, and sort the collection <span class="site-version">v1.2</span></p>
+    </div>
+    <input class="searchbox" id="librarySearch" type="search" placeholder="search games and mods..." autocomplete="off" spellcheck="false">
+    <div class="library-toolbar">
+        <div class="library-filters" id="libraryFilters" role="group" aria-label="Filter games">
+            <button class="library-filter selected" type="button" data-library-filter="all">all</button>
+            <button class="library-filter" type="button" data-library-filter="mod">mods</button>
+            <button class="library-filter" type="button" data-library-filter="game">games</button>
+            <button class="library-filter" type="button" data-library-filter="extra">extras</button>
+            <button class="library-filter" type="button" data-library-filter="web">web games</button>
+            <button class="library-filter" type="button" data-library-filter="favorites">favorites ★</button>
+        </div>
+        <label class="library-select-label">tag
+            <select class="sel library-select" id="libraryTag">
+                <option value="all">all tags</option>
+                <option value="save">save supported</option>
+                <option value="online">online play</option>
+                <option value="web">web game</option>
+            </select>
+        </label>
+        <label class="library-select-label">sort
+            <select class="sel library-select" id="librarySort">
+                <option value="az">A–Z</option>
+                <option value="za">Z–A</option>
+                <option value="recent">recently played</option>
+                <option value="most">most played</option>
+            </select>
+        </label>
+    </div>
+    <div class="card-grid library-grid" id="libraryGrid"></div>
+    <p class="empty-note" id="libraryEmpty" hidden>no games match those filters</p>
+</main>
+
 <main class="page" id="pageMods" hidden>
-    <input class="searchbox" id="modSearch" type="text" placeholder="search..." autocomplete="off" spellcheck="false">
+    <div class="catalog-toolbar">
+        <input class="searchbox catalog-search" id="modSearch" type="search" placeholder="search..." autocomplete="off" spellcheck="false">
+        <nav class="catalog-filters" id="modFilters" aria-label="Filter mods">
+            <button class="catalog-filter" type="button" data-catalog-filter="favorites" aria-pressed="false">favorites</button>
+            <button class="catalog-filter" type="button" data-catalog-filter="lap" aria-pressed="false">lap mods</button>
+        </nav>
+    </div>
     <div class="card-grid" id="modGrid"></div>
     <p class="empty-note" id="modsEmpty" hidden>no mods yet</p>
 </main>
 
 <main class="page" id="pageExtras" hidden>
-    <input class="searchbox" id="extraSearch" type="text" placeholder="search..." autocomplete="off" spellcheck="false">
+    <div class="catalog-toolbar">
+        <input class="searchbox catalog-search" id="extraSearch" type="search" placeholder="search..." autocomplete="off" spellcheck="false">
+        <nav class="catalog-filters" id="extraFilters" aria-label="Filter extras">
+            <button class="catalog-filter" type="button" data-catalog-filter="favorites" aria-pressed="false">favorites</button>
+            <button class="catalog-filter" type="button" data-catalog-filter="lap" aria-pressed="false">lap mods</button>
+        </nav>
+    </div>
     <div class="card-grid" id="extraGrid"></div>
     <p class="empty-note" id="extrasEmpty" hidden>no extras yet</p>
 </main>
+
+<div class="overlay" id="ptSoundtrackPopup" hidden>
+    <section class="pop ost-popup" role="dialog" aria-modal="true" aria-labelledby="ptSoundtrackTitle">
+        <div class="pop-head">
+            <span class="pop-title" id="ptSoundtrackTitle">PT soundtrack player</span>
+            <button class="xbtn" type="button" data-close="ptSoundtrackPopup" aria-label="Close soundtrack player">x</button>
+        </div>
+        <div class="pop-body">
+            <p class="theme-form-note">The original itch.io player plays its hosted OGG soundtrack tracks. Use the arrow keys to change tracks and Space to pause.</p>
+            <iframe id="ptSoundtrackEmbed" class="ost-embed" title="Pizza Tower OGG soundtrack player" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+            <div class="ost-popup-links">
+                <a href="https://jasonberlk.itch.io/pizza-tower-soundtrack-player" target="_blank" rel="noopener noreferrer">open the itch.io soundtrack player</a>
+            </div>
+        </div>
+    </section>
+</div>
 
 <main class="page" id="pageCredits" hidden>
     <div class="cr-wrap">
         <h2 class="cr-head">site credits</h2>
         <div class="cr-row" id="crSite"></div>
+        <h2 class="cr-head">beta testers</h2>
+        <p class="cr-beta-status" id="crBetaStatus" role="status">showing saved beta tester credits</p>
+        <div class="cr-row cr-row-tiny" id="crBeta"></div>
         <h2 class="cr-head">game credits</h2>
         <div class="cr-grid" id="crGames"></div>
     </div>
@@ -541,6 +982,7 @@ body::before {
                 </div>
                 <div class="opt-row">
                     <button class="sbtn" id="blankBtn">open in about:blank</button>
+                    <button class="sbtn" id="blobBtn">open as blob</button>
                 </div>
             </div>
             <div class="set-block">
@@ -551,6 +993,18 @@ body::before {
                 <div class="set-label">tools</div>
                 <div class="opt-row">
                     <button class="sbtn" id="padBtn">controller: on</button>
+                </div>
+                <label class="set-label" for="touchModeSel">mobile controls</label>
+                <div class="opt-row">
+                    <select id="touchModeSel" class="sel" aria-label="Mobile controls mode">
+                        <option value="auto">auto detect</option>
+                        <option value="on">on</option>
+                        <option value="off">off</option>
+                    </select>
+                    <select id="touchLayoutSel" class="sel" aria-label="Mobile movement controls">
+                        <option value="joystick">joystick</option>
+                        <option value="arrows">arrow buttons</option>
+                    </select>
                 </div>
                 <div class="devline" id="devLine">device: pc</div>
             </div>
@@ -619,6 +1073,7 @@ const MODS = [
     { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', save101: true, img: 'assets/thumb-scoutdigo.png' },
     { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', save101: true, img: 'assets/thumb-coop.png' },
     { name: 'loco tower', desc: '', dir: 'locotower', img: 'assets/thumb-loco.png' },
+    { name: 'stuffed crust', desc: '', dir: 'stuffedcrust', save101: true, img: 'assets/thumb-stuffed.png' },
     { name: "chef's kiss", desc: '', dir: 'chefskiss', save101: true, img: 'assets/thumb-chefskiss.png' },
     { name: 'final round', desc: '', dir: 'finalround', save101: true, img: 'assets/thumb-finalround.png' },
     { name: 'pizza massacre', desc: '', dir: 'pizzamassacre', img: 'assets/thumb-pizzamassacre.png' },
@@ -636,9 +1091,12 @@ const MODS = [
     { name: 'PT: Cheesed Up', desc: 'B1.5.4 web port', category: 'mods', dir: 'cheesypizza', save101: true, img: 'assets/thumb-cheesypizza.png' },
     { name: 'PT: Chessey Chasedown', desc: 'Cheesy Chasedown web port', category: 'mods', dir: 'cheesychasedown', save101: true, img: 'assets/thumb-cheesychasedown.png' },
     { name: 'lap hell: pp pursuit', desc: 'butterscotch web port', category: 'mods', dir: 'laphell', save101: true, img: 'assets/thumb-laphell.png' },
+    { name: "egg's lap mod", desc: 'butterscotch web port', dir: 'elm', save101: true, img: 'assets/thumb-elm.png' },
+    { name: 'PT: cheesed up (new build)', desc: 'newer cheesed up port', category: 'mods', dir: 'cheesedupnew', save101: true, img: 'assets/thumb-cheesedup.jpg' },
 ];
 
 const FANGAMES = [
+    { name: 'pt soundtrack player', desc: 'original itch.io OGG soundtrack player', img: 'assets/thumb-ext/pizza-tower-soundtrack-player.png', action: 'pt-soundtrack', hideFromLibrary: true },
     { name: 'sugary spire', desc: '', dir: 'sugaryspire', img: 'assets/thumb-ss.png' },
     { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'assets/thumb-pat.png' },
     { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'assets/thumb-killnoise.gif' },
@@ -662,6 +1120,8 @@ const FANGAMES = [
     { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'assets/thumb-toobigtofail.png' },
     { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-onafpeppino.png' },
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
+    { name: 'antonblast demo', desc: 'summitsphere demo port', dir: 'antonblast', save101: true, img: 'assets/thumb-antonblast.png' },
+    { name: 'super mario kart remake', desc: 'pt engine remake', dir: 'smkart', img: 'assets/thumb-smkart.png' },
     { name: 'toadlegette', desc: '', category: 'extras', dir: 'toadlegette', save: true, img: 'assets/thumb-toadlegette.svg' },
     { name: 'beeder\'s big adventure', desc: '', category: 'extras', dir: 'beeders', save: true, img: 'assets/thumb-beeders.png' },
     { name: 'idlv', desc: '', category: 'extras', dir: 'ihv', save: true, img: 'assets/thumb-idlv.png' },
@@ -695,7 +1155,6 @@ const FANGAMES = [
     { name: 'doogy tower', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/13232643/april-fools/resources/app/index.html?v=1783254547', img: 'assets/thumb-ext/doogy-tower.png' },
     { name: 'jelly pizza tower', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/17958350/index.html', img: 'assets/thumb-ext/jelly-pizza-tower-1.png' },
     { name: 'taunting sim mod', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/9383923/index.html?v=1782711574', img: 'assets/thumb-ext/pizza-tower-taunting-sim-mod.png' },
-    { name: 'pt soundtrack player', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/15792341/index.html?v=1782598071', img: 'assets/thumb-ext/pizza-tower-soundtrack-player.png' },
     { name: 'pizza tower ar: studio', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/8336936/pizza-tower-ar-studio-v.app/Contents/Resources/index.html?v=1783940384', img: 'assets/thumb-ext/pizza-tower-ar-studio-fanmade-game.png' },
     { name: 'peppibo run', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/19816360/PeppiboRun/resources/app/index.html?v=1792215741', img: 'assets/thumb-ext/peppibo-run-v15.jpg' },
     { name: 'pizza tower (somewhat) plus', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/11917623/index.html?v=1782834716', img: 'assets/thumb-ext/pizza-tower-somewhat-plus.png' },
@@ -716,6 +1175,33 @@ const FANGAMES = [
 /* Changelog entries shown in the changelog popup.
    groups = array of { label, items[] } rendered in order. */
 const CHANGELOG = [
+    {
+        title: 'update 1.2',
+        date: 'october 23, 2026',
+        groups: [
+            { label: 'new features', items: [
+                'favorites: save games and mods for quick access',
+                'continue playing: reopen the last game you launched',
+                'recently played: see your latest game history',
+                'game library revamp: improved cards, filters, tags, and sorting',
+                'PT Soundtrack Player is available as a game card in Extras',
+                'soundtrack popup plays the original itch.io player and its hosted OGG tracks',
+                'blob cloak: open the site inside an opaque blob: tab from settings',
+            ]},
+            { label: 'new port', items: [
+                'egg\'s lap mod (ELM) — full butterscotch port',
+                'stuffed crust is back in the mods list',
+                'PT: cheesed up (new build)',
+                'antonblast demo + super mario kart remake in extras',
+            ]},
+            { label: 'fixes', items: [
+                'removed the duplicate Pizzascare theme; Halloween 2026 keeps the Halloween music and background',
+                'fixed missing game icons and incorrect page titles on Frenzy Worlds and Septastic',
+                'crash logging now catches real “is not defined” JavaScript errors',
+                'pulled the PT Lap Mod card — its WAD crashes on boot (back when the port is fixed)',
+            ]},
+        ],
+    },
     {
         title: 'update 1.1 hotfix',
         date: 'october 23, 2026',
@@ -926,6 +1412,7 @@ const GAME_CREDITS = {
     'pizza tower: scoutdigo': 'scoutthesnow & only1indigo',
     'pizza tower: co-op': 'the co-op team',
     'PT: Cheesed Up': 'Cheesed Up team',
+    'PT: cheesed up (new build)': 'Cheesed Up team',
     'PT: Chessey Chasedown': 'Cheesy Chasedown team',
     'lap hell: pp pursuit': 'GameBanana mod by TeaW',
     'toadlegette': 'bredi',
@@ -946,6 +1433,8 @@ const GAME_CREDITS = {
     'demo 3': 'tour de pizza (leaked dev build)',
     'pt: gba edition': 'mineken713',
     'pt: april 2021 build': 'tour de pizza (early build)',
+    'stuffed crust': 'stuffed crust team',
+    "egg's lap mod": "le mod tour d'egg",
     // extras
     'sugary spire': 'big gnome studios / sugary spire council',
     'pat the peppino': 'scrufftuna',
@@ -1016,6 +1505,8 @@ const GAME_CREDITS = {
     'the noise update in scratch': 'Sunky!',
     "pizzaface maze idk": "flowcheer",
     "you, me, & pizzaface": "ZojitrA",
+    'antonblast demo': 'summitsphere',
+    'super mario kart remake': 'smkart team',
 };
 
 const GAME_CREDIT_LINKS = {
@@ -1023,6 +1514,7 @@ const GAME_CREDIT_LINKS = {
     'pizza tower: scoutdigo': 'https://gamebanana.com/mods/508230',
     'pizza tower: co-op': 'https://gamebanana.com/mods/501524',
     'PT: Cheesed Up': 'https://gamebanana.com/mods/474884',
+    'PT: cheesed up (new build)': 'https://gamebanana.com/mods/474884',
     'PT: Chessey Chasedown': 'https://gamebanana.com/wips/96914',
     'lap hell: pp pursuit': 'https://gamebanana.com/mods/454809',
     'toadlegette': 'https://brediamai.itch.io/toadlegette-revolution',
@@ -1037,6 +1529,8 @@ const GAME_CREDIT_LINKS = {
     "chef's kiss": 'https://pizza-tower-chefs-kiss.itch.io/chefs-kiss',
     'final round': 'https://finalround.itch.io/',
     'swabs expedition': 'https://voidymite.itch.io/swabs-expedition',
+    'stuffed crust': 'https://peccato24.itch.io/pizza-tower-stuffed-crust',
+    "egg's lap mod": 'https://gamebanana.com/mods/464912',
     'super bo noise': 'https://puffballspeakerbox.itch.io/super-bo-noise',
     'frenzy worlds': 'https://www.youtube.com/@FrenzyWorldsOfficial',
     'sage 19 plus': 'https://pizza-tower-19-plus.itch.io/pizza-tower-19-plus-sage-2024-demo',
@@ -1065,6 +1559,8 @@ const GAME_CREDIT_LINKS = {
     'mininoise': 'https://dragonaero.itch.io/mininoise',
     'too big to fail': 'https://real-legobuzz12.itch.io/toobigtofail',
     'smash bash brawl 2': 'https://linkthepalesystem64.itch.io/smash-bash-brawl-2',
+    'antonblast demo': 'https://store.steampowered.com/app/1887400/ANTONBLAST/',
+    'super mario kart remake': 'https://www.youtube.com/@smkart',
     'pizza tower academy': 'https://loulouvz.itch.io/pizza-tower-academy-dating-sim',
     'pizza tower dating sim': 'https://loulouvz.itch.io/pizza-tower-date-sim',
     'pizza tower webport': 'https://theblehlollipop.itch.io/pizza-tower-webport',
@@ -1133,17 +1629,43 @@ function renderCredits() {
             `<span class="cr-info"><span class="cr-name">${c.name}</span><span class="cr-role">${c.role}</span></span>`;
         site.appendChild(card);
     }
-    const helpers = document.createElement('div');
-    helpers.className = 'cr-row cr-row-tiny';
-    site.parentNode.insertBefore(helpers, site.nextSibling);
-    for (const c of SITE_HELPERS) {
-        const card = document.createElement('div');
-        card.className = 'cr-card cr-tiny';
-        card.innerHTML =
-            (c.img ? `<img class="cr-ava" src="${creditImage(c.img)}" alt="">` : `<span class="cr-ava cr-letter">${c.name[0]}</span>`) +
-            `<span class="cr-info"><span class="cr-name">${c.name}</span><span class="cr-role">${c.role}</span></span>`;
-        helpers.appendChild(card);
+    const helpers = document.getElementById('crBeta');
+    function renderBetaHelpers(list) {
+        helpers.replaceChildren();
+        for (const c of list) {
+            const card = document.createElement('div');
+            card.className = 'cr-card cr-tiny';
+            const avatar = document.createElement(c.img ? 'img' : 'span');
+            avatar.className = c.img ? 'cr-ava' : 'cr-ava cr-letter';
+            if (c.img) { avatar.src = creditImage(c.img); avatar.alt = ''; }
+            else avatar.textContent = (c.name || '?').slice(0, 1);
+            const info = document.createElement('span'); info.className = 'cr-info';
+            const name = document.createElement('span'); name.className = 'cr-name'; name.textContent = c.name || 'beta tester';
+            const role = document.createElement('span'); role.className = 'cr-role'; role.textContent = c.role || 'beta testing';
+            info.append(name, role); card.append(avatar, info); helpers.appendChild(card);
+        }
     }
+    renderBetaHelpers(SITE_HELPERS);
+    const betaStatus = document.getElementById('crBetaStatus');
+    async function refreshBetaTesters() {
+        if (location.protocol === 'file:') {
+            betaStatus.textContent = 'showing saved credits; live Discord list works on the hosted site';
+            return;
+        }
+        try {
+            const base = document.querySelector('base')?.href || location.href;
+            const response = await fetch(new URL('api/beta-testers', base), { cache: 'no-store' });
+            if (!response.ok) throw new Error('beta list unavailable');
+            const result = await response.json();
+            if (!Array.isArray(result.members)) throw new Error('invalid beta list');
+            renderBetaHelpers(result.members.map(member => ({ name: member.name, role: 'beta testing', img: member.avatar })));
+            betaStatus.textContent = 'live Discord beta tester list · refreshes every 10 minutes';
+        } catch {
+            betaStatus.textContent = 'live list temporarily unavailable; showing saved beta tester credits';
+        }
+    }
+    refreshBetaTesters();
+    setInterval(refreshBetaTesters, 10 * 60 * 1000);
     // game credits — pull thumbnails from the catalog so cards match
     games.innerHTML = '';
     const all = [{ name: 'pizza tower', img: 'assets/btn-pizzatower.png' }, ...MODS, ...FANGAMES];
@@ -1169,7 +1691,7 @@ renderCredits();
 // Site themes: bg = background image, song = music track.
 // cls = optional extra class on .bgimg.
 const PU_THEMES = [
-    { name: 'pizzascare',     bg: 'assets/halloween.png',     song: 'assets/theme-halloween.ogg' },
+    { name: 'Halloween 2026', bg: 'assets/halloween.png', song: 'assets/theme-halloween.ogg', buttonLayout: 'center' },
     { name: 'the tower',      bg: 'assets/bg.gif',            song: 'assets/theme.mp3' },
     { name: 'oregano desert', bg: 'assets/bg-desert.webp',    song: 'assets/theme-desert.ogg' },
     { name: 'pizzaland',      bg: 'assets/bg-pizzaland.webp', song: 'assets/theme-funiculi.ogg' },
@@ -1229,10 +1751,22 @@ window.addEventListener('beforeunload', () => {
     if (el) el.textContent = 'device: ' + window.PU_DEVICE + (mobile ? ' (touch controls on in games)' : '');
 })();
 </script>
-<script>// shared card renderer + sfx for mods/extras pages
+<script>// Shared card rendering, favorites, and local play history for every copy of the site.
 const ITCH_PROXY = 'https://pizza-game-module-proxy.sm64noahm.workers.dev/itch/';
-// itch's htmlgame.js redirects non-itch embeds to its hotlink wall; route
-// embeds through our proxy which strips that script.
+const LIBRARY_ITEMS = [
+    { name: 'pizza tower', desc: 'the original game', dir: 'pizzatower', img: 'assets/btn-pizzatower.png', libraryType: 'game' },
+    ...MODS.map(g => ({ ...g, libraryType: 'mod' })),
+    ...FANGAMES.filter(g => !g.hideFromLibrary).map(g => ({
+        ...g,
+        libraryType: g.category === 'extras' ? 'extra' : g.ext ? 'web' : 'game',
+    })),
+];
+const LIBRARY_KEYS = {
+    favorites: 'pu_favorite_games_v1',
+    history: 'pu_recent_games_v1',
+    continue: 'pu_continue_game_v1',
+};
+
 function gameUrl(g) {
     if (!g.ext) return (g.category || 'games') + '/' + g.dir + '/';
     return g.ext.replace(/^https?:\/\/html(-classic)?\.itch\.zone\/html\//, ITCH_PROXY);
@@ -1244,54 +1778,325 @@ function siteAssetUrl(path) {
     return new URL(path, location.origin + '/').href;
 }
 
-function renderCards(gridEl, emptyEl, list) {
-    for (const g of list) {
-        const a = document.createElement('a');
-        a.className = 'card';
-        a.href = gameUrl(g);
-        const thumbnail = g.img.startsWith('assets/')
-            ? siteAssetUrl(g.img)
-            : g.img;
-        a.innerHTML =
-            `<div class="thumb"><img src="${thumbnail}" alt="${g.name}"><button class="dots" tabindex="-1">⋮</button></div>` +
-            `<div class="cname">${g.name}</div>`;
-        gridEl.appendChild(a);
-    }
-    emptyEl.hidden = list.length > 0;
+function gameKey(g) {
+    return `${g.libraryType || 'game'}:${g.dir || g.ext || g.name}`;
 }
+
+function decodeGameKey(value) {
+    try { return decodeURIComponent(value || ''); } catch { return ''; }
+}
+
+function readLibraryJson(key, fallback) {
+    try {
+        const value = JSON.parse(localStorage.getItem(key) || 'null');
+        return value ?? fallback;
+    } catch { return fallback; }
+}
+
+function favoriteKeys() {
+    const keys = readLibraryJson(LIBRARY_KEYS.favorites, []);
+    return new Set(Array.isArray(keys) ? keys : []);
+}
+
+function playHistory() {
+    const rows = readLibraryJson(LIBRARY_KEYS.history, []);
+    return Array.isArray(rows) ? rows : [];
+}
+
+function libraryTags(g) {
+    const tags = [g.libraryType];
+    if (g.ext) tags.push('web');
+    if (g.save || g.save101) tags.push('save');
+    if (/online|multiplayer|co-?op/i.test(`${g.name} ${g.desc || ''}`)) tags.push('online');
+    return tags;
+}
+
+function favoriteButton(key) {
+    const selected = favoriteKeys().has(key);
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'favorite-toggle';
+    button.dataset.gameKey = encodeURIComponent(key);
+    button.setAttribute('aria-label', selected ? 'Remove from favorites' : 'Add to favorites');
+    button.setAttribute('aria-pressed', String(selected));
+    button.title = selected ? 'remove favorite' : 'add to favorites';
+    button.textContent = selected ? '★' : '☆';
+    return button;
+}
+
+function renderCards(gridEl, emptyEl, list) {
+    if (!gridEl) return;
+    gridEl.replaceChildren();
+    const favorites = favoriteKeys();
+    for (const g of list) {
+        const key = gameKey(g);
+        const article = document.createElement('article');
+        article.className = 'library-card';
+        article.dataset.gameKey = encodeURIComponent(key);
+
+        const favorite = favoriteButton(key);
+        article.appendChild(favorite);
+
+        const link = document.createElement(g.action ? 'button' : 'a');
+        link.className = 'card';
+        if (g.action) {
+            link.type = 'button';
+            link.dataset.cardAction = g.action;
+        } else {
+            link.setAttribute('href', gameUrl(g));
+        }
+        link.dataset.gameKey = encodeURIComponent(key);
+        link.setAttribute('aria-label', `${g.action ? 'Open' : 'Play'} ${g.name}`);
+
+        const thumb = document.createElement('div');
+        thumb.className = 'thumb';
+        const image = document.createElement('img');
+        image.src = g.img.startsWith('assets/') ? siteAssetUrl(g.img) : g.img;
+        image.alt = g.name;
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        thumb.appendChild(image);
+        link.appendChild(thumb);
+
+        const name = document.createElement('div');
+        name.className = 'cname';
+        name.textContent = g.name;
+        link.appendChild(name);
+
+        const tags = document.createElement('div');
+        tags.className = 'card-tags';
+        for (const tag of libraryTags(g)) {
+            const pill = document.createElement('span');
+            pill.className = 'library-tag-pill';
+            pill.textContent = ({ mod: 'mod', game: 'game', extra: 'extra', web: 'web game', save: 'save', online: 'online' })[tag] || tag;
+            tags.appendChild(pill);
+        }
+        link.appendChild(tags);
+
+        if (g.desc) {
+            const desc = document.createElement('p');
+            desc.className = 'cdesc';
+            desc.textContent = g.desc;
+            link.appendChild(desc);
+        }
+        article.appendChild(link);
+        gridEl.appendChild(article);
+    }
+    if (emptyEl) emptyEl.hidden = list.length > 0;
+    syncFavoriteButtons(favorites);
+}
+
+function syncFavoriteButtons(keys = favoriteKeys()) {
+    for (const button of document.querySelectorAll('.favorite-toggle')) {
+        const key = decodeGameKey(button.dataset.gameKey);
+        const selected = keys.has(key);
+        button.textContent = selected ? '★' : '☆';
+        button.setAttribute('aria-pressed', String(selected));
+        button.setAttribute('aria-label', selected ? 'Remove from favorites' : 'Add to favorites');
+        button.title = selected ? 'remove favorite' : 'add to favorites';
+    }
+}
+
+function recordGameLaunch(anchor) {
+    const key = decodeGameKey(anchor?.dataset.gameKey);
+    const item = LIBRARY_ITEMS.find(g => gameKey(g) === key);
+    if (!item) return;
+    const history = playHistory();
+    const previous = history.find(row => row.key === key);
+    const row = { key, lastPlayed: Date.now(), plays: (previous?.plays || 0) + 1 };
+    localStorage.setItem(LIBRARY_KEYS.history, JSON.stringify([row, ...history.filter(x => x.key !== key)].slice(0, 30)));
+    localStorage.setItem(LIBRARY_KEYS.continue, key);
+    document.dispatchEvent(new CustomEvent('pu:history-changed'));
+}
+
+document.addEventListener('click', event => {
+    const button = event.target.closest('.favorite-toggle');
+    if (!button) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const key = decodeGameKey(button.dataset.gameKey);
+    const keys = favoriteKeys();
+    if (keys.has(key)) keys.delete(key); else keys.add(key);
+    localStorage.setItem(LIBRARY_KEYS.favorites, JSON.stringify([...keys]));
+    syncFavoriteButtons(keys);
+    document.dispatchEvent(new CustomEvent('pu:favorites-changed'));
+});
 
 function setupSearch(inputEl, gridEl, emptyEl, list) {
     if (!inputEl) return;
-    inputEl.addEventListener('input', () => {
+    const filter = () => {
         const q = inputEl.value.trim().toLowerCase();
-        gridEl.innerHTML = '';
-        renderCards(gridEl, emptyEl, q ? list.filter(g => g.name.toLowerCase().includes(q)) : list);
-    });
+        const filtered = q ? list.filter(g => `${g.name} ${g.desc || ''} ${libraryTags(g).join(' ')}`.toLowerCase().includes(q)) : list;
+        renderCards(gridEl, emptyEl, filtered);
+    };
+    inputEl.addEventListener('input', filter);
 }
 
-// hover sfx
+function setupCatalogFilters(inputEl, filterEl, gridEl, emptyEl, list, categoryFor) {
+    if (!filterEl) {
+        setupSearch(inputEl, gridEl, emptyEl, list);
+        return;
+    }
+    let active = 'all';
+    const render = () => {
+        const q = (inputEl?.value || '').trim().toLowerCase();
+        const filtered = list.filter(item => {
+            const categoryMatch = active === 'all'
+                || (active === 'favorites' ? favoriteKeys().has(gameKey(item)) : categoryFor(item) === active);
+            const searchMatch = !q || `${item.name} ${item.desc || ''} ${libraryTags(item).join(' ')}`.toLowerCase().includes(q);
+            return categoryMatch && searchMatch;
+        });
+        renderCards(gridEl, emptyEl, filtered);
+        for (const button of filterEl.querySelectorAll('[data-catalog-filter]')) {
+            const selected = button.dataset.catalogFilter === active;
+            button.classList.toggle('selected', selected);
+            button.setAttribute('aria-pressed', String(selected));
+        }
+    };
+    inputEl?.addEventListener('input', render);
+    filterEl.addEventListener('click', event => {
+        const button = event.target.closest('[data-catalog-filter]');
+        if (!button || !filterEl.contains(button)) return;
+        active = active === button.dataset.catalogFilter ? 'all' : button.dataset.catalogFilter;
+        render();
+    });
+    document.addEventListener('pu:favorites-changed', render);
+    render();
+}
+
+// Hover sound for catalog cards.
 const hoverSfx = new Audio('assets/sfx/buttons.ogg');
 hoverSfx.volume = 0.6;
 hoverSfx.preload = 'auto';
-document.addEventListener('mouseover', (e) => {
-    if (e.target.closest('.card, .icon-btn, .pizza-icon')) {
+document.addEventListener('mouseover', event => {
+    if (event.target.closest('.card, .favorite-toggle, .icon-btn, .pizza-icon')) {
         hoverSfx.currentTime = 0;
         hoverSfx.play().catch(() => {});
     }
 });
 </script>
+<script>// Unified library page plus the three personal game shelves on the home screen.
+(() => {
+    let activeFilter = 'all';
+    const search = document.getElementById('librarySearch');
+    const tagSelect = document.getElementById('libraryTag');
+    const sortSelect = document.getElementById('librarySort');
+    const grid = document.getElementById('libraryGrid');
+    const empty = document.getElementById('libraryEmpty');
+
+    function itemFor(key) {
+        return LIBRARY_ITEMS.find(item => gameKey(item) === key);
+    }
+
+    function filterMatches(item) {
+        if (activeFilter === 'favorites' && !favoriteKeys().has(gameKey(item))) return false;
+        if (activeFilter !== 'all' && activeFilter !== 'favorites' && item.libraryType !== activeFilter) return false;
+        const selectedTag = tagSelect?.value || 'all';
+        if (selectedTag !== 'all' && !libraryTags(item).includes(selectedTag)) return false;
+        const query = (search?.value || '').trim().toLowerCase();
+        return !query || `${item.name} ${item.desc || ''} ${libraryTags(item).join(' ')}`.toLowerCase().includes(query);
+    }
+
+    function sortItems(items) {
+        const rows = playHistory();
+        const history = new Map(rows.map(row => [row.key, row]));
+        const mode = sortSelect?.value || 'az';
+        return items.sort((a, b) => {
+            if (mode === 'za') return b.name.localeCompare(a.name);
+            if (mode === 'recent') return (history.get(gameKey(b))?.lastPlayed || 0) - (history.get(gameKey(a))?.lastPlayed || 0) || a.name.localeCompare(b.name);
+            if (mode === 'most') return (history.get(gameKey(b))?.plays || 0) - (history.get(gameKey(a))?.plays || 0) || a.name.localeCompare(b.name);
+            return a.name.localeCompare(b.name);
+        });
+    }
+
+    function renderLibraryPage() {
+        if (!grid) return;
+        const matches = sortItems(LIBRARY_ITEMS.filter(filterMatches));
+        renderCards(grid, empty, matches);
+        document.querySelectorAll('#libraryFilters [data-library-filter]').forEach(button => {
+            const selected = button.dataset.libraryFilter === activeFilter;
+            button.classList.toggle('selected', selected);
+            button.setAttribute('aria-pressed', String(selected));
+        });
+    }
+
+    function renderHomeShelves() {
+        const recentRows = playHistory();
+        const byKey = new Map(LIBRARY_ITEMS.map(item => [gameKey(item), item]));
+        const continuedKey = localStorage.getItem(LIBRARY_KEYS.continue) || '';
+        const continued = byKey.get(continuedKey);
+        const recent = recentRows.map(row => byKey.get(row.key)).filter(Boolean).slice(0, 6);
+        const favorites = LIBRARY_ITEMS
+            .filter(item => favoriteKeys().has(gameKey(item)))
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .slice(0, 6);
+
+        renderCards(document.getElementById('continueGrid'), document.getElementById('continueEmpty'), continued ? [continued] : []);
+        renderCards(document.getElementById('recentGrid'), document.getElementById('recentEmpty'), recent);
+        renderCards(document.getElementById('favoritesGrid'), document.getElementById('favoritesEmpty'), favorites);
+    }
+
+    document.getElementById('libraryFilters')?.addEventListener('click', event => {
+        const button = event.target.closest('[data-library-filter]');
+        if (!button) return;
+        activeFilter = button.dataset.libraryFilter;
+        renderLibraryPage();
+    });
+    document.addEventListener('click', event => {
+        const button = event.target.closest('[data-library-filter]');
+        if (!button || document.getElementById('libraryFilters')?.contains(button)) return;
+        activeFilter = button.dataset.libraryFilter;
+        if (typeof showPage === 'function') showPage('library');
+        renderLibraryPage();
+    });
+    search?.addEventListener('input', renderLibraryPage);
+    tagSelect?.addEventListener('change', renderLibraryPage);
+    sortSelect?.addEventListener('change', renderLibraryPage);
+    document.addEventListener('pu:favorites-changed', () => { renderHomeShelves(); renderLibraryPage(); });
+    document.addEventListener('pu:history-changed', () => { renderHomeShelves(); renderLibraryPage(); });
+
+    window.renderLibraryPage = renderLibraryPage;
+    window.renderHomeShelves = renderHomeShelves;
+    renderHomeShelves();
+    renderLibraryPage();
+})();
+</script>
 <script>(function () {
     const grid = document.getElementById('modGrid');
     const empty = document.getElementById('modsEmpty');
-    renderCards(grid, empty, MODS);
-    setupSearch(document.getElementById('modSearch'), grid, empty, MODS);
+    const category = item => {
+        const text = `${item.name} ${item.desc || ''}`.toLowerCase();
+        if (/\blap\b|lapper/.test(text)) return 'lap';
+        return 'other';
+    };
+    setupCatalogFilters(document.getElementById('modSearch'), document.getElementById('modFilters'), grid, empty, MODS, category);
 })();
 </script>
 <script>(function () {
     const grid = document.getElementById('extraGrid');
     const empty = document.getElementById('extrasEmpty');
-    renderCards(grid, empty, FANGAMES);
-    setupSearch(document.getElementById('extraSearch'), grid, empty, FANGAMES);
+    const popup = document.getElementById('ptSoundtrackPopup');
+    const playerFrame = document.getElementById('ptSoundtrackEmbed');
+    const playerUrl = 'https://html-classic.itch.zone/html/15792341/index.html?v=1782598071';
+
+    function openSoundtrack() {
+        popup.hidden = false;
+        if (!playerFrame.src || playerFrame.src === 'about:blank') playerFrame.src = playerUrl;
+    }
+
+    function stopSoundtrack() {
+        playerFrame.src = 'about:blank';
+        popup.hidden = true;
+    }
+
+    const category = item => /\blap\b|lapper|rando-laps/i.test(`${item.name} ${item.desc || ''}`) ? 'lap' : 'other';
+    setupCatalogFilters(document.getElementById('extraSearch'), document.getElementById('extraFilters'), grid, empty, FANGAMES, category);
+    grid.addEventListener('click', event => {
+        if (event.target.closest('[data-card-action="pt-soundtrack"]')) openSoundtrack();
+    });
+    popup.querySelector('[data-close="ptSoundtrackPopup"]')?.addEventListener('click', stopSoundtrack);
+    popup.addEventListener('mousedown', event => { if (event.target === popup) stopSoundtrack(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') stopSoundtrack(); });
 })();
 </script>
 <script>// ---------- theme music (from js/music.js: bgm, bgmStarted, bgmWanted) ----------
@@ -1435,14 +2240,14 @@ const CLOAKS = {
     classroom: ['Classes', 'https://ssl.gstatic.com/classroom/favicon.png'],
 };
 const cloakSel = document.getElementById('cloakSel');
-const VIEW_TITLES = { home: 'Pizza Unblocked', mods: 'Mods — Pizza Unblocked', extras: 'Extras — Pizza Unblocked', credits: 'Credits — Pizza Unblocked' };
+const VIEW_TITLES = { home: 'Pizza Unblocked', mods: 'Mods — Pizza Unblocked', extras: 'Extras — Pizza Unblocked', library: 'Game Library — Pizza Unblocked', credits: 'Credits — Pizza Unblocked', themes: 'Themes — Pizza Unblocked' };
 let curView = 'home';
 function applyCloak(key) {
     const c = CLOAKS[key];
     document.title = c ? c[0] : VIEW_TITLES[curView];
     let link = document.querySelector('link[rel="icon"]');
     if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
-    link.href = c ? c[1] : 'assets/pizza-icon.svg';
+    link.href = c ? c[1] : 'assets/favicon-pizza-face.png';
 }
 cloakSel.value = localStorage.getItem('pu_cloak') || '';
 cloakSel.addEventListener('change', () => {
@@ -1484,6 +2289,32 @@ document.getElementById('blankBtn').addEventListener('click', () => {
     location.replace('https://classroom.google.com'); // overwrite this tab's history entry
 });
 
+// blob cloak — same wrapper, but the popup's address bar shows an opaque
+// blob: URL and the history entry can't be traced back to a real path.
+// The popup has to finish loading BEFORE we leave: navigating away kills the
+// document that owns the blob, which revokes the URL under the popup.
+document.getElementById('blobBtn').addEventListener('click', () => {
+    const file = location.pathname.split('/').pop() || 'index.html';
+    const src = new URL(file, appBase.href).href;
+    const html = `<!DOCTYPE html><html><head>
+<title>Classes</title>
+<link rel="icon" href="https://ssl.gstatic.com/classroom/favicon.png">
+<style>html,body,iframe{height:100%;width:100%;margin:0;border:0;display:block}</style>
+</head><body><iframe src="${src}"></iframe></body></html>`;
+    const blobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    const w = window.open(blobUrl, '_blank');
+    if (!w) { URL.revokeObjectURL(blobUrl); return; }
+    let left = false;
+    const leave = () => {
+        if (left) return;
+        left = true;
+        URL.revokeObjectURL(blobUrl);
+        location.replace('https://classroom.google.com'); // overwrite this tab's history entry
+    };
+    w.onload = leave;
+    setTimeout(leave, 4000); // never strand the tab if load doesn't fire
+});
+
 // ---------- tools ----------
 const padBtn = document.getElementById('padBtn');
 function syncPadUi() {
@@ -1501,25 +2332,55 @@ window.addEventListener('gamepadconnected', syncPadUi);
 window.addEventListener('gamepaddisconnected', syncPadUi);
 syncPadUi();
 
+// Mobile controls are stored on the site origin, which game pages share.
+const touchModeSel = document.getElementById('touchModeSel');
+const touchLayoutSel = document.getElementById('touchLayoutSel');
+if (touchModeSel) {
+    const oldMode = localStorage.getItem('pu_touch');
+    touchModeSel.value = localStorage.getItem('pu_touch_mode') || (oldMode === 'on' ? 'on' : oldMode === 'off' ? 'off' : 'auto');
+    touchModeSel.addEventListener('change', () => localStorage.setItem('pu_touch_mode', touchModeSel.value));
+}
+if (touchLayoutSel) {
+    touchLayoutSel.value = localStorage.getItem('pu_touch_layout') || 'joystick';
+    touchLayoutSel.addEventListener('change', () => localStorage.setItem('pu_touch_layout', touchLayoutSel.value));
+}
+
 // ---------- themes ----------
 // PU_THEMES comes from js/music.js — bg = background image, song = music track
 const bgimgEl2 = document.querySelector('.bgimg');
 const themeGrid = document.getElementById('themeGrid');
 
-function applyTheme(t) {
+function applyTheme(t, track = true) {
+    const isCustom = Boolean(t.custom);
     bgimgEl2.src = t.bg;
     bgimgEl2.className = 'bgimg ' + (t.cls || '');
-    const src = t.song;
-    if (!bgm.src.endsWith(src)) {
-        const wasPlaying = bgmStarted && !bgm.paused;
-        bgm.src = src;
-        try { bgm.currentTime = 0; } catch {}
-        localStorage.setItem('pu_pos', 0);
-        if (wasPlaying) bgm.play().catch(() => {});
+    document.getElementById('pageHome').dataset.themeLayout = t.buttonLayout && t.buttonLayout !== 'default' ? t.buttonLayout : '';
+    {
+        const src = t.song || PU_THEMES.find(theme => theme.name === localStorage.getItem('pu_theme'))?.song || PU_THEMES[0].song;
+        if (!bgm.src.endsWith(src)) {
+            const wasPlaying = bgmStarted && !bgm.paused;
+            bgm.src = src;
+            try { bgm.currentTime = 0; } catch {}
+            localStorage.setItem('pu_pos', 0);
+            if (wasPlaying) bgm.play().catch(() => {});
+        }
     }
-    localStorage.setItem('pu_theme', t.name);
+    if (!isCustom) {
+        localStorage.setItem('pu_theme', t.name);
+        localStorage.removeItem('pu_theme_custom');
+    } else {
+        localStorage.setItem('pu_theme_custom', t.id);
+        localStorage.removeItem('pu_theme');
+    }
+    const colors = t.colors || { bg: '#1e1a16', text: '#fff4e0', accent: '#ffd75e', muted: '#b8a89a' };
+    document.documentElement.style.setProperty('--bg', colors.bg || '#1e1a16');
+    document.documentElement.style.setProperty('--text', colors.text || '#fff4e0');
+    document.documentElement.style.setProperty('--yellow', colors.accent || '#ffd75e');
+    document.documentElement.style.setProperty('--muted', colors.muted || '#b8a89a');
+    if (track) localStorage.setItem('pu_theme_applies', String(Number(localStorage.getItem('pu_theme_applies') || 0) + 1));
     for (const c of themeGrid.children) c.classList.toggle('sel', c.dataset.name === t.name);
 }
+window.applyPuTheme = applyTheme;
 for (const t of PU_THEMES) {
     const card = document.createElement('div');
     card.className = 'theme-card';
@@ -1528,7 +2389,10 @@ for (const t of PU_THEMES) {
     card.addEventListener('click', () => applyTheme(t));
     themeGrid.appendChild(card);
 }
-applyTheme(PU_THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || PU_THEMES[0]);
+let savedCustomTheme;
+try { savedCustomTheme = JSON.parse(localStorage.getItem('pu_custom_themes') || '[]').find(t => t.id === localStorage.getItem('pu_theme_custom')); } catch {}
+if (savedCustomTheme) applyTheme({ ...savedCustomTheme, custom: true }, false);
+else applyTheme(PU_THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || PU_THEMES[0], false);
 
 // ---------- crash log viewer ----------
 function renderCrashLog() {
@@ -1553,7 +2417,7 @@ document.getElementById('copyLogBtn').addEventListener('click', () => {
 // home / mods / extras live in one document so the music never restarts.
 // URLs look like index.html/mods — the server (or 404.html on static hosts)
 // maps them back to index.html.
-const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras', credits: 'pageCredits' };
+const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras', library: 'pageLibrary', credits: 'pageCredits', themes: 'pageThemes' };
 // pushed paths like index.html/mods would break relative links (games/, assets/)
 // — pin document.baseURI to the app directory so they always resolve correctly.
 const appBase = document.createElement('base');
@@ -1565,12 +2429,12 @@ appBase.href = window.PU_HOST ? window.PU_HOST + '/'
         : location.origin + '/';
 document.head.prepend(appBase);
 function viewFromUrl() {
-    const m = location.pathname.match(/\/(mods|extras|credits)\/?$/)
-        || location.hash.match(/^#\/?(mods|extras|credits)$/);
+    const m = location.pathname.match(/\/(mods|extras|library|credits|themes)\/?$/)
+        || location.hash.match(/^#\/?(mods|extras|library|credits|themes)$/);
     return m ? m[1] : 'home';
 }
 function pageUrl(name) {
-    const path = location.pathname.replace(/\/(mods|extras|credits)\/?$/, '');
+    const path = location.pathname.replace(/\/(mods|extras|library|credits|themes)\/?$/, '');
     const m = path.match(/[^/]+\.html?$/i);
     return (m ? path.slice(0, m.index) : path.replace(/\/$/, '') + '/')
         + (m ? m[0] : 'index.html') + (name === 'home' ? '' : '/' + name);
@@ -1583,6 +2447,7 @@ function showPage(name, push = true) {
         logo.setAttribute('aria-label', curView === 'credits' ? 'Pizza Unblocked — back to menu' : 'Pizza Unblocked — credits');
     }
     for (const v in VIEW_PAGES) document.getElementById(VIEW_PAGES[v]).hidden = v !== curView;
+    document.body.dataset.view = curView;
     document.title = (CLOAKS[cloakSel.value] || [VIEW_TITLES[curView]])[0];
     try {
         if (push) history.pushState(null, '', pageUrl(curView));
@@ -1590,6 +2455,8 @@ function showPage(name, push = true) {
     } catch {
         if (push) location.hash = '/' + curView;
     }
+    if (curView === 'home') window.renderHomeShelves?.();
+    if (curView === 'library') window.renderLibraryPage?.();
 }
 // ---------- game overlay ----------
 // game links open in an in-page iframe so the real host URL never hits the
@@ -1604,6 +2471,7 @@ function openGame(a) {
     const target = new URL(href, appBase.href);
     const url = target.href;
     const name = (a.querySelector('.cname') || {}).textContent || a.getAttribute('title') || 'game';
+    recordGameLaunch(a);
     if (gameOverlay) gameOverlay.remove();
     gameOverlay = document.createElement('div');
     gameOverlay.id = 'gameOverlay';
@@ -1644,7 +2512,7 @@ document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href]');
     if (!a) return;
     const href = a.getAttribute('href');
-    const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'credits.html' ? 'credits' : href === 'index.html' ? 'home' : null;
+    const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'index.html/library' ? 'library' : href === 'credits.html' ? 'credits' : href === 'index.html' ? 'home' : null;
     if (view) { e.preventDefault(); showPage(view); return; }
     if (/^(?:games|mods|extras)\//.test(href) || (a.classList.contains('card') && /^https?:/.test(href))) { e.preventDefault(); openGame(a); }
 });
@@ -1656,6 +2524,479 @@ window.addEventListener('popstate', () => {
 });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gameOverlay) history.back(); });
 showPage(viewFromUrl(), false);
+</script>
+<script>// Local theme browser, inspired by the Toby Web theme screens.
+(() => {
+    const CUSTOM_KEY = 'pu_custom_themes';
+    const INSTALLED_KEY = 'pu_installed_themes';
+    const FAVORITES_KEY = 'pu_theme_favorites';
+    const countKey = 'pu_theme_applies';
+    let customCache;
+    const tabs = document.getElementById('themeNav');
+    const sections = {
+        mine: document.getElementById('themeViewMine'),
+        discover: document.getElementById('themeViewDiscover'),
+        create: document.getElementById('themeViewCreate'),
+        stats: document.getElementById('themeViewStats'),
+    };
+    const read = (key, fallback) => {
+        try {
+            const value = JSON.parse(localStorage.getItem(key) || 'null');
+            return value ?? fallback;
+        } catch { return fallback; }
+    };
+    customCache = read(CUSTOM_KEY, []);
+    const customThemes = () => customCache.filter(theme => theme && theme.id && theme.name);
+    const installedThemes = () => read(INSTALLED_KEY, []);
+    const activeKey = () => localStorage.getItem('pu_theme_custom') || `official:${localStorage.getItem('pu_theme') || PU_THEMES[0].name}`;
+    let selectedTab = 'mine';
+    let previewObjectUrl = '';
+    let discoverLimit = 12;
+
+    function openThemeDb() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open('pizza-unblocked-themes', 1);
+            request.onupgradeneeded = () => request.result.createObjectStore('state');
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    }
+    async function readDb(key) {
+        const db = await openThemeDb();
+        return new Promise((resolve, reject) => {
+            const request = db.transaction('state').objectStore('state').get(key);
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    }
+    async function writeDb(key, value) {
+        const db = await openThemeDb();
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction('state', 'readwrite');
+            transaction.objectStore('state').put(value, key);
+            transaction.oncomplete = () => resolve();
+            transaction.onerror = () => reject(transaction.error);
+            transaction.onabort = () => reject(transaction.error);
+        });
+    }
+    async function removeDb(key) {
+        const db = await openThemeDb();
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction('state', 'readwrite');
+            transaction.objectStore('state').delete(key);
+            transaction.oncomplete = () => resolve();
+            transaction.onerror = () => reject(transaction.error);
+        });
+    }
+    async function loadPersistedThemes() {
+        try {
+            const stored = await readDb('custom');
+            if (Array.isArray(stored)) customCache = stored;
+            else {
+                const legacy = read(CUSTOM_KEY, []);
+                if (Array.isArray(legacy) && legacy.length) {
+                    customCache = legacy;
+                    await writeDb('custom', customCache);
+                }
+            }
+            localStorage.setItem(CUSTOM_KEY, '[]');
+            const active = customThemes().find(theme => theme.id === localStorage.getItem('pu_theme_custom'));
+            if (active) window.applyPuTheme({ ...active, custom: true }, false);
+            renderAll();
+            refreshDraftSelect();
+        } catch {
+            document.getElementById('themeFormNote').textContent = 'browser storage is unavailable; themes may not save';
+        }
+    }
+
+    function crc32(bytes) {
+        let crc = -1;
+        for (const byte of bytes) {
+            crc ^= byte;
+            for (let i = 0; i < 8; i++) crc = (crc >>> 1) ^ (0xedb88320 & -(crc & 1));
+        }
+        return (crc ^ -1) >>> 0;
+    }
+    function zipStore(files) {
+        const encoder = new TextEncoder();
+        const localParts = [], centralParts = [];
+        let offset = 0;
+        for (const file of files) {
+            const name = encoder.encode(file.name), data = file.data instanceof Uint8Array ? file.data : encoder.encode(file.data);
+            const crc = crc32(data);
+            const local = new Uint8Array(30 + name.length + data.length), lv = new DataView(local.buffer);
+            lv.setUint32(0, 0x04034b50, true); lv.setUint16(4, 20, true); lv.setUint32(14, crc, true);
+            lv.setUint32(18, data.length, true); lv.setUint32(22, data.length, true); lv.setUint16(26, name.length, true);
+            local.set(name, 30); local.set(data, 30 + name.length); localParts.push(local);
+            const central = new Uint8Array(46 + name.length), cv = new DataView(central.buffer);
+            cv.setUint32(0, 0x02014b50, true); cv.setUint16(4, 20, true); cv.setUint16(6, 20, true);
+            cv.setUint32(16, crc, true); cv.setUint32(20, data.length, true); cv.setUint32(24, data.length, true);
+            cv.setUint16(28, name.length, true); cv.setUint32(42, offset, true); central.set(name, 46);
+            centralParts.push(central); offset += local.length;
+        }
+        const centralSize = centralParts.reduce((sum, part) => sum + part.length, 0);
+        const end = new Uint8Array(22), view = new DataView(end.buffer);
+        view.setUint32(0, 0x06054b50, true); view.setUint16(8, files.length, true); view.setUint16(10, files.length, true);
+        view.setUint32(12, centralSize, true); view.setUint32(16, offset, true);
+        return new Blob([...localParts, ...centralParts, end], { type: 'application/zip' });
+    }
+    function dataUrlBytes(url) {
+        if (!url || !url.startsWith('data:')) return null;
+        const [meta, encoded] = url.split(',', 2);
+        if (!meta.includes(';base64')) return new TextEncoder().encode(decodeURIComponent(encoded));
+        const raw = atob(encoded), bytes = new Uint8Array(raw.length);
+        for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+        return bytes;
+    }
+    async function exportTheme(theme) {
+        const bgName = `background.${theme.bg?.match(/^data:image\/([^;]+)/)?.[1] || 'bin'}`;
+        const songName = `music.${theme.song?.match(/^data:audio\/([^;]+)/)?.[1] || 'bin'}`;
+        const metadata = { ...theme, bg: theme.bg?.startsWith('data:') ? bgName : theme.bg, song: theme.song?.startsWith('data:') ? songName : theme.song };
+        const files = [{ name: 'theme.json', data: JSON.stringify(metadata, null, 2) }];
+        const background = dataUrlBytes(theme.bg);
+        if (background) files.push({ name: bgName, data: background });
+        const music = dataUrlBytes(theme.song);
+        if (music) files.push({ name: songName, data: music });
+        const blob = zipStore(files), url = URL.createObjectURL(blob), anchor = document.createElement('a');
+        anchor.href = url; anchor.download = `${theme.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'theme'}.zip`;
+        anchor.click(); setTimeout(() => URL.revokeObjectURL(url), 30000);
+    }
+
+    function selectTab(name) {
+        selectedTab = name in sections ? name : 'mine';
+        for (const [key, section] of Object.entries(sections)) section.hidden = key !== selectedTab;
+        for (const button of tabs.querySelectorAll('[data-theme-tab]')) {
+            const selected = button.dataset.themeTab === selectedTab;
+            button.classList.toggle('selected', selected);
+            button.setAttribute('aria-current', selected ? 'page' : 'false');
+        }
+        if (selectedTab === 'stats') renderStats();
+    }
+
+    function addTile(container, theme, { custom = false, discover = false } = {}) {
+        const key = custom ? theme.id : `official:${theme.name}`;
+        const tile = document.createElement('article');
+        tile.className = 'theme-tile';
+        if (activeKey() === key) tile.classList.add('active');
+
+        const image = document.createElement('button');
+        image.type = 'button';
+        image.className = 'theme-tile-image';
+        image.setAttribute('aria-label', `Apply ${theme.name}`);
+        image.style.background = `center / cover url("${theme.bg}") #111`;
+        image.addEventListener('click', () => {
+            window.applyPuTheme({ ...theme, custom });
+            renderAll();
+        });
+        tile.appendChild(image);
+
+        const title = document.createElement('strong');
+        title.className = 'theme-tile-title';
+        title.textContent = theme.name;
+        tile.appendChild(title);
+        const creator = document.createElement('span');
+        creator.className = 'theme-tile-creator';
+        creator.textContent = theme.creator || (custom ? 'local creator' : 'Pizza Unblocked');
+        tile.appendChild(creator);
+
+        const favoriteIds = new Set(read(FAVORITES_KEY, []));
+        const favorite = document.createElement('button');
+        favorite.type = 'button'; favorite.className = 'theme-favorite';
+        favorite.textContent = favoriteIds.has(key) ? '★' : '☆';
+        favorite.title = favoriteIds.has(key) ? 'remove favorite theme' : 'favorite theme';
+        favorite.setAttribute('aria-pressed', String(favoriteIds.has(key)));
+        favorite.addEventListener('click', () => {
+            const next = new Set(read(FAVORITES_KEY, []));
+            if (next.has(key)) next.delete(key); else next.add(key);
+            localStorage.setItem(FAVORITES_KEY, JSON.stringify([...next]));
+            favorite.textContent = next.has(key) ? '★' : '☆';
+            favorite.setAttribute('aria-pressed', String(next.has(key)));
+        });
+        tile.appendChild(favorite);
+
+        const actions = document.createElement('div');
+        actions.className = 'theme-tile-actions';
+        const action = document.createElement('button');
+        action.type = 'button';
+        action.className = 'theme-action';
+        if (discover) {
+            action.textContent = installedThemes().includes(key) ? 'installed' : 'install';
+            action.disabled = installedThemes().includes(key);
+            action.addEventListener('click', () => {
+                const installed = new Set(installedThemes());
+                installed.add(key);
+                localStorage.setItem(INSTALLED_KEY, JSON.stringify([...installed]));
+                window.applyPuTheme({ ...theme, custom });
+                renderAll();
+            });
+        } else {
+            action.textContent = 'apply';
+            action.addEventListener('click', () => {
+                window.applyPuTheme({ ...theme, custom });
+                renderAll();
+            });
+        }
+        actions.appendChild(action);
+
+        if (custom && !discover) {
+            const exportButton = document.createElement('button');
+            exportButton.type = 'button'; exportButton.className = 'theme-action'; exportButton.textContent = 'export zip';
+            exportButton.addEventListener('click', () => exportTheme(theme));
+            actions.appendChild(exportButton);
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.className = 'theme-action';
+            remove.textContent = 'delete';
+            remove.addEventListener('click', () => {
+                const remaining = customThemes().filter(item => item.id !== theme.id);
+                customCache = remaining;
+                writeDb('custom', customCache).catch(() => {});
+                localStorage.setItem(INSTALLED_KEY, JSON.stringify(installedThemes().filter(item => item !== theme.id)));
+                if (localStorage.getItem('pu_theme_custom') === theme.id) window.applyPuTheme(PU_THEMES[0]);
+                renderAll();
+            });
+            actions.appendChild(remove);
+        }
+        tile.appendChild(actions);
+        container.appendChild(tile);
+    }
+
+    function renderMine() {
+        const officialGrid = document.getElementById('themeOfficialGrid');
+        const installedGrid = document.getElementById('themeInstalledGrid');
+        officialGrid.replaceChildren();
+        installedGrid.replaceChildren();
+        for (const theme of PU_THEMES) addTile(officialGrid, theme);
+        for (const theme of customThemes()) addTile(installedGrid, theme, { custom: true });
+        document.getElementById('themeInstalledEmpty').hidden = customThemes().length > 0;
+    }
+
+    function renderDiscover() {
+        const grid = document.getElementById('themeDiscoverGrid');
+        const empty = document.getElementById('themeDiscoverEmpty');
+        const query = document.getElementById('themeSearch').value.trim().toLowerCase();
+        const sort = document.getElementById('themeSort').value;
+        let themes = [...PU_THEMES].filter(theme => theme.name.toLowerCase().includes(query));
+        if (sort === 'az') themes.sort((a, b) => a.name.localeCompare(b.name));
+        if (sort === 'favorites') themes = themes.filter(theme => read(FAVORITES_KEY, []).includes(`official:${theme.name}`));
+        grid.replaceChildren();
+        for (const theme of themes.slice(0, discoverLimit)) addTile(grid, theme, { discover: true });
+        document.getElementById('themeDiscoverMore').hidden = themes.length <= discoverLimit;
+        empty.hidden = themes.length > 0;
+    }
+
+    function draftValue() {
+        return {
+            name: nameInput.value.trim(), creator: document.getElementById('themeCreator').value.trim(),
+            description: document.getElementById('themeDescription').value.trim(),
+            accent: accentInput.value, text: textInput.value, bgColor: bgColorInput.value,
+            buttonLayout: document.getElementById('themeButtonLayout').value,
+            background: fileInput.files?.[0] || null, music: musicInput.files?.[0] || null,
+        };
+    }
+    async function fileToDataUrl(file) {
+        if (!file) return '';
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+    async function readDrafts() { return (await readDb('drafts')) || []; }
+    async function refreshDraftSelect() {
+        const select = document.getElementById('themeDraftSelect');
+        if (!select) return;
+        const previous = select.value;
+        let drafts = [];
+        try { drafts = await readDrafts(); } catch {}
+        select.replaceChildren(new Option('select a draft', ''));
+        drafts.forEach(draft => select.add(new Option(draft.name || 'untitled draft', draft.id)));
+        if (drafts.some(draft => draft.id === previous)) select.value = previous;
+    }
+    async function saveDraft() {
+        const value = draftValue();
+        const bg = value.background, song = value.music;
+        if (bg && bg.size > 30 * 1024 * 1024) throw new Error('background images must be 30 MB or smaller');
+        if (song && song.size > 50 * 1024 * 1024) throw new Error('music files must be 50 MB or smaller');
+        const drafts = await readDrafts();
+        const draft = {
+            id: `draft-${Date.now()}`, name: value.name || 'untitled draft', creator: value.creator,
+            description: value.description, accent: value.accent, text: value.text, bgColor: value.bgColor,
+            bg: bg ? await fileToDataUrl(bg) : '', song: song ? await fileToDataUrl(song) : '',
+        };
+        drafts.unshift(draft);
+        await writeDb('drafts', drafts.slice(0, 20));
+        await refreshDraftSelect();
+        document.getElementById('themeFormNote').textContent = 'draft saved in this browser';
+    }
+    async function loadDraft() {
+        const id = document.getElementById('themeDraftSelect').value;
+        const draft = (await readDrafts()).find(item => item.id === id);
+        if (!draft) return;
+        nameInput.value = draft.name || ''; document.getElementById('themeCreator').value = draft.creator || '';
+        document.getElementById('themeDescription').value = draft.description || '';
+        accentInput.value = draft.accent || '#ffd75e'; textInput.value = draft.text || '#fff4e0'; bgColorInput.value = draft.bgColor || '#1e1a16';
+        document.getElementById('themeButtonLayout').value = draft.buttonLayout || 'default';
+        fileInput.value = ''; musicInput.value = '';
+        const restoreFile = (input, data, name, fallbackType) => {
+            if (!data) return;
+            const bytes = dataUrlBytes(data);
+            const type = data.slice(5, data.indexOf(';')) || fallbackType;
+            const transfer = new DataTransfer();
+            transfer.items.add(new File([bytes], name, { type })); input.files = transfer.files;
+        };
+        try { restoreFile(fileInput, draft.bg, 'theme-background', 'image/png'); } catch {}
+        try { restoreFile(musicInput, draft.song, 'theme-music', 'audio/mpeg'); } catch {}
+        if (draft.bg) preview.style.backgroundImage = `url("${draft.bg}")`;
+        updatePreview(); document.getElementById('themeFormNote').textContent = 'draft loaded; reselect media files if you want to edit them';
+    }
+
+    function renderStats() {
+        const grid = document.getElementById('themeStats');
+        const currentCustom = customThemes().find(theme => theme.id === localStorage.getItem('pu_theme_custom'));
+        const current = currentCustom?.name || localStorage.getItem('pu_theme') || PU_THEMES[0].name;
+        const rows = [
+            ['current theme', current],
+            ['installed themes', new Set([...installedThemes(), ...customThemes().map(theme => theme.id)]).size],
+            ['themes you created', customThemes().length],
+            ['theme changes on this device', Number(localStorage.getItem(countKey) || 0)],
+        ];
+        grid.replaceChildren();
+        for (const [label, value] of rows) {
+            const row = document.createElement('div');
+            row.className = 'theme-stat';
+            const title = document.createElement('span');
+            title.textContent = label;
+            const count = document.createElement('strong');
+            count.textContent = String(value);
+            row.append(title, count);
+            grid.appendChild(row);
+        }
+    }
+
+    function renderAll() {
+        renderMine();
+        renderDiscover();
+        if (selectedTab === 'stats') renderStats();
+    }
+
+    document.getElementById('themeBtn').addEventListener('click', () => showPage('themes'));
+    document.getElementById('themeBack').addEventListener('click', () => showPage('home'));
+    tabs.addEventListener('click', event => {
+        const button = event.target.closest('[data-theme-tab]');
+        if (button) selectTab(button.dataset.themeTab);
+    });
+    document.getElementById('themeSearch').addEventListener('input', () => { discoverLimit = 12; renderDiscover(); });
+    document.getElementById('themeSort').addEventListener('change', () => { discoverLimit = 12; renderDiscover(); });
+
+    const form = document.getElementById('themeCreateForm');
+    const preview = document.getElementById('themePreview');
+    const previewTitle = preview.querySelector('.preview-title');
+    const nameInput = document.getElementById('themeName');
+    const fileInput = document.getElementById('themeBackground');
+    const musicInput = document.getElementById('themeMusic');
+    const accentInput = document.getElementById('themeAccent');
+    const textInput = document.getElementById('themeText');
+    const bgColorInput = document.getElementById('themeColorBg');
+    const buttonLayoutInput = document.getElementById('themeButtonLayout');
+    function updatePreview() {
+        previewTitle.textContent = nameInput.value.trim() || 'my theme';
+        preview.style.color = textInput.value;
+        preview.style.backgroundColor = bgColorInput.value;
+        preview.style.borderColor = accentInput.value;
+        preview.dataset.layout = buttonLayoutInput.value;
+        for (const button of preview.querySelectorAll('.preview-buttons i')) button.style.borderColor = accentInput.value;
+    }
+    for (const input of [nameInput, accentInput, textInput, bgColorInput, buttonLayoutInput]) input.addEventListener('input', updatePreview);
+    buttonLayoutInput.addEventListener('change', updatePreview);
+    fileInput.addEventListener('change', () => {
+        if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+        const file = fileInput.files?.[0];
+        if (!file) return;
+        previewObjectUrl = URL.createObjectURL(file);
+        preview.style.backgroundImage = `url("${previewObjectUrl}")`;
+    });
+    const observer = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+            const total = PU_THEMES.filter(theme => {
+                const q = document.getElementById('themeSearch').value.trim().toLowerCase();
+                return theme.name.toLowerCase().includes(q);
+            }).length;
+            if (discoverLimit < total) { discoverLimit += 12; renderDiscover(); }
+        }
+    });
+    observer.observe(document.getElementById('themeDiscoverMore'));
+    document.getElementById('themeSaveDraft').addEventListener('click', async () => {
+        const note = document.getElementById('themeFormNote');
+        try { await saveDraft(); }
+        catch (error) { note.textContent = error.message || 'could not save draft in browser storage'; }
+    });
+    document.getElementById('themeLoadDraft').addEventListener('click', () => loadDraft().catch(() => {}));
+    document.getElementById('themeDeleteDraft').addEventListener('click', async () => {
+        const select = document.getElementById('themeDraftSelect');
+        if (!select.value) return;
+        const drafts = (await readDrafts()).filter(draft => draft.id !== select.value);
+        await writeDb('drafts', drafts); await refreshDraftSelect();
+        document.getElementById('themeFormNote').textContent = 'draft deleted';
+    });
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const note = document.getElementById('themeFormNote');
+        const file = fileInput.files?.[0];
+        const musicFile = musicInput.files?.[0];
+        if (file && file.size > 30 * 1024 * 1024) {
+            note.textContent = 'background images must be 30 MB or smaller';
+            return;
+        }
+        if (musicFile && musicFile.size > 50 * 1024 * 1024) {
+            note.textContent = 'music files must be 50 MB or smaller';
+            return;
+        }
+        let bg = document.querySelector('.bgimg').src;
+        if (file) {
+            try { bg = await fileToDataUrl(file); }
+            catch { note.textContent = 'could not read that image'; return; }
+        }
+        let song = '';
+        if (musicFile) {
+            try { song = await fileToDataUrl(musicFile); }
+            catch { note.textContent = 'could not read that music file'; return; }
+        }
+        const theme = {
+            id: `local-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+            custom: true,
+            name: nameInput.value.trim(),
+            creator: document.getElementById('themeCreator').value.trim() || 'local creator',
+            description: document.getElementById('themeDescription').value.trim(),
+            bg,
+            song,
+            buttonLayout: buttonLayoutInput.value,
+            colors: { bg: bgColorInput.value, accent: accentInput.value, text: textInput.value, muted: '#b8a89a' },
+        };
+        try {
+            const saved = [...customThemes(), theme];
+            await writeDb('custom', saved);
+            customCache = saved;
+            localStorage.setItem(CUSTOM_KEY, '[]');
+            localStorage.setItem(INSTALLED_KEY, JSON.stringify([...new Set([...installedThemes(), theme.id])]));
+            window.applyPuTheme(theme);
+            note.textContent = 'theme saved and installed in this browser';
+            form.reset();
+            if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+            previewObjectUrl = '';
+            preview.style.backgroundImage = '';
+            updatePreview();
+            renderAll();
+            selectTab('mine');
+        } catch {
+            note.textContent = 'could not save in browser storage; try a smaller file';
+        }
+    });
+
+    loadPersistedThemes();
+
+    selectTab('mine');
+    renderAll();
+})();
 </script>
 <script>/* Pizza Unblocked — persistent saves for butterscotch ports.
    The runner's --save-folder is /saves in the in-memory wasm FS, so this

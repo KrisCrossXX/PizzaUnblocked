@@ -139,14 +139,14 @@ const CLOAKS = {
     classroom: ['Classes', 'https://ssl.gstatic.com/classroom/favicon.png'],
 };
 const cloakSel = document.getElementById('cloakSel');
-const VIEW_TITLES = { home: 'Pizza Unblocked', mods: 'Mods — Pizza Unblocked', extras: 'Extras — Pizza Unblocked', credits: 'Credits — Pizza Unblocked' };
+const VIEW_TITLES = { home: 'Pizza Unblocked', mods: 'Mods — Pizza Unblocked', extras: 'Extras — Pizza Unblocked', library: 'Game Library — Pizza Unblocked', credits: 'Credits — Pizza Unblocked', themes: 'Themes — Pizza Unblocked' };
 let curView = 'home';
 function applyCloak(key) {
     const c = CLOAKS[key];
     document.title = c ? c[0] : VIEW_TITLES[curView];
     let link = document.querySelector('link[rel="icon"]');
     if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
-    link.href = c ? c[1] : 'assets/pizza-icon.svg';
+    link.href = c ? c[1] : 'assets/favicon-pizza-face.png';
 }
 cloakSel.value = localStorage.getItem('pu_cloak') || '';
 cloakSel.addEventListener('change', () => {
@@ -188,6 +188,32 @@ document.getElementById('blankBtn').addEventListener('click', () => {
     location.replace('https://classroom.google.com'); // overwrite this tab's history entry
 });
 
+// blob cloak — same wrapper, but the popup's address bar shows an opaque
+// blob: URL and the history entry can't be traced back to a real path.
+// The popup has to finish loading BEFORE we leave: navigating away kills the
+// document that owns the blob, which revokes the URL under the popup.
+document.getElementById('blobBtn').addEventListener('click', () => {
+    const file = location.pathname.split('/').pop() || 'index.html';
+    const src = new URL(file, appBase.href).href;
+    const html = `<!DOCTYPE html><html><head>
+<title>Classes</title>
+<link rel="icon" href="https://ssl.gstatic.com/classroom/favicon.png">
+<style>html,body,iframe{height:100%;width:100%;margin:0;border:0;display:block}</style>
+</head><body><iframe src="${src}"></iframe></body></html>`;
+    const blobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    const w = window.open(blobUrl, '_blank');
+    if (!w) { URL.revokeObjectURL(blobUrl); return; }
+    let left = false;
+    const leave = () => {
+        if (left) return;
+        left = true;
+        URL.revokeObjectURL(blobUrl);
+        location.replace('https://classroom.google.com'); // overwrite this tab's history entry
+    };
+    w.onload = leave;
+    setTimeout(leave, 4000); // never strand the tab if load doesn't fire
+});
+
 // ---------- tools ----------
 const padBtn = document.getElementById('padBtn');
 function syncPadUi() {
@@ -205,25 +231,55 @@ window.addEventListener('gamepadconnected', syncPadUi);
 window.addEventListener('gamepaddisconnected', syncPadUi);
 syncPadUi();
 
+// Mobile controls are stored on the site origin, which game pages share.
+const touchModeSel = document.getElementById('touchModeSel');
+const touchLayoutSel = document.getElementById('touchLayoutSel');
+if (touchModeSel) {
+    const oldMode = localStorage.getItem('pu_touch');
+    touchModeSel.value = localStorage.getItem('pu_touch_mode') || (oldMode === 'on' ? 'on' : oldMode === 'off' ? 'off' : 'auto');
+    touchModeSel.addEventListener('change', () => localStorage.setItem('pu_touch_mode', touchModeSel.value));
+}
+if (touchLayoutSel) {
+    touchLayoutSel.value = localStorage.getItem('pu_touch_layout') || 'joystick';
+    touchLayoutSel.addEventListener('change', () => localStorage.setItem('pu_touch_layout', touchLayoutSel.value));
+}
+
 // ---------- themes ----------
 // PU_THEMES comes from js/music.js — bg = background image, song = music track
 const bgimgEl2 = document.querySelector('.bgimg');
 const themeGrid = document.getElementById('themeGrid');
 
-function applyTheme(t) {
+function applyTheme(t, track = true) {
+    const isCustom = Boolean(t.custom);
     bgimgEl2.src = t.bg;
     bgimgEl2.className = 'bgimg ' + (t.cls || '');
-    const src = t.song;
-    if (!bgm.src.endsWith(src)) {
-        const wasPlaying = bgmStarted && !bgm.paused;
-        bgm.src = src;
-        try { bgm.currentTime = 0; } catch {}
-        localStorage.setItem('pu_pos', 0);
-        if (wasPlaying) bgm.play().catch(() => {});
+    document.getElementById('pageHome').dataset.themeLayout = t.buttonLayout && t.buttonLayout !== 'default' ? t.buttonLayout : '';
+    {
+        const src = t.song || PU_THEMES.find(theme => theme.name === localStorage.getItem('pu_theme'))?.song || PU_THEMES[0].song;
+        if (!bgm.src.endsWith(src)) {
+            const wasPlaying = bgmStarted && !bgm.paused;
+            bgm.src = src;
+            try { bgm.currentTime = 0; } catch {}
+            localStorage.setItem('pu_pos', 0);
+            if (wasPlaying) bgm.play().catch(() => {});
+        }
     }
-    localStorage.setItem('pu_theme', t.name);
+    if (!isCustom) {
+        localStorage.setItem('pu_theme', t.name);
+        localStorage.removeItem('pu_theme_custom');
+    } else {
+        localStorage.setItem('pu_theme_custom', t.id);
+        localStorage.removeItem('pu_theme');
+    }
+    const colors = t.colors || { bg: '#1e1a16', text: '#fff4e0', accent: '#ffd75e', muted: '#b8a89a' };
+    document.documentElement.style.setProperty('--bg', colors.bg || '#1e1a16');
+    document.documentElement.style.setProperty('--text', colors.text || '#fff4e0');
+    document.documentElement.style.setProperty('--yellow', colors.accent || '#ffd75e');
+    document.documentElement.style.setProperty('--muted', colors.muted || '#b8a89a');
+    if (track) localStorage.setItem('pu_theme_applies', String(Number(localStorage.getItem('pu_theme_applies') || 0) + 1));
     for (const c of themeGrid.children) c.classList.toggle('sel', c.dataset.name === t.name);
 }
+window.applyPuTheme = applyTheme;
 for (const t of PU_THEMES) {
     const card = document.createElement('div');
     card.className = 'theme-card';
@@ -232,7 +288,10 @@ for (const t of PU_THEMES) {
     card.addEventListener('click', () => applyTheme(t));
     themeGrid.appendChild(card);
 }
-applyTheme(PU_THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || PU_THEMES[0]);
+let savedCustomTheme;
+try { savedCustomTheme = JSON.parse(localStorage.getItem('pu_custom_themes') || '[]').find(t => t.id === localStorage.getItem('pu_theme_custom')); } catch {}
+if (savedCustomTheme) applyTheme({ ...savedCustomTheme, custom: true }, false);
+else applyTheme(PU_THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || PU_THEMES[0], false);
 
 // ---------- crash log viewer ----------
 function renderCrashLog() {
@@ -257,7 +316,7 @@ document.getElementById('copyLogBtn').addEventListener('click', () => {
 // home / mods / extras live in one document so the music never restarts.
 // URLs look like index.html/mods — the server (or 404.html on static hosts)
 // maps them back to index.html.
-const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras', credits: 'pageCredits' };
+const VIEW_PAGES = { home: 'pageHome', mods: 'pageMods', extras: 'pageExtras', library: 'pageLibrary', credits: 'pageCredits', themes: 'pageThemes' };
 // pushed paths like index.html/mods would break relative links (games/, assets/)
 // — pin document.baseURI to the app directory so they always resolve correctly.
 const appBase = document.createElement('base');
@@ -269,12 +328,12 @@ appBase.href = window.PU_HOST ? window.PU_HOST + '/'
         : location.origin + '/';
 document.head.prepend(appBase);
 function viewFromUrl() {
-    const m = location.pathname.match(/\/(mods|extras|credits)\/?$/)
-        || location.hash.match(/^#\/?(mods|extras|credits)$/);
+    const m = location.pathname.match(/\/(mods|extras|library|credits|themes)\/?$/)
+        || location.hash.match(/^#\/?(mods|extras|library|credits|themes)$/);
     return m ? m[1] : 'home';
 }
 function pageUrl(name) {
-    const path = location.pathname.replace(/\/(mods|extras|credits)\/?$/, '');
+    const path = location.pathname.replace(/\/(mods|extras|library|credits|themes)\/?$/, '');
     const m = path.match(/[^/]+\.html?$/i);
     return (m ? path.slice(0, m.index) : path.replace(/\/$/, '') + '/')
         + (m ? m[0] : 'index.html') + (name === 'home' ? '' : '/' + name);
@@ -287,6 +346,7 @@ function showPage(name, push = true) {
         logo.setAttribute('aria-label', curView === 'credits' ? 'Pizza Unblocked — back to menu' : 'Pizza Unblocked — credits');
     }
     for (const v in VIEW_PAGES) document.getElementById(VIEW_PAGES[v]).hidden = v !== curView;
+    document.body.dataset.view = curView;
     document.title = (CLOAKS[cloakSel.value] || [VIEW_TITLES[curView]])[0];
     try {
         if (push) history.pushState(null, '', pageUrl(curView));
@@ -294,6 +354,8 @@ function showPage(name, push = true) {
     } catch {
         if (push) location.hash = '/' + curView;
     }
+    if (curView === 'home') window.renderHomeShelves?.();
+    if (curView === 'library') window.renderLibraryPage?.();
 }
 // ---------- game overlay ----------
 // game links open in an in-page iframe so the real host URL never hits the
@@ -308,6 +370,7 @@ function openGame(a) {
     const target = new URL(href, appBase.href);
     const url = target.href;
     const name = (a.querySelector('.cname') || {}).textContent || a.getAttribute('title') || 'game';
+    recordGameLaunch(a);
     if (gameOverlay) gameOverlay.remove();
     gameOverlay = document.createElement('div');
     gameOverlay.id = 'gameOverlay';
@@ -348,7 +411,7 @@ document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href]');
     if (!a) return;
     const href = a.getAttribute('href');
-    const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'credits.html' ? 'credits' : href === 'index.html' ? 'home' : null;
+    const view = href === 'mods.html' ? 'mods' : href === 'extras.html' ? 'extras' : href === 'index.html/library' ? 'library' : href === 'credits.html' ? 'credits' : href === 'index.html' ? 'home' : null;
     if (view) { e.preventDefault(); showPage(view); return; }
     if (/^(?:games|mods|extras)\//.test(href) || (a.classList.contains('card') && /^https?:/.test(href))) { e.preventDefault(); openGame(a); }
 });

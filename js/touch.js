@@ -9,11 +9,14 @@
     // Prefer the primary pointer type. Desktop browsers can expose
     // `ontouchstart` and `maxTouchPoints` even when a mouse/keyboard is the
     // active input, which incorrectly overlays giant controls on PC.
-    const isTouchDevice = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches
+    const isTouchDevice = () => !!(window.matchMedia && matchMedia('(pointer: coarse)').matches
         && !matchMedia('(pointer: fine)').matches);
-    let enabled = localStorage.getItem('pu_touch') != null
-        ? localStorage.getItem('pu_touch') === 'on' && isTouchDevice
-        : isTouchDevice;
+    function readMode() {
+        const mode = localStorage.getItem('pu_touch_mode');
+        if (mode === 'on' || mode === 'off' || mode === 'auto') return mode;
+        return localStorage.getItem('pu_touch') === 'off' ? 'off' : localStorage.getItem('pu_touch') === 'on' ? 'on' : 'auto';
+    }
+    let enabled = readMode() === 'on' || (readMode() === 'auto' && isTouchDevice());
 
     const held = new Set();
     function fire(type, key, code, keyCode) {
@@ -55,6 +58,16 @@
         #pu-stick .base { position: absolute; inset: 0; }
         #pu-stick .knob { position: absolute; width: 56.4%; height: 56.4%;
             left: 21.8%; top: 21.8%; }
+        #pu-arrows { left: 4vmin; bottom: 4vmin; width: 32vmin; height: 30vmin;
+            display: none; grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr; gap: 3px; }
+        #pu-arrows button { border: 2px solid #fff5d7; border-radius: 50%; background: #17110dcc;
+            color: #fff5d7; font: bold 5vmin/1 sans-serif; text-shadow: 1px 2px #000; touch-action: none; }
+        #pu-touch.layout-arrows #pu-stick { display: none; }
+        #pu-touch.layout-arrows #pu-arrows { display: grid; }
+        #pu-arrows [data-dir="up"] { grid-area: 1 / 2; }
+        #pu-arrows [data-dir="left"] { grid-area: 2 / 1; }
+        #pu-arrows [data-dir="down"] { grid-area: 2 / 2; }
+        #pu-arrows [data-dir="right"] { grid-area: 2 / 3; }
         #pu-jump  { right: 4vmin;  bottom: 5vmin;  width: 21vmin; height: 21vmin; }
         #pu-dash  { right: 8vmin;  bottom: 27vmin; width: 17vmin; height: 17vmin; }
         #pu-grab  { right: 26vmin; bottom: 12vmin; width: 17vmin; height: 17vmin; }
@@ -72,6 +85,12 @@
             <img class="base" src="${A}touch-stick-base.png" alt="">
             <img class="knob" src="${A}touch-stick-knob.png" alt="">
         </div>
+        <div class="pu-tc" id="pu-arrows" aria-label="Movement controls">
+            <button type="button" data-dir="up" aria-label="up">▲</button>
+            <button type="button" data-dir="left" aria-label="left">◀</button>
+            <button type="button" data-dir="down" aria-label="down">▼</button>
+            <button type="button" data-dir="right" aria-label="right">▶</button>
+        </div>
         <div class="pu-tc" id="pu-jump"><img src="${A}touch-jump.png" alt="jump"></div>
         <div class="pu-tc" id="pu-dash"><img src="${A}touch-dash.png" alt="dash"></div>
         <div class="pu-tc" id="pu-grab"><img src="${A}touch-grab.png" alt="grab"></div>
@@ -80,8 +99,17 @@
 
     function sync() {
         root.classList.toggle('on', enabled);
+        root.classList.toggle('layout-arrows', localStorage.getItem('pu_touch_layout') === 'arrows');
         if (!enabled) releaseAll();
     }
+    window.addEventListener('storage', event => {
+        if (event.key === 'pu_touch_mode' || event.key === 'pu_touch') {
+            const mode = readMode();
+            enabled = mode === 'on' || (mode === 'auto' && isTouchDevice());
+            sync();
+        }
+        if (event.key === 'pu_touch_layout') sync();
+    });
 
     // --- action buttons ---
     function bindBtn(id, key, code, kc, tap) {
@@ -108,6 +136,12 @@
     bindBtn('#pu-grab', 'x', 'KeyX', 88);
     bindBtn('#pu-dash', 'Shift', 'ShiftLeft', 16);
     bindBtn('#pu-pause', 'Escape', 'Escape', 27, true);
+
+    const keyForDirection = { up: [38, 'ArrowUp'], down: [40, 'ArrowDown'], left: [37, 'ArrowLeft'], right: [39, 'ArrowRight'] };
+    for (const button of root.querySelectorAll('#pu-arrows button')) {
+        const [kc, key] = keyForDirection[button.dataset.dir];
+        bindBtn(`#pu-arrows [data-dir="${button.dataset.dir}"]`, key, key, kc);
+    }
 
     // --- joystick ---
     const stick = root.querySelector('#pu-stick');

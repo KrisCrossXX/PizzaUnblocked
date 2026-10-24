@@ -6,6 +6,7 @@ const MODS = [
     { name: 'pizza tower: scoutdigo', desc: 'full scoutdigo mod', dir: 'scoutdigo', save101: true, img: 'assets/thumb-scoutdigo.png' },
     { name: 'pizza tower: co-op', desc: 'online co-op mod', dir: 'coop', save101: true, img: 'assets/thumb-coop.png' },
     { name: 'loco tower', desc: '', dir: 'locotower', img: 'assets/thumb-loco.png' },
+    { name: 'stuffed crust', desc: '', dir: 'stuffedcrust', save101: true, img: 'assets/thumb-stuffed.png' },
     { name: "chef's kiss", desc: '', dir: 'chefskiss', save101: true, img: 'assets/thumb-chefskiss.png' },
     { name: 'final round', desc: '', dir: 'finalround', save101: true, img: 'assets/thumb-finalround.png' },
     { name: 'pizza massacre', desc: '', dir: 'pizzamassacre', img: 'assets/thumb-pizzamassacre.png' },
@@ -23,9 +24,12 @@ const MODS = [
     { name: 'PT: Cheesed Up', desc: 'B1.5.4 web port', category: 'mods', dir: 'cheesypizza', save101: true, img: 'assets/thumb-cheesypizza.png' },
     { name: 'PT: Chessey Chasedown', desc: 'Cheesy Chasedown web port', category: 'mods', dir: 'cheesychasedown', save101: true, img: 'assets/thumb-cheesychasedown.png' },
     { name: 'lap hell: pp pursuit', desc: 'butterscotch web port', category: 'mods', dir: 'laphell', save101: true, img: 'assets/thumb-laphell.png' },
+    { name: "egg's lap mod", desc: 'butterscotch web port', dir: 'elm', save101: true, img: 'assets/thumb-elm.png' },
+    { name: 'PT: cheesed up (new build)', desc: 'newer cheesed up port', category: 'mods', dir: 'cheesedupnew', save101: true, img: 'assets/thumb-cheesedup.jpg' },
 ];
 
 const FANGAMES = [
+    { name: 'pt soundtrack player', desc: 'original itch.io OGG soundtrack player', img: 'assets/thumb-ext/pizza-tower-soundtrack-player.png', action: 'pt-soundtrack', hideFromLibrary: true },
     { name: 'sugary spire', desc: '', dir: 'sugaryspire', img: 'assets/thumb-ss.png' },
     { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'assets/thumb-pat.png' },
     { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'assets/thumb-killnoise.gif' },
@@ -49,6 +53,8 @@ const FANGAMES = [
     { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'assets/thumb-toobigtofail.png' },
     { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-onafpeppino.png' },
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
+    { name: 'antonblast demo', desc: 'summitsphere demo port', dir: 'antonblast', save101: true, img: 'assets/thumb-antonblast.png' },
+    { name: 'super mario kart remake', desc: 'pt engine remake', dir: 'smkart', img: 'assets/thumb-smkart.png' },
     { name: 'toadlegette', desc: '', category: 'extras', dir: 'toadlegette', save: true, img: 'assets/thumb-toadlegette.svg' },
     { name: 'beeder\'s big adventure', desc: '', category: 'extras', dir: 'beeders', save: true, img: 'assets/thumb-beeders.png' },
     { name: 'idlv', desc: '', category: 'extras', dir: 'ihv', save: true, img: 'assets/thumb-idlv.png' },
@@ -82,7 +88,6 @@ const FANGAMES = [
     { name: 'doogy tower', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/13232643/april-fools/resources/app/index.html?v=1783254547', img: 'assets/thumb-ext/doogy-tower.png' },
     { name: 'jelly pizza tower', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/17958350/index.html', img: 'assets/thumb-ext/jelly-pizza-tower-1.png' },
     { name: 'taunting sim mod', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/9383923/index.html?v=1782711574', img: 'assets/thumb-ext/pizza-tower-taunting-sim-mod.png' },
-    { name: 'pt soundtrack player', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/15792341/index.html?v=1782598071', img: 'assets/thumb-ext/pizza-tower-soundtrack-player.png' },
     { name: 'pizza tower ar: studio', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/8336936/pizza-tower-ar-studio-v.app/Contents/Resources/index.html?v=1783940384', img: 'assets/thumb-ext/pizza-tower-ar-studio-fanmade-game.png' },
     { name: 'peppibo run', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/19816360/PeppiboRun/resources/app/index.html?v=1792215741', img: 'assets/thumb-ext/peppibo-run-v15.jpg' },
     { name: 'pizza tower (somewhat) plus', desc: 'itch.io web game', ext: 'https://html-classic.itch.zone/html/11917623/index.html?v=1782834716', img: 'assets/thumb-ext/pizza-tower-somewhat-plus.png' },
@@ -103,6 +108,33 @@ const FANGAMES = [
 /* Changelog entries shown in the changelog popup.
    groups = array of { label, items[] } rendered in order. */
 const CHANGELOG = [
+    {
+        title: 'update 1.2',
+        date: 'october 23, 2026',
+        groups: [
+            { label: 'new features', items: [
+                'favorites: save games and mods for quick access',
+                'continue playing: reopen the last game you launched',
+                'recently played: see your latest game history',
+                'game library revamp: improved cards, filters, tags, and sorting',
+                'PT Soundtrack Player is available as a game card in Extras',
+                'soundtrack popup plays the original itch.io player and its hosted OGG tracks',
+                'blob cloak: open the site inside an opaque blob: tab from settings',
+            ]},
+            { label: 'new port', items: [
+                'egg\'s lap mod (ELM) — full butterscotch port',
+                'stuffed crust is back in the mods list',
+                'PT: cheesed up (new build)',
+                'antonblast demo + super mario kart remake in extras',
+            ]},
+            { label: 'fixes', items: [
+                'removed the duplicate Pizzascare theme; Halloween 2026 keeps the Halloween music and background',
+                'fixed missing game icons and incorrect page titles on Frenzy Worlds and Septastic',
+                'crash logging now catches real “is not defined” JavaScript errors',
+                'pulled the PT Lap Mod card — its WAD crashes on boot (back when the port is fixed)',
+            ]},
+        ],
+    },
     {
         title: 'update 1.1 hotfix',
         date: 'october 23, 2026',

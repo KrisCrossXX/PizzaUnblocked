@@ -27,6 +27,7 @@ const GAME_CREDITS = {
     'pizza tower: scoutdigo': 'scoutthesnow & only1indigo',
     'pizza tower: co-op': 'the co-op team',
     'PT: Cheesed Up': 'Cheesed Up team',
+    'PT: cheesed up (new build)': 'Cheesed Up team',
     'PT: Chessey Chasedown': 'Cheesy Chasedown team',
     'lap hell: pp pursuit': 'GameBanana mod by TeaW',
     'toadlegette': 'bredi',
@@ -47,6 +48,8 @@ const GAME_CREDITS = {
     'demo 3': 'tour de pizza (leaked dev build)',
     'pt: gba edition': 'mineken713',
     'pt: april 2021 build': 'tour de pizza (early build)',
+    'stuffed crust': 'stuffed crust team',
+    "egg's lap mod": "le mod tour d'egg",
     // extras
     'sugary spire': 'big gnome studios / sugary spire council',
     'pat the peppino': 'scrufftuna',
@@ -117,6 +120,8 @@ const GAME_CREDITS = {
     'the noise update in scratch': 'Sunky!',
     "pizzaface maze idk": "flowcheer",
     "you, me, & pizzaface": "ZojitrA",
+    'antonblast demo': 'summitsphere',
+    'super mario kart remake': 'smkart team',
 };
 
 const GAME_CREDIT_LINKS = {
@@ -124,6 +129,7 @@ const GAME_CREDIT_LINKS = {
     'pizza tower: scoutdigo': 'https://gamebanana.com/mods/508230',
     'pizza tower: co-op': 'https://gamebanana.com/mods/501524',
     'PT: Cheesed Up': 'https://gamebanana.com/mods/474884',
+    'PT: cheesed up (new build)': 'https://gamebanana.com/mods/474884',
     'PT: Chessey Chasedown': 'https://gamebanana.com/wips/96914',
     'lap hell: pp pursuit': 'https://gamebanana.com/mods/454809',
     'toadlegette': 'https://brediamai.itch.io/toadlegette-revolution',
@@ -138,6 +144,8 @@ const GAME_CREDIT_LINKS = {
     "chef's kiss": 'https://pizza-tower-chefs-kiss.itch.io/chefs-kiss',
     'final round': 'https://finalround.itch.io/',
     'swabs expedition': 'https://voidymite.itch.io/swabs-expedition',
+    'stuffed crust': 'https://peccato24.itch.io/pizza-tower-stuffed-crust',
+    "egg's lap mod": 'https://gamebanana.com/mods/464912',
     'super bo noise': 'https://puffballspeakerbox.itch.io/super-bo-noise',
     'frenzy worlds': 'https://www.youtube.com/@FrenzyWorldsOfficial',
     'sage 19 plus': 'https://pizza-tower-19-plus.itch.io/pizza-tower-19-plus-sage-2024-demo',
@@ -166,6 +174,8 @@ const GAME_CREDIT_LINKS = {
     'mininoise': 'https://dragonaero.itch.io/mininoise',
     'too big to fail': 'https://real-legobuzz12.itch.io/toobigtofail',
     'smash bash brawl 2': 'https://linkthepalesystem64.itch.io/smash-bash-brawl-2',
+    'antonblast demo': 'https://store.steampowered.com/app/1887400/ANTONBLAST/',
+    'super mario kart remake': 'https://www.youtube.com/@smkart',
     'pizza tower academy': 'https://loulouvz.itch.io/pizza-tower-academy-dating-sim',
     'pizza tower dating sim': 'https://loulouvz.itch.io/pizza-tower-date-sim',
     'pizza tower webport': 'https://theblehlollipop.itch.io/pizza-tower-webport',
@@ -234,17 +244,43 @@ function renderCredits() {
             `<span class="cr-info"><span class="cr-name">${c.name}</span><span class="cr-role">${c.role}</span></span>`;
         site.appendChild(card);
     }
-    const helpers = document.createElement('div');
-    helpers.className = 'cr-row cr-row-tiny';
-    site.parentNode.insertBefore(helpers, site.nextSibling);
-    for (const c of SITE_HELPERS) {
-        const card = document.createElement('div');
-        card.className = 'cr-card cr-tiny';
-        card.innerHTML =
-            (c.img ? `<img class="cr-ava" src="${creditImage(c.img)}" alt="">` : `<span class="cr-ava cr-letter">${c.name[0]}</span>`) +
-            `<span class="cr-info"><span class="cr-name">${c.name}</span><span class="cr-role">${c.role}</span></span>`;
-        helpers.appendChild(card);
+    const helpers = document.getElementById('crBeta');
+    function renderBetaHelpers(list) {
+        helpers.replaceChildren();
+        for (const c of list) {
+            const card = document.createElement('div');
+            card.className = 'cr-card cr-tiny';
+            const avatar = document.createElement(c.img ? 'img' : 'span');
+            avatar.className = c.img ? 'cr-ava' : 'cr-ava cr-letter';
+            if (c.img) { avatar.src = creditImage(c.img); avatar.alt = ''; }
+            else avatar.textContent = (c.name || '?').slice(0, 1);
+            const info = document.createElement('span'); info.className = 'cr-info';
+            const name = document.createElement('span'); name.className = 'cr-name'; name.textContent = c.name || 'beta tester';
+            const role = document.createElement('span'); role.className = 'cr-role'; role.textContent = c.role || 'beta testing';
+            info.append(name, role); card.append(avatar, info); helpers.appendChild(card);
+        }
     }
+    renderBetaHelpers(SITE_HELPERS);
+    const betaStatus = document.getElementById('crBetaStatus');
+    async function refreshBetaTesters() {
+        if (location.protocol === 'file:') {
+            betaStatus.textContent = 'showing saved credits; live Discord list works on the hosted site';
+            return;
+        }
+        try {
+            const base = document.querySelector('base')?.href || location.href;
+            const response = await fetch(new URL('api/beta-testers', base), { cache: 'no-store' });
+            if (!response.ok) throw new Error('beta list unavailable');
+            const result = await response.json();
+            if (!Array.isArray(result.members)) throw new Error('invalid beta list');
+            renderBetaHelpers(result.members.map(member => ({ name: member.name, role: 'beta testing', img: member.avatar })));
+            betaStatus.textContent = 'live Discord beta tester list · refreshes every 10 minutes';
+        } catch {
+            betaStatus.textContent = 'live list temporarily unavailable; showing saved beta tester credits';
+        }
+    }
+    refreshBetaTesters();
+    setInterval(refreshBetaTesters, 10 * 60 * 1000);
     // game credits — pull thumbnails from the catalog so cards match
     games.innerHTML = '';
     const all = [{ name: 'pizza tower', img: 'assets/btn-pizzatower.png' }, ...MODS, ...FANGAMES];

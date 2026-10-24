@@ -93,8 +93,8 @@
 
     // errors that look scary but never kill the game — fullscreen/pointer-lock/
     // autoplay/permission denials and browser-extension noise
-    const BENIGN_RX = /permissions check failed|exitFullscreen|requestFullscreen|not active|user gesture|notallowederror|pointerlock|pointer lock|user didn't interact|interact with the document first|is not defined/i;
-    const FATAL_RX = /exception thrown|error on load|out of memory|memory access out of bounds|runtimeerror|abort\(|unable to find function/i;
+    const BENIGN_RX = /permissions check failed|exitFullscreen|requestFullscreen|not active|user gesture|notallowederror|pointerlock|pointer lock|user didn't interact|interact with the document first/i;
+    const FATAL_RX = /exception thrown|error on load|out of memory|memory access out of bounds|runtimeerror|abort\(|unable to find function|referenceerror|\bis not defined\b/i;
 
     let reloading = false;
     function maybeAutofix(text) {

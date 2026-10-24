@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pizza Unblocked</title>
-<link rel="icon" href="assets/pizza-icon.svg" type="image/svg+xml">
-<link rel="alternate icon" href="assets/pizza-icon.png">
-<link rel="stylesheet" href="css/style.css?v=1.4">
+<link rel="icon" href="assets/favicon-pizza-face.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon-pizza-face.png">
+<link rel="stylesheet" href="css/style.css?v=1.9">
 <script>
 // deep links like index.html/extras break relative asset paths —
 // bounce to the hash form before any resources load; the router
 // rewrites the URL back to the clean path afterwards.
 (function () {
-    var m = location.pathname.match(/^(.*?)\/index\.html\/(mods|extras|credits)\/?$/) || location.pathname.match(/^(.*?)\/(mods|extras|credits)\/?$/);
+    var m = location.pathname.match(/^(.*?)\/index\.html\/(mods|extras|library|credits|themes)\/?$/) || location.pathname.match(/^(.*?)\/(mods|extras|library|credits|themes)\/?$/);
     if (m) location.replace(m[1] + '/index.html#/' + m[m.length - 1]);
 })();
 </script>
@@ -27,30 +27,188 @@
     <button class="icon-btn" id="gearBtn" data-sfx="buttons" title="settings"><img src="assets/icon-gear.png" alt="settings"></button>
     <button class="icon-btn" id="clBtn" data-sfx="buttons" title="changelog"><img src="assets/icon-pillar.png" alt="changelog"></button>
     <button class="icon-btn" id="dlBtn" data-sfx="buttons" title="discord"><img src="assets/icon-arrow.png" alt="discord"></button>
+    <button class="icon-btn" id="themeBtn" data-sfx="buttons" title="themes"><img src="assets/icon-themes.png" alt="themes"></button>
 </nav>
 
 <main class="menu" id="pageHome">
-    <a class="gbtn" href="games/pizzatower/" data-sfx="pizzatower"><img src="assets/btn-pizzatower.png" alt="PIZZA TOWER"></a>
+    <div class="home-game-entry">
+        <a class="gbtn" href="games/pizzatower/" data-game-key="game%3Apizzatower" data-sfx="pizzatower"><img src="assets/btn-pizzatower.png" alt="PIZZA TOWER"></a>
+        <button class="favorite-toggle" type="button" data-game-key="game%3Apizzatower" aria-label="Add Pizza Tower to favorites" aria-pressed="false" title="add favorite">☆</button>
+    </div>
     <a class="gbtn" href="mods.html" data-sfx="mods"><img src="assets/btn-mods.png" alt="MODS"></a>
     <a class="gbtn" href="extras.html" data-sfx="extras"><img src="assets/btn-extras.png" alt="EXTRAS"></a>
 </main>
 
+<main class="page themes-page" id="pageThemes" hidden>
+    <header class="themes-topbar">
+        <button class="theme-back" id="themeBack" type="button">back</button>
+        <h1>themes</h1>
+        <nav class="theme-nav" id="themeNav" aria-label="Theme pages">
+            <button class="theme-nav-btn selected" type="button" data-theme-tab="mine">my themes</button>
+            <button class="theme-nav-btn" type="button" data-theme-tab="discover">discover</button>
+            <button class="theme-nav-btn" type="button" data-theme-tab="create">create</button>
+            <button class="theme-nav-btn" type="button" data-theme-tab="stats">stats</button>
+        </nav>
+    </header>
+
+    <section class="theme-view" id="themeViewMine">
+        <h2>my themes</h2>
+        <h3>official themes</h3>
+        <div class="themes-grid" id="themeOfficialGrid"></div>
+        <h3>installed themes</h3>
+        <div class="themes-grid" id="themeInstalledGrid"></div>
+        <p class="theme-empty" id="themeInstalledEmpty" hidden>no custom themes installed yet</p>
+    </section>
+
+    <section class="theme-view" id="themeViewDiscover" hidden>
+        <h2>discover</h2>
+        <div class="theme-discover-tools">
+            <input class="theme-input" id="themeSearch" type="search" placeholder="search themes..." autocomplete="off">
+            <select class="sel" id="themeSort" aria-label="Sort themes">
+                <option value="newest">newest</option>
+                <option value="az">A–Z</option>
+                <option value="favorites">favorites</option>
+            </select>
+        </div>
+        <p class="theme-catalog-status" id="themeCatalogStatus" role="status">community catalog is temporarily unavailable; showing built-in themes</p>
+        <div class="themes-grid" id="themeDiscoverGrid"></div>
+        <div id="themeDiscoverMore" class="theme-load-more" aria-hidden="true"></div>
+        <p class="theme-empty" id="themeDiscoverEmpty" hidden>no themes match your search</p>
+    </section>
+
+    <section class="theme-view" id="themeViewCreate" hidden>
+        <h2>create theme</h2>
+        <div class="theme-create-layout">
+            <form class="theme-create-form" id="themeCreateForm">
+                <label>theme name<input class="theme-input" id="themeName" maxlength="36" required placeholder="my theme"></label>
+                <label>creator<input class="theme-input" id="themeCreator" maxlength="36" placeholder="local creator"></label>
+                <label>description<textarea class="theme-input" id="themeDescription" maxlength="180" rows="3" placeholder="a short description"></textarea></label>
+                <label>background image (up to 30 MB)<input class="theme-input theme-file" id="themeBackground" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></label>
+                <label>music (up to 50 MB)<input class="theme-input theme-file" id="themeMusic" type="file" accept="audio/mpeg,audio/ogg,audio/wav,audio/mp4,audio/aac"></label>
+                <label>home button layout
+                    <select class="sel" id="themeButtonLayout">
+                        <option value="default">default</option>
+                        <option value="center">stacked center</option>
+                        <option value="left">stacked left</option>
+                        <option value="right">stacked right</option>
+                    </select>
+                </label>
+                <div class="theme-colors">
+                    <label>accent<input id="themeAccent" type="color" value="#ffd75e"></label>
+                    <label>text<input id="themeText" type="color" value="#fff4e0"></label>
+                    <label>background<input id="themeColorBg" type="color" value="#1e1a16"></label>
+                </div>
+                <div class="theme-form-actions">
+                    <button class="theme-action primary" type="submit">save theme</button>
+                    <button class="theme-action" id="themeSaveDraft" type="button">save draft</button>
+                </div>
+                <div class="theme-draft-tools">
+                    <select class="sel" id="themeDraftSelect" aria-label="Saved theme drafts"><option value="">select a draft</option></select>
+                    <button class="theme-action" id="themeLoadDraft" type="button">load</button>
+                    <button class="theme-action" id="themeDeleteDraft" type="button">delete</button>
+                </div>
+                <p class="theme-form-note" id="themeFormNote" aria-live="polite">themes are saved in this browser</p>
+            </form>
+            <div class="theme-preview-wrap">
+                <h3>preview</h3>
+                <div class="theme-preview" id="themePreview">
+                    <span class="preview-title">pizza unblocked</span>
+                    <span class="preview-buttons"><i>pizza tower</i><i>mods</i><i>extras</i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="theme-view" id="themeViewStats" hidden>
+        <h2>theme stats</h2>
+        <p class="theme-stats-note">your theme activity on this device</p>
+        <div class="theme-stats-grid" id="themeStats"></div>
+    </section>
+</main>
+
+<main class="page library-page" id="pageLibrary" hidden>
+    <div class="library-heading">
+        <h1>game library</h1>
+        <p>find a game, pick a tag, and sort the collection <span class="site-version">v1.2</span></p>
+    </div>
+    <input class="searchbox" id="librarySearch" type="search" placeholder="search games and mods..." autocomplete="off" spellcheck="false">
+    <div class="library-toolbar">
+        <div class="library-filters" id="libraryFilters" role="group" aria-label="Filter games">
+            <button class="library-filter selected" type="button" data-library-filter="all">all</button>
+            <button class="library-filter" type="button" data-library-filter="mod">mods</button>
+            <button class="library-filter" type="button" data-library-filter="game">games</button>
+            <button class="library-filter" type="button" data-library-filter="extra">extras</button>
+            <button class="library-filter" type="button" data-library-filter="web">web games</button>
+            <button class="library-filter" type="button" data-library-filter="favorites">favorites ★</button>
+        </div>
+        <label class="library-select-label">tag
+            <select class="sel library-select" id="libraryTag">
+                <option value="all">all tags</option>
+                <option value="save">save supported</option>
+                <option value="online">online play</option>
+                <option value="web">web game</option>
+            </select>
+        </label>
+        <label class="library-select-label">sort
+            <select class="sel library-select" id="librarySort">
+                <option value="az">A–Z</option>
+                <option value="za">Z–A</option>
+                <option value="recent">recently played</option>
+                <option value="most">most played</option>
+            </select>
+        </label>
+    </div>
+    <div class="card-grid library-grid" id="libraryGrid"></div>
+    <p class="empty-note" id="libraryEmpty" hidden>no games match those filters</p>
+</main>
+
 <main class="page" id="pageMods" hidden>
-    <input class="searchbox" id="modSearch" type="text" placeholder="search..." autocomplete="off" spellcheck="false">
+    <div class="catalog-toolbar">
+        <input class="searchbox catalog-search" id="modSearch" type="search" placeholder="search..." autocomplete="off" spellcheck="false">
+        <nav class="catalog-filters" id="modFilters" aria-label="Filter mods">
+            <button class="catalog-filter" type="button" data-catalog-filter="favorites" aria-pressed="false">favorites</button>
+            <button class="catalog-filter" type="button" data-catalog-filter="lap" aria-pressed="false">lap mods</button>
+        </nav>
+    </div>
     <div class="card-grid" id="modGrid"></div>
     <p class="empty-note" id="modsEmpty" hidden>no mods yet</p>
 </main>
 
 <main class="page" id="pageExtras" hidden>
-    <input class="searchbox" id="extraSearch" type="text" placeholder="search..." autocomplete="off" spellcheck="false">
+    <div class="catalog-toolbar">
+        <input class="searchbox catalog-search" id="extraSearch" type="search" placeholder="search..." autocomplete="off" spellcheck="false">
+        <nav class="catalog-filters" id="extraFilters" aria-label="Filter extras">
+            <button class="catalog-filter" type="button" data-catalog-filter="favorites" aria-pressed="false">favorites</button>
+            <button class="catalog-filter" type="button" data-catalog-filter="lap" aria-pressed="false">lap mods</button>
+        </nav>
+    </div>
     <div class="card-grid" id="extraGrid"></div>
     <p class="empty-note" id="extrasEmpty" hidden>no extras yet</p>
 </main>
+
+<div class="overlay" id="ptSoundtrackPopup" hidden>
+    <section class="pop ost-popup" role="dialog" aria-modal="true" aria-labelledby="ptSoundtrackTitle">
+        <div class="pop-head">
+            <span class="pop-title" id="ptSoundtrackTitle">PT soundtrack player</span>
+            <button class="xbtn" type="button" data-close="ptSoundtrackPopup" aria-label="Close soundtrack player">x</button>
+        </div>
+        <div class="pop-body">
+            <p class="theme-form-note">The original itch.io player plays its hosted OGG soundtrack tracks. Use the arrow keys to change tracks and Space to pause.</p>
+            <iframe id="ptSoundtrackEmbed" class="ost-embed" title="Pizza Tower OGG soundtrack player" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+            <div class="ost-popup-links">
+                <a href="https://jasonberlk.itch.io/pizza-tower-soundtrack-player" target="_blank" rel="noopener noreferrer">open the itch.io soundtrack player</a>
+            </div>
+        </div>
+    </section>
+</div>
 
 <main class="page" id="pageCredits" hidden>
     <div class="cr-wrap">
         <h2 class="cr-head">site credits</h2>
         <div class="cr-row" id="crSite"></div>
+        <h2 class="cr-head">beta testers</h2>
+        <p class="cr-beta-status" id="crBetaStatus" role="status">showing saved beta tester credits</p>
+        <div class="cr-row cr-row-tiny" id="crBeta"></div>
         <h2 class="cr-head">game credits</h2>
         <div class="cr-grid" id="crGames"></div>
     </div>
@@ -89,6 +247,7 @@
                 </div>
                 <div class="opt-row">
                     <button class="sbtn" id="blankBtn">open in about:blank</button>
+                    <button class="sbtn" id="blobBtn">open as blob</button>
                 </div>
             </div>
             <div class="set-block">
@@ -99,6 +258,18 @@
                 <div class="set-label">tools</div>
                 <div class="opt-row">
                     <button class="sbtn" id="padBtn">controller: on</button>
+                </div>
+                <label class="set-label" for="touchModeSel">mobile controls</label>
+                <div class="opt-row">
+                    <select id="touchModeSel" class="sel" aria-label="Mobile controls mode">
+                        <option value="auto">auto detect</option>
+                        <option value="on">on</option>
+                        <option value="off">off</option>
+                    </select>
+                    <select id="touchLayoutSel" class="sel" aria-label="Mobile movement controls">
+                        <option value="joystick">joystick</option>
+                        <option value="arrows">arrow buttons</option>
+                    </select>
                 </div>
                 <div class="devline" id="devLine">device: pc</div>
             </div>
@@ -159,14 +330,16 @@
     </div>
 </div>
 
-<script src="js/catalog.js?v=1.4"></script>
+<script src="js/catalog.js?v=1.9"></script>
 <script src="js/credits.js?v=1.4"></script>
-<script src="js/music.js?v=1.4"></script>
+<script src="js/music.js?v=1.5"></script>
 <script src="js/device.js?v=1.4"></script>
-<script src="js/cards.js?v=1.4"></script>
+<script src="js/cards.js?v=1.6"></script>
+<script src="js/library.js?v=1.5"></script>
 <script src="js/mods.js?v=1.4"></script>
-<script src="js/extras.js?v=1.4"></script>
-<script src="js/main.js?v=1.4"></script>
+<script src="js/extras.js?v=1.7"></script>
+<script src="js/main.js?v=1.6"></script>
+<script src="js/themes.js?v=1.0"></script>
 <script src="js/saves.js?v=1.4"></script>
 <script src="js/savepop.js?v=1.4"></script>
 <script src="swreg.js"></script>
