@@ -55,6 +55,9 @@ const FANGAMES = [
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
     { name: 'antonblast demo', desc: 'summitsphere demo port', dir: 'antonblast', save101: true, img: 'assets/thumb-antonblast.png' },
     { name: 'super mario kart remake', desc: 'pt engine remake', dir: 'smkart', img: 'assets/thumb-smkart.png' },
+    { name: 'beat up lightbulb 3.0', desc: 'itch.io game', dir: 'beatuplightbulb', img: 'assets/thumb-ext/beatuplightbulb.png' },
+
+    { name: 'pizzaboi', desc: 'skull pie game', dir: 'pizzaboi', img: 'assets/thumb-ext/pizzaboi.png' },
     { name: 'toadlegette', desc: '', category: 'extras', dir: 'toadlegette', save: true, img: 'assets/thumb-toadlegette.svg' },
     { name: 'beeder\'s big adventure', desc: '', category: 'extras', dir: 'beeders', save: true, img: 'assets/thumb-beeders.png' },
     { name: 'idlv', desc: '', category: 'extras', dir: 'ihv', save: true, img: 'assets/thumb-idlv.png' },
