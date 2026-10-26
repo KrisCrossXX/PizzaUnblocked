@@ -20,6 +20,48 @@ function withSiteHeaders(response, pathname) {
 	});
 }
 
+async function getChunkEntry(env, url) {
+	try {
+		const manifestResponse = await env.ASSETS.fetch(new Request(new URL('/chunks.json', url.origin)));
+		if (!manifestResponse.ok) return null;
+		const manifest = await manifestResponse.json();
+		const key = decodeURIComponent(url.pathname).replace(/^\/+/, '');
+		return manifest[key] ? { key, info: manifest[key] } : null;
+	} catch { return null; }
+}
+
+async function serveChunkedAsset(request, env, url, key, info) {
+	const headers = new Headers({
+		'Content-Type': info.mime || 'application/octet-stream',
+		'Content-Length': String(info.size),
+		'Cache-Control': 'public, max-age=86400',
+	});
+	if (request.method === 'HEAD') return withSiteHeaders(new Response(null, { headers }), url.pathname);
+	let partIndex = 0, reader = null;
+	const stream = new ReadableStream({
+		async pull(controller) {
+			try {
+				for (;;) {
+					if (!reader) {
+						if (partIndex >= info.parts) { controller.close(); return; }
+						const name = key + '.part.' + String(partIndex).padStart(3, '0');
+						const partUrl = new URL('/' + name.split('/').map(encodeURIComponent).join('/'), url.origin);
+						const part = await env.ASSETS.fetch(new Request(partUrl));
+						if (!part.ok || !part.body) throw new Error('Missing chunk ' + name);
+						reader = part.body.getReader();
+					}
+					const item = await reader.read();
+					if (item.done) { reader = null; partIndex++; continue; }
+					controller.enqueue(item.value);
+					return;
+				}
+			} catch (error) { controller.error(error); }
+		},
+		cancel() { reader?.cancel(); },
+	});
+	return withSiteHeaders(new Response(stream, { headers }), url.pathname);
+}
+
 export default {
 	async fetch(request, env) {
 		const url = new URL(request.url);
@@ -78,6 +120,8 @@ export default {
 			return withSiteHeaders(upstream, url.pathname);
 		}
 
+		const chunked = await getChunkEntry(env, url);
+		if (chunked) return serveChunkedAsset(request, env, url, chunked.key, chunked.info);
 		return withSiteHeaders(await env.ASSETS.fetch(request), url.pathname);
 	},
 };
