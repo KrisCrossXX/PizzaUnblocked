@@ -28,7 +28,6 @@ function dataUri(rel) {
 
 let css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 let catalog = fs.readFileSync(path.join(root, 'js/catalog.js'), 'utf8');
-let webgames = fs.readFileSync(path.join(root, 'js/webgames.js'), 'utf8');
 let credits = fs.readFileSync(path.join(root, 'js/credits.js'), 'utf8');
 let music = fs.readFileSync(path.join(root, 'js/music.js'), 'utf8');
 let device = fs.readFileSync(path.join(root, 'js/device.js'), 'utf8');
@@ -97,7 +96,6 @@ const html = `<!DOCTYPE html>
 ${bodyCore}
 
 <script>${catalog}</script>
-<script>${webgames}</script>
 <script>${credits}</script>
 <script>${music}</script>
 <script>${device}</script>
