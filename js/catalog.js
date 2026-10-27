@@ -58,6 +58,7 @@ const FANGAMES = [
     { name: 'too big to fail', desc: 'bullet hell jam', dir: 'toobigtofail', img: 'assets/thumb-toobigtofail.png' },
     { name: "one nights at peppino's", desc: '', dir: 'onafpeppino', img: 'assets/thumb-onafpeppino.png' },
     { name: 'smash bash brawl 2', desc: '', dir: 'smashbash', img: 'assets/thumb-smashbash.png' },
+    { name: "a week at nate's", desc: 'gamejolt — windows download (opens in new tab)', img: 'https://m.gjcdn.net/game-thumbnail/500/875527-crop0_23_588_354-tr68kfze-v4.webp', action: 'open:https://gamejolt.com/games/WeekAtNates/875527' },
     { name: 'beat up lightbulb 3.0', desc: 'itch.io game', dir: 'beatuplightbulb', img: 'assets/thumb-ext/beatuplightbulb.png' },
     { name: 'pizzaboi', desc: 'skull pie game', dir: 'pizzaboi', img: 'assets/thumb-ext/pizzaboi.png' },
     { name: 'toadlegette', desc: '', category: 'extras', dir: 'toadlegette', save: true, img: 'assets/thumb-toadlegette.svg' },
@@ -135,6 +136,7 @@ const CHANGELOG = [
                 'Sugary Spire Packed and Scribbly Spire: Demo 5',
                 'Sugary Hunt demos 1 and 2',
                 '35 more itch.io web games',
+                "A Week at Nate's (Game Jolt — opens download page)",
             ]},
             { label: 'new ports', items: [
                 "egg's lap mod (ELM) — full butterscotch port",

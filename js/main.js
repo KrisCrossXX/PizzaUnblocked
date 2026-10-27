@@ -408,6 +408,11 @@ function closeGame() {
     if (wasMusic && bgmWanted) bgm.play().then(() => { bgmStarted = true; }).catch(() => {});
 }
 document.addEventListener('click', (e) => {
+    const act = e.target.closest('[data-card-action]');
+    if (act && act.dataset.cardAction && act.dataset.cardAction.startsWith('open:')) {
+        window.open(act.dataset.cardAction.slice(5), '_blank');
+        return;
+    }
     const a = e.target.closest('a[href]');
     if (!a) return;
     const href = a.getAttribute('href');
