@@ -1609,7 +1609,7 @@ function creditImage(path) {
     if (!path.startsWith('assets/')) return path;
     if (window.PU_HOST) return new URL(path, window.PU_HOST.replace(/\/?$/, '/') ).href;
     if (location.protocol === 'file:') return new URL(path, location.pathname.replace(/[^/]*$/, '')).href;
-    return new URL(path, location.origin + '/').href;
+    return new URL(path, location.origin !== 'null' ? location.origin + '/' : document.baseURI).href;
 }
 
 function renderCredits() {
@@ -1771,7 +1771,7 @@ function gameUrl(g) {
 function siteAssetUrl(path) {
     if (window.PU_HOST) return new URL(path, window.PU_HOST.replace(/\/?$/, '/') ).href;
     if (location.protocol === 'file:') return new URL(path, location.pathname.replace(/[^/]*$/, '')).href;
-    return new URL(path, location.origin + '/').href;
+    return new URL(path, location.origin !== 'null' ? location.origin + '/' : document.baseURI).href;
 }
 
 function gameKey(g) {
@@ -2422,7 +2422,7 @@ const appBase = document.createElement('base');
 appBase.href = window.PU_HOST ? window.PU_HOST + '/'
     : location.protocol === 'file:'
         ? location.pathname.replace(/[^/]*$/, '')
-        : location.origin + '/';
+        : location.origin !== 'null' ? location.origin + '/' : document.baseURI;
 document.head.prepend(appBase);
 function viewFromUrl() {
     const m = location.pathname.match(/\/(mods|extras|library|credits|themes)\/?$/)

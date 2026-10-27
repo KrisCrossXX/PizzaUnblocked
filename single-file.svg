@@ -9,7 +9,7 @@ frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monosp
 document.getElementById('site').appendChild(frame);
 (function go(i) {
   if (i >= HOSTS.length) { frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">pizza unblocked is unreachable right now</body>'; return; }
-  fetch(HOSTS[i] + '/pusinglefile.html?v=1793061463140', { cache: 'no-store' })
+  fetch(HOSTS[i] + '/pusinglefile.html?v=1793074791261', { cache: 'no-store' })
     .then(function (r) { if (!r.ok) throw 0; return r.text(); })
     .then(function (h) { frame.srcdoc = '<script>var PU_HOST="https://pizzaunblocked.b-cdn.net";<\/script>' + h; })
     .catch(function () { go(i + 1); });

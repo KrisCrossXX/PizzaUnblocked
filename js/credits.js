@@ -225,7 +225,7 @@ function creditImage(path) {
     if (!path.startsWith('assets/')) return path;
     if (window.PU_HOST) return new URL(path, window.PU_HOST.replace(/\/?$/, '/') ).href;
     if (location.protocol === 'file:') return new URL(path, location.pathname.replace(/[^/]*$/, '')).href;
-    return new URL(path, location.origin + '/').href;
+    return new URL(path, location.origin !== 'null' ? location.origin + '/' : document.baseURI).href;
 }
 
 function renderCredits() {

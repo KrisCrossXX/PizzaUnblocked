@@ -325,7 +325,7 @@ const appBase = document.createElement('base');
 appBase.href = window.PU_HOST ? window.PU_HOST + '/'
     : location.protocol === 'file:'
         ? location.pathname.replace(/[^/]*$/, '')
-        : location.origin + '/';
+        : location.origin !== 'null' ? location.origin + '/' : document.baseURI;
 document.head.prepend(appBase);
 function viewFromUrl() {
     const m = location.pathname.match(/\/(mods|extras|library|credits|themes)\/?$/)
