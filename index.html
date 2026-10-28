@@ -19,15 +19,15 @@
 </head>
 <body>
 
-<img class="bgimg" src="assets/bg.gif" alt="" aria-hidden="true">
+<img class="bgimg" src="assets/cafe.gif" alt="" aria-hidden="true">
 
 <a class="logo" href="credits.html"><img src="assets/logo.png" alt="Pizza Unblocked"></a>
 
 <nav class="topicons">
     <button class="icon-btn" id="gearBtn" data-sfx="buttons" title="settings"><img src="assets/icon-gear.png" alt="settings"></button>
     <button class="icon-btn" id="clBtn" data-sfx="buttons" title="changelog"><img src="assets/icon-pillar.png" alt="changelog"></button>
+    <button class="icon-btn" id="ostBtn" data-sfx="buttons" title="Pizza Tower soundtrack" aria-label="Open the Pizza Tower and Sugary Spire soundtrack player"><img src="assets/icon-music.png" alt="soundtrack"></button>
     <button class="icon-btn" id="dlBtn" data-sfx="buttons" title="discord"><img src="assets/icon-arrow.png" alt="discord"></button>
-    <button class="icon-btn" id="themeBtn" data-sfx="buttons" title="themes"><img src="assets/icon-themes.png" alt="themes"></button>
 </nav>
 
 <main class="menu" id="pageHome">
@@ -43,93 +43,18 @@
     <header class="themes-topbar">
         <button class="theme-back" id="themeBack" type="button">back</button>
         <h1>themes</h1>
-        <nav class="theme-nav" id="themeNav" aria-label="Theme pages">
-            <button class="theme-nav-btn selected" type="button" data-theme-tab="mine">my themes</button>
-            <button class="theme-nav-btn" type="button" data-theme-tab="discover">discover</button>
-            <button class="theme-nav-btn" type="button" data-theme-tab="create">create</button>
-            <button class="theme-nav-btn" type="button" data-theme-tab="stats">stats</button>
-        </nav>
     </header>
 
-    <section class="theme-view" id="themeViewMine">
-        <h2>my themes</h2>
-        <h3>official themes</h3>
-        <div class="themes-grid" id="themeOfficialGrid"></div>
-        <h3>installed themes</h3>
-        <div class="themes-grid" id="themeInstalledGrid"></div>
-        <p class="theme-empty" id="themeInstalledEmpty" hidden>no custom themes installed yet</p>
-    </section>
-
-    <section class="theme-view" id="themeViewDiscover" hidden>
-        <h2>discover</h2>
-        <div class="theme-discover-tools">
-            <input class="theme-input" id="themeSearch" type="search" placeholder="search themes..." autocomplete="off">
-            <select class="sel" id="themeSort" aria-label="Sort themes">
-                <option value="newest">newest</option>
-                <option value="az">A–Z</option>
-                <option value="favorites">favorites</option>
-            </select>
-        </div>
-        <p class="theme-catalog-status" id="themeCatalogStatus" role="status">community catalog is temporarily unavailable; showing built-in themes</p>
-        <div class="themes-grid" id="themeDiscoverGrid"></div>
-        <div id="themeDiscoverMore" class="theme-load-more" aria-hidden="true"></div>
-        <p class="theme-empty" id="themeDiscoverEmpty" hidden>no themes match your search</p>
-    </section>
-
-    <section class="theme-view" id="themeViewCreate" hidden>
-        <h2>create theme</h2>
-        <div class="theme-create-layout">
-            <form class="theme-create-form" id="themeCreateForm">
-                <label>theme name<input class="theme-input" id="themeName" maxlength="36" required placeholder="my theme"></label>
-                <label>creator<input class="theme-input" id="themeCreator" maxlength="36" placeholder="local creator"></label>
-                <label>description<textarea class="theme-input" id="themeDescription" maxlength="180" rows="3" placeholder="a short description"></textarea></label>
-                <label>background image (up to 30 MB)<input class="theme-input theme-file" id="themeBackground" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></label>
-                <label>music (up to 50 MB)<input class="theme-input theme-file" id="themeMusic" type="file" accept="audio/mpeg,audio/ogg,audio/wav,audio/mp4,audio/aac"></label>
-                <label>home button layout
-                    <select class="sel" id="themeButtonLayout">
-                        <option value="default">default</option>
-                        <option value="center">stacked center</option>
-                        <option value="left">stacked left</option>
-                        <option value="right">stacked right</option>
-                    </select>
-                </label>
-                <div class="theme-colors">
-                    <label>accent<input id="themeAccent" type="color" value="#ffd75e"></label>
-                    <label>text<input id="themeText" type="color" value="#fff4e0"></label>
-                    <label>background<input id="themeColorBg" type="color" value="#1e1a16"></label>
-                </div>
-                <div class="theme-form-actions">
-                    <button class="theme-action primary" type="submit">save theme</button>
-                    <button class="theme-action" id="themeSaveDraft" type="button">save draft</button>
-                </div>
-                <div class="theme-draft-tools">
-                    <select class="sel" id="themeDraftSelect" aria-label="Saved theme drafts"><option value="">select a draft</option></select>
-                    <button class="theme-action" id="themeLoadDraft" type="button">load</button>
-                    <button class="theme-action" id="themeDeleteDraft" type="button">delete</button>
-                </div>
-                <p class="theme-form-note" id="themeFormNote" aria-live="polite">themes are saved in this browser</p>
-            </form>
-            <div class="theme-preview-wrap">
-                <h3>preview</h3>
-                <div class="theme-preview" id="themePreview">
-                    <span class="preview-title">pizza unblocked</span>
-                    <span class="preview-buttons"><i>pizza tower</i><i>mods</i><i>extras</i></span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="theme-view" id="themeViewStats" hidden>
-        <h2>theme stats</h2>
-        <p class="theme-stats-note">your theme activity on this device</p>
-        <div class="theme-stats-grid" id="themeStats"></div>
+    <section class="theme-view theme-background-view" id="themeViewMine">
+        <h2>background</h2>
+        <div class="theme-grid theme-fullscreen-grid" id="themeOfficialGrid" aria-label="Choose a background"></div>
     </section>
 </main>
 
 <main class="page library-page" id="pageLibrary" hidden>
     <div class="library-heading">
         <h1>game library</h1>
-        <p>find a game, pick a tag, and sort the collection <span class="site-version">v1.2</span></p>
+        <p>find a game, pick a tag, and sort the collection <span class="site-version">v1.3</span></p>
     </div>
     <input class="searchbox" id="librarySearch" type="search" placeholder="search games and mods..." autocomplete="off" spellcheck="false">
     <div class="library-toolbar">
@@ -189,15 +114,11 @@
 <div class="overlay" id="ptSoundtrackPopup" hidden>
     <section class="pop ost-popup" role="dialog" aria-modal="true" aria-labelledby="ptSoundtrackTitle">
         <div class="pop-head">
-            <span class="pop-title" id="ptSoundtrackTitle">PT soundtrack player</span>
+            <span class="pop-title" id="ptSoundtrackTitle">Pizza Unblocked OST Player</span>
             <button class="xbtn" type="button" data-close="ptSoundtrackPopup" aria-label="Close soundtrack player">x</button>
         </div>
         <div class="pop-body">
-            <p class="theme-form-note">The original itch.io player plays its hosted OGG soundtrack tracks. Use the arrow keys to change tracks and Space to pause.</p>
-            <iframe id="ptSoundtrackEmbed" class="ost-embed" title="Pizza Tower OGG soundtrack player" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
-            <div class="ost-popup-links">
-                <a href="https://jasonberlk.itch.io/pizza-tower-soundtrack-player" target="_blank" rel="noopener noreferrer">open the itch.io soundtrack player</a>
-            </div>
+            <iframe id="ptSoundtrackEmbed" class="ost-embed" title="Pizza Tower and Sugary Spire soundtrack player" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
         </div>
     </section>
 </div>
@@ -253,6 +174,7 @@
             <div class="set-block">
                 <div class="set-label">background</div>
                 <div class="theme-grid" id="themeGrid"></div>
+                <button class="sbtn theme-fullscreen-open" id="themeBrowseBtn" type="button">browse backgrounds</button>
             </div>
             <div class="set-block">
                 <div class="set-label">tools</div>

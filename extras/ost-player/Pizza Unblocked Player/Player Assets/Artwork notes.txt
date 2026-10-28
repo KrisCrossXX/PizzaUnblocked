@@ -1,0 +1,12 @@
+Artwork source: https://pizzatower.fandom.com/wiki/Soundtrack
+
+The following player tracks have no individual thumbnail on that page and use the album cover:
+Unexpectancy (Part 1 of 3)
+Unexpectancy (Part 2 of 3)
+Unexpectancy (Part 3 of 3)
+Bye Bye There!
+Receding Hairline Celebration Party
+Choosing the Toppings
+Hip To Be Italian
+
+Artwork retains its original ownership. See track-artwork.json for individual source links.

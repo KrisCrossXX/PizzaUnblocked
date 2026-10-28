@@ -121,11 +121,11 @@ function syncAudioUi() {
 audioBtn.addEventListener('click', () => {
     const on = localStorage.getItem('pu_audio') !== 'off';
     localStorage.setItem('pu_audio', on ? 'off' : 'on');
-    if (on) bgm.pause(); else { bgmStarted = true; bgm.play().catch(() => {}); }
+    window.setPuMusicEnabled(!on);
     syncAudioUi();
 });
 volSlider.addEventListener('input', () => {
-    bgm.volume = volSlider.value / 100;
+    window.setPuMusicVolume(volSlider.value / 100);
     localStorage.setItem('pu_vol', volSlider.value);
 });
 syncAudioUi();
@@ -255,13 +255,11 @@ function applyTheme(t, track = true) {
     bgimgEl2.className = 'bgimg ' + (t.cls || '');
     document.getElementById('pageHome').dataset.themeLayout = t.buttonLayout && t.buttonLayout !== 'default' ? t.buttonLayout : '';
     {
-        const src = t.song || PU_THEMES.find(theme => theme.name === localStorage.getItem('pu_theme'))?.song || PU_THEMES[0].song;
-        if (!bgm.src.endsWith(src)) {
-            const wasPlaying = bgmStarted && !bgm.paused;
-            bgm.src = src;
-            try { bgm.currentTime = 0; } catch {}
+        const musicKey = t.soundcloud || t.song || PU_THEMES[0].soundcloud || PU_THEMES[0].song;
+        if (window.getPuMusicKey() !== musicKey) {
+            const resume = (bgmStarted && !bgm.paused) || (track && bgmWanted);
+            window.setPuMusic(t, resume);
             localStorage.setItem('pu_pos', 0);
-            if (wasPlaying) bgm.play().catch(() => {});
         }
     }
     if (!isCustom) {
@@ -396,7 +394,7 @@ function openGame(a) {
     // pause unconditionally — gating on bgmStarted misses the race where this
     // very click is the first gesture and kickBgm's play() is still in-flight
     gameOverlay._bgmWas = bgmWanted;
-    bgm.pause();
+    window.pausePuMusic();
     try { history.pushState({ game: 1 }, '', '#game'); } catch { location.hash = 'game'; }
 }
 function closeGame() {
@@ -405,7 +403,7 @@ function closeGame() {
     gameOverlay.remove();
     gameOverlay = null;
     delete document.body.dataset.gameOpen;
-    if (wasMusic && bgmWanted) bgm.play().then(() => { bgmStarted = true; }).catch(() => {});
+    if (wasMusic && bgmWanted) window.playPuMusic().then(() => { if (!window.isPuSoundCloudMusic()) bgmStarted = true; }).catch(() => {});
 }
 document.addEventListener('click', (e) => {
     const act = e.target.closest('[data-card-action]');

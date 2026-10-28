@@ -1,0 +1,14 @@
+PIZZA UNBLOCKED OST PLAYER
+
+Open Pizza Unblocked.html in a browser. Keep Player Assets, Pizza Tower Songs, and Sugary Spire Songs beside the HTML.
+
+Controls: click a song to play; Space to play/pause; arrow keys for previous/next; drag the pizza handle to seek. Shuffle chooses a different song. Repeat loops the current song. Volume and mute are beneath the player.
+
+Contains 45 Pizza Tower songs and 76 Sugary Spire songs (43 Exhibition Night tracks plus 33 demo additions for missing themes). Use the two logo tabs beneath Track List to switch games. Demo additions are labeled. Soundtrack Artwork.html browses the extracted wiki art, including art for songs not included in the player. The artwork does not add extra audio tracks.
+
+Artwork source: https://pizzatower.fandom.com/wiki/Soundtrack
+Audio sources:
+https://jasonberlk.itch.io/pizza-tower-soundtrack-player
+https://downloads.khinsider.com/game-soundtracks/album/sugary-spire-exhibition-night-unofficial-soundtrack-2024
+https://downloads.khinsider.com/game-soundtracks/album/sugary-spire-demo-soundtrack-windows-gamerip-2022
+Logo, heading, and control images supplied by the user. Original artwork and music retain their respective ownership. See artwork manifests for image links.

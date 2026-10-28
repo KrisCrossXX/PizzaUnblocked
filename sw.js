@@ -7,7 +7,7 @@
 // Fallback: if the Pages proxy worker is down (functions quota exhausted etc),
 // any same-origin request that comes back non-OK is retried against the Bunny
 // mirror, so the whole site — including game pages and parts — keeps working.
-const FALLBACK_ORIGIN = 'https://pizzaunblocked.b-cdn.net';
+const FALLBACK_ORIGIN = 'https://pizza-tower-9iw.pages.dev';
 
 let manifestPromise;
 const manifest = () => manifestPromise ||=

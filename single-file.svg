@@ -1,5 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position:fixed;inset:0"><title>Pizza Unblocked</title><foreignObject id="site" x="0" y="0" width="100%" height="100%"/><script><![CDATA[
-var HOSTS = ["https://pizza-tower-9iw.pages.dev","https://pizzaunblocked.b-cdn.net","https://kriscrossxx.github.io/PizzaUnblocked","https://pizza-unblocked.kriscrossxx.workers.dev"];
 var frame = document.createElementNS('http://www.w3.org/1999/xhtml', 'iframe');
 frame.setAttribute('title', 'Pizza Unblocked');
 frame.setAttribute('style', 'width:100%;height:100%;border:0;display:block;background:#1e1a16');
@@ -7,11 +6,20 @@ frame.setAttribute('allow', 'autoplay; fullscreen; gamepad; cross-origin-isolate
 frame.setAttribute('allowfullscreen', '');
 frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">loading pizza unblocked...</body>';
 document.getElementById('site').appendChild(frame);
-(function go(i) {
-  if (i >= HOSTS.length) { frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">pizza unblocked is unreachable right now</body>'; return; }
-  fetch(HOSTS[i] + '/pusinglefile.html?v=1793074791261', { cache: 'no-store' })
-    .then(function (r) { if (!r.ok) throw 0; return r.text(); })
-    .then(function (h) { frame.srcdoc = '<script>var PU_HOST="https://pizzaunblocked.b-cdn.net";<\/script>' + h; })
-    .catch(function () { go(i + 1); });
-})(0);
+fetch("https://api.github.com/repos/KrisCrossXX/PizzaUnblocked/commits/main", { cache: 'no-store' })
+  .then(function (r) { if (!r.ok) throw new Error('GitHub API unavailable'); return r.json(); })
+  .then(function (d) {
+    if (!d.sha) throw new Error('GitHub did not return a commit');
+    return "https://raw.githubusercontent.com/KrisCrossXX/PizzaUnblocked/" + d.sha + '/' + "pusinglefile.html";
+  })
+  .catch(function () { return "https://raw.githubusercontent.com/KrisCrossXX/PizzaUnblocked/main/pusinglefile.html"; })
+  .then(function (url) {
+    return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('Site bundle unavailable'); return r.text(); });
+  })
+  .then(function (h) {
+    var head = /<head[^>]*>/i;
+    var prelude = '<script>window.PU_HOST="https://pizza-tower-9iw.pages.dev";<\/script>';
+    frame.srcdoc = head.test(h) ? h.replace(head, function (m) { return m + prelude; }) : prelude + h;
+  })
+  .catch(function () { frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">Pizza Unblocked could not be loaded. Try again later.</body>'; });
 ]]></script></svg>

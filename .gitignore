@@ -27,6 +27,7 @@ games/*
 !games/ptgba/
 !games/april2021/
 !games/sugaryspire/
+!games/sugaryspire-prank/
 !games/patpeppino/
 !games/killnoise/
 !games/jwvl/
@@ -61,6 +62,12 @@ games/*
 !games/pizzaboi/
 !games/ihv/
 !games/cheesychasedown/
+!games/lap-3-deluxe/
+!games/noelle-lap-4/
+!games/were-special/
+!games/lap-divide/
+!games/noise-halloween-bash/
+!games/scoutdigo-ce-lap-hell/
 
 # >95MB blobs live as .part.NNN slices; sw.js stitches them at fetch time
 games/scoutdigo/game.unx
@@ -87,3 +94,15 @@ games/elm/data.win
 games/elm/data.win.prefmod
 games/cheesychasedown/sound/Desktop/music.bank
 games/beatuplightbulb/index.html
+games/cheesychasedown/sound/Desktop/CheesyChasedown/CCmusic.bank
+games/lap-3-deluxe/game/data.win
+games/lap-3-deluxe/game/sound/Desktop/music.bank
+games/noelle-lap-4/game/data.win
+games/noelle-lap-4/game/sound/Desktop/music.bank
+games/were-special/game/data.win
+games/were-special/game/sound/Desktop/music.bank
+games/lap-divide/game/data.win
+games/lap-divide/game/sound/Desktop/music.bank
+games/scoutdigo-ce-lap-hell/game/data.win
+games/scoutdigo-ce-lap-hell/game/sound/Desktop/music.bank
+games/sugaryspire-prank/game.unx

@@ -1,4 +1,5 @@
-const GAME_ORIGIN = "https://pizzaunblocked.b-cdn.net";
+const GAME_ORIGIN = "https://cdn.jsdelivr.net/gh/KrisCrossXX";
+const gameRepo = (n) => `${GAME_ORIGIN}/pizza-games-${n}@main`;
 
 // Bunny serves unknown extensions as octet-stream — fix script/wasm types
 const MIME_FIX = { mjs: "text/javascript", js: "text/javascript", wasm: "application/wasm", json: "application/json", css: "text/css", svg: "image/svg+xml" };
@@ -28,6 +29,49 @@ async function getChunkEntry(env, url) {
 		const key = decodeURIComponent(url.pathname).replace(/^\/+/, '');
 		return manifest[key] ? { key, info: manifest[key] } : null;
 	} catch { return null; }
+}
+
+let gamesManifestPromise = null;
+async function getGamesManifest(env, url) {
+	try {
+		gamesManifestPromise ??= env.ASSETS.fetch(new Request(new URL('/games-manifest.json', url.origin)))
+			.then(r => r.ok ? r.json() : {});
+		return await gamesManifestPromise;
+	} catch { return {}; }
+}
+
+// stitches <key>.part.NNN parts from jsDelivr — same layout as the git shards
+function serveGameChunks(request, url, key, info) {
+	const repo = gameRepo(info.r);
+	const headers = new Headers({
+		'Content-Type': info.m || 'application/octet-stream',
+		'Content-Length': String(info.s),
+		'Cache-Control': 'public, max-age=86400',
+	});
+	if (request.method === 'HEAD') return withSiteHeaders(new Response(null, { headers }), url.pathname);
+	let partIndex = 0, reader = null;
+	const stream = new ReadableStream({
+		async pull(controller) {
+			try {
+				for (;;) {
+					if (!reader) {
+						if (partIndex >= info.p) { controller.close(); return; }
+						const enc = key.split('/').map(encodeURIComponent).join('/');
+						const partUrl = `${repo}/${enc}.part.${String(partIndex).padStart(3, '0')}`;
+						const part = await fetch(partUrl, { cf: { cacheEverything: true } });
+						if (!part.ok || !part.body) throw new Error('Missing chunk ' + partUrl);
+						reader = part.body.getReader();
+					}
+					const item = await reader.read();
+					if (item.done) { reader = null; partIndex++; continue; }
+					controller.enqueue(item.value);
+					return;
+				}
+			} catch (error) { controller.error(error); }
+		},
+		cancel() { reader?.cancel(); },
+	});
+	return withSiteHeaders(new Response(stream, { headers }), url.pathname);
 }
 
 async function serveChunkedAsset(request, env, url, key, info) {
@@ -108,14 +152,19 @@ export default {
 		if (url.pathname.includes("..")) return new Response("Not found", { status: 404 });
 
 		if (url.pathname.startsWith("/games/")) {
+			const key = decodeURIComponent(url.pathname).replace(/^\/+/, '');
+			const info = (await getGamesManifest(env, url))[key];
+			if (!info) return new Response("Not found", { status: 404 });
+			if (info.p) return serveGameChunks(request, url, key, info);
 			const headers = new Headers();
 			for (const name of ["Range", "If-None-Match", "If-Modified-Since"]) {
 				const value = request.headers.get(name);
 				if (value) headers.set(name, value);
 			}
-			const upstream = await fetch(`${GAME_ORIGIN}${url.pathname}${url.search}`, {
+			const upstream = await fetch(`${gameRepo(info.r)}/${key.split('/').map(encodeURIComponent).join('/')}${url.search}`, {
 				method: request.method,
 				headers,
+				cf: { cacheEverything: true },
 			});
 			return withSiteHeaders(upstream, url.pathname);
 		}

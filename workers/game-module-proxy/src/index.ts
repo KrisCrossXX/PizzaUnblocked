@@ -1,4 +1,4 @@
-const GAME_ORIGIN = "https://pizzaunblocked.b-cdn.net";
+const GAME_ORIGIN = "https://pizza-tower-9iw.pages.dev";
 
 const MIME_TYPES: Record<string, string> = {
 	css: "text/css; charset=utf-8",

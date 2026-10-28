@@ -1,0 +1,507 @@
+{
+  "title": "Pizza Tower: The Were-Special",
+  "version": "2ed7476c2008a6e70d8c4f711c7277c2f9de7ab165a1f2cf448bcc9bafaf5785",
+  "entry": "data.win",
+  "files": [
+    {
+      "name": "credits.txt",
+      "size": 30103,
+      "sha256": "a28f62eff7b6a68b8be267686e91a530f7e7167094a38f5f3d82de386dcab754"
+    },
+    {
+      "name": "data.win",
+      "size": 98381724,
+      "sha256": "2ed7476c2008a6e70d8c4f711c7277c2f9de7ab165a1f2cf448bcc9bafaf5785"
+    },
+    {
+      "name": "lang/br.def",
+      "size": 25,
+      "sha256": "f0d28e169bab9dd4cbbd8c48830688d3d6e3582476c9aabe27b3edc7ec5140de"
+    },
+    {
+      "name": "lang/br.txt",
+      "size": 31379,
+      "sha256": "8fc8df6beece62b667aa5309bdb4721590c1c0659258c42b1c98e3ed55a2fab5"
+    },
+    {
+      "name": "lang/english.def",
+      "size": 24,
+      "sha256": "90658801561b11da9487f64d2194ec3a45260dfe7eac2755df4944d7da22c7e6"
+    },
+    {
+      "name": "lang/english.txt",
+      "size": 37676,
+      "sha256": "274867b31989efca860a18d8a074d2c369b7d01b99a1560a70825e45384ab97e"
+    },
+    {
+      "name": "lang/fonts/Montserrat-Regular.ttf",
+      "size": 197624,
+      "sha256": "c3fb0280e4339f6c70cea42b8b432c6fb17fde130fbb12e9209c7cdfa79d976f"
+    },
+    {
+      "name": "lang/fonts/Montserrat-SemiBold.ttf",
+      "size": 197964,
+      "sha256": "e23dc6d21070d45a1840c2b8217fc17ddd8a502a4db652748ec2f40d3603dc2d"
+    },
+    {
+      "name": "lang/fonts/NotoSansJP-Bold.ttf",
+      "size": 5727828,
+      "sha256": "778214c61deec84ce9f74164f1be5756807a9895feac2d7a553fdd7d410070d4"
+    },
+    {
+      "name": "lang/fonts/NotoSansJP-Regular.ttf",
+      "size": 5732824,
+      "sha256": "fb3df01b4182734d021d79ec5bac17903bb681e926a059c59ed81a373d612241"
+    },
+    {
+      "name": "lang/fonts/NotoSansJP-SemiBold.ttf",
+      "size": 5726616,
+      "sha256": "ddf363b420c1b7bf383c669d9ce1a50ef853e2080020d23a25e02cb5ea2e6cdf"
+    },
+    {
+      "name": "lang/fonts/NotoSansKR-Bold.ttf",
+      "size": 6190824,
+      "sha256": "a76c8dabfcfae31d67c86207373155718979ddcfcc1ce62d3129dd36530a5bdf"
+    },
+    {
+      "name": "lang/fonts/NotoSansKR-Regular.ttf",
+      "size": 6192764,
+      "sha256": "9db318b65ee9c575a43e7efd273dbdd1afef26e467eea3e1073a50e1a6595f6d"
+    },
+    {
+      "name": "lang/fonts/NotoSansKR-SemiBold.ttf",
+      "size": 6188924,
+      "sha256": "7400a489542a8b0c42547530b55df54dce876b54508512898dc5a3859bdc2a01"
+    },
+    {
+      "name": "lang/fonts/NotoSansSC-Bold.ttf",
+      "size": 10550116,
+      "sha256": "297c1dd08c6176525405620d8425213906a7759cc3fe2b8dfa22991163bead36"
+    },
+    {
+      "name": "lang/fonts/NotoSansSC-Regular.ttf",
+      "size": 10560380,
+      "sha256": "ae82f4e2a55e1316a55bcc1d05e9555ce08d8bda07e893b486896b626fd852ff"
+    },
+    {
+      "name": "lang/fonts/NotoSansSC-SemiBold.ttf",
+      "size": 10550044,
+      "sha256": "d8d36500e4663ebbf25294dc122e0ace856cfbb7564b59d2d826833f7097403c"
+    },
+    {
+      "name": "lang/fonts/NotoSansTC-Bold.ttf",
+      "size": 7105312,
+      "sha256": "071ba8a6fd5c290c5efa85da561020fa423cfc7342c67152b6cb00e5012a107c"
+    },
+    {
+      "name": "lang/fonts/NotoSansTC-Regular.ttf",
+      "size": 7110560,
+      "sha256": "6b137e2eb57a2d1e4cf391c886ab1b783a0e5ddb5c75254748bde00c15cb8ff5"
+    },
+    {
+      "name": "lang/fonts/NotoSansTC-SemiBold.ttf",
+      "size": 7104008,
+      "sha256": "57d257d6d1537f3e96015cd9ef0dbb226f0345cee69815d2b4954f3e98fa0c3d"
+    },
+    {
+      "name": "lang/fonts/RussoOne-Regular.ttf",
+      "size": 37480,
+      "sha256": "ba5a79c9a716c4c6cbf88539bbbcd6a60412d4e4b7b9362a252b575e80e6d87a"
+    },
+    {
+      "name": "lang/fr.def",
+      "size": 21,
+      "sha256": "59b31148767f935a6d9e398a24ec1fa18231fcdc4372b172eb462ca76098d9f3"
+    },
+    {
+      "name": "lang/fr.txt",
+      "size": 32813,
+      "sha256": "9d936ec7e4938fa59b77ecabce466216c88080a35f7084cba79b056cc31a8a30"
+    },
+    {
+      "name": "lang/gr.def",
+      "size": 19,
+      "sha256": "a5e8d7b9b2b2a19c71407b5db0a60a5d0b7e8961a040ceb1c69ebbdebce6cf9e"
+    },
+    {
+      "name": "lang/gr.txt",
+      "size": 34367,
+      "sha256": "5c941f14c6503c878a8c2952d4b01baaa530e9b3327c01513a8c00c84469c410"
+    },
+    {
+      "name": "lang/graphics/br.json",
+      "size": 25692,
+      "sha256": "1d2bee9a2174af7c010591a1405bed3695173fe395ae765eb050e65272077d6d"
+    },
+    {
+      "name": "lang/graphics/br0.png",
+      "size": 369104,
+      "sha256": "1d53b0e6cd6f6aaf5fc2a70e187d115da07b6a16ab578a02cb1b930c52031c46"
+    },
+    {
+      "name": "lang/graphics/br1.png",
+      "size": 278682,
+      "sha256": "0e885d078444531141f40869d4b76bb2f03560163f07ab0baed6eff7729e78f1"
+    },
+    {
+      "name": "lang/graphics/br2.png",
+      "size": 323450,
+      "sha256": "4a207b8888baf95d1025282a8fa2a4ec9ce0b3350965f24e3c7b8f2faac98991"
+    },
+    {
+      "name": "lang/graphics/fr.json",
+      "size": 25688,
+      "sha256": "c6ba74c24d443bab1beb7838641cee4aae5022b629a46015bece4a5476d0e056"
+    },
+    {
+      "name": "lang/graphics/fr0.png",
+      "size": 403193,
+      "sha256": "fc967e0279a7af04d6720f181ad235f7b26f6340fb5820a9d2ee1b64a4ffb1f7"
+    },
+    {
+      "name": "lang/graphics/fr1.png",
+      "size": 309470,
+      "sha256": "f3d12dde967239a7aa813e4b285448598bfd0c7a2ed660f41266f5802f53a39c"
+    },
+    {
+      "name": "lang/graphics/fr2.png",
+      "size": 307732,
+      "sha256": "2e88145d7f69e1d050f159f55e6c0f2f7504431b33c0145176e17405a0c41ca6"
+    },
+    {
+      "name": "lang/graphics/gr.json",
+      "size": 25846,
+      "sha256": "1bc3a2f63135dc904df765fff0389d2d3bf05834738c903820e9781773a7d722"
+    },
+    {
+      "name": "lang/graphics/gr0.png",
+      "size": 347387,
+      "sha256": "a6ab13cc29b7240ce37497b16e2979b5ffb63542ca844b0c5ce8d51b858e7878"
+    },
+    {
+      "name": "lang/graphics/gr1.png",
+      "size": 309691,
+      "sha256": "904e44102f79244343f678fec837f073b90c8d9ae37f9b85cdf6b3034196a9ad"
+    },
+    {
+      "name": "lang/graphics/gr2.png",
+      "size": 391184,
+      "sha256": "12bd3d29efc50659953dcdc23773f0eaef35df38672c20cc88e187cd4cee47a3"
+    },
+    {
+      "name": "lang/graphics/gr3.png",
+      "size": 150399,
+      "sha256": "19eabca24b0cd112c43b0f869c93d7a08119d19268e281209d70299d0c20eb11"
+    },
+    {
+      "name": "lang/graphics/it.json",
+      "size": 25702,
+      "sha256": "6c9ed89935bc6e9127b3b2c66db848f61319cdf7f71d093d586f6dbae3772438"
+    },
+    {
+      "name": "lang/graphics/it0.png",
+      "size": 373601,
+      "sha256": "861981f0377dbf3d435aa81c7825c5ef045186455ba7df72f085851455c8eb83"
+    },
+    {
+      "name": "lang/graphics/it1.png",
+      "size": 266991,
+      "sha256": "6b4214a5d42eb756fab6e8cef0ee7bba244b4bb74a688a3f0ef7e6ff01fe3867"
+    },
+    {
+      "name": "lang/graphics/it2.png",
+      "size": 420894,
+      "sha256": "3a03590b6e6d393a16b2cfa5fe148eda1558cf5a8b55bb036b9a19933575977e"
+    },
+    {
+      "name": "lang/graphics/jp.json",
+      "size": 25633,
+      "sha256": "de8ab1b49d70ec4f1795fc03832ea816e8598efa1ad30fe9aa13abb403ebb549"
+    },
+    {
+      "name": "lang/graphics/jp0.png",
+      "size": 393553,
+      "sha256": "5a8c4a1d0c44991239baf8b4ee95a3696f45d62e304cfd86787d6f4fbd1e1c1d"
+    },
+    {
+      "name": "lang/graphics/jp1.png",
+      "size": 334604,
+      "sha256": "adfbd16fb76a4a07cc386d75d0e6cc5eda6b574135b4e7aee4a0ea68694767a1"
+    },
+    {
+      "name": "lang/graphics/jp2.png",
+      "size": 107573,
+      "sha256": "4517b95f99841648a1e3cbb5cbe2d93f98d0e84de7d895f0748d24d4466d69d0"
+    },
+    {
+      "name": "lang/graphics/kr.json",
+      "size": 25974,
+      "sha256": "ef6eb43958b6eb5349e919ae972ccf185f80d1f4dc320070cac0951637cbc370"
+    },
+    {
+      "name": "lang/graphics/kr0.png",
+      "size": 372017,
+      "sha256": "a4538d697df6d7af86bec1d4577423ced3d987b2766db4752198ce61f541ae34"
+    },
+    {
+      "name": "lang/graphics/kr1.png",
+      "size": 366673,
+      "sha256": "9cfb3add254fc040e2b81b382724b40a82a2a2c24e9f196cb5094f6cba662197"
+    },
+    {
+      "name": "lang/graphics/latam.json",
+      "size": 26196,
+      "sha256": "e4f0ef6a06cde1082e0cff07c85185d6f9eee1865aa94f17972c6cb8643c96fe"
+    },
+    {
+      "name": "lang/graphics/latam0.png",
+      "size": 443755,
+      "sha256": "7b4ca5b50681b88a22b27e642313e21602710d75bdcd9bd03194a40ad7261c74"
+    },
+    {
+      "name": "lang/graphics/latam1.png",
+      "size": 304987,
+      "sha256": "58009357061f9665af662c403339729d77149b8ae0bf3385128e65b87cff139d"
+    },
+    {
+      "name": "lang/graphics/latam2.png",
+      "size": 318709,
+      "sha256": "5c6956c72c12f6c6dc8f235d1061e65c902363130b52696106540f4d667dc8e1"
+    },
+    {
+      "name": "lang/graphics/ru.json",
+      "size": 25861,
+      "sha256": "a66f9b249d017579092406ae7aae778598ce104fbb57c299bd6b6b4f5b1d8db6"
+    },
+    {
+      "name": "lang/graphics/ru0.png",
+      "size": 395866,
+      "sha256": "db91f35dd265ee15a483fcbc2ee4d9ec0b44e4644deab40b913b6b4c86153e2a"
+    },
+    {
+      "name": "lang/graphics/ru1.png",
+      "size": 323088,
+      "sha256": "c14d8dd81caf26deac62926011e1ad1fa867f343f64e99cfffb530120f3702be"
+    },
+    {
+      "name": "lang/graphics/ru2.png",
+      "size": 173170,
+      "sha256": "73a233cea9af88f3d8e8972c079bf95761f443a6e0f42c0e7f1c7ef8266fd494"
+    },
+    {
+      "name": "lang/graphics/sc.json",
+      "size": 25986,
+      "sha256": "ada8f2dc149878041153e3f196a1bbfb53c82013e36630246e4f8e80bbea925f"
+    },
+    {
+      "name": "lang/graphics/sc0.png",
+      "size": 417737,
+      "sha256": "8ef000f36882585fd8dee6c4b2c7999e248a7a58a0c5bf0ac0ea60ed48e7cc3a"
+    },
+    {
+      "name": "lang/graphics/sc1.png",
+      "size": 367541,
+      "sha256": "6c0332998027af2ab22322511562fd0083576c92b48fcf803660fbd7a6d2ce9d"
+    },
+    {
+      "name": "lang/graphics/spa.json",
+      "size": 25911,
+      "sha256": "d0897b7193523667d6d57ccef956bf0146897d16a9b2c9dab581c9694016de10"
+    },
+    {
+      "name": "lang/graphics/spa0.png",
+      "size": 386217,
+      "sha256": "e62ee66d887e2e9a5df9543880bf1bdd95dd30eb620765ac154ef8648c1c7ee7"
+    },
+    {
+      "name": "lang/graphics/spa1.png",
+      "size": 275351,
+      "sha256": "97ca32ad8c3190ddcc0919cd195d08550a43cdbbf07f29957ea48a943aab319c"
+    },
+    {
+      "name": "lang/graphics/spa2.png",
+      "size": 385632,
+      "sha256": "44ef70b8193651b0475d3f9eea5e7476152442b02d8c56ee5ab9e87fc29fed1c"
+    },
+    {
+      "name": "lang/graphics/tc.json",
+      "size": 25979,
+      "sha256": "ee96ebaa084bcf4ec0fe6b63899b0a26193838e8e817cb800448f1534195db06"
+    },
+    {
+      "name": "lang/graphics/tc0.png",
+      "size": 460228,
+      "sha256": "23df7e9724f4b6b22be1538a733e122b8823b852179899a45f40221c895d0c67"
+    },
+    {
+      "name": "lang/graphics/tc1.png",
+      "size": 404689,
+      "sha256": "5237bd7b7e37c0a031a36c7bfb980aa3d3c88585ae674b5b1c12c46178b088c3"
+    },
+    {
+      "name": "lang/it.def",
+      "size": 20,
+      "sha256": "677d2b6f02cb89e5b3aed25316426551708a6d4cad6d057bceb8115f9bb91281"
+    },
+    {
+      "name": "lang/it.txt",
+      "size": 32832,
+      "sha256": "94a4124fc021519618389a636fdbeead1d1c6ac546a93d60db081ec39cca8fa5"
+    },
+    {
+      "name": "lang/jp.def",
+      "size": 21,
+      "sha256": "c1e352f673efbc623047e82c3596b3390e435b11a3acc194b2144a8b97a06e89"
+    },
+    {
+      "name": "lang/jp.txt",
+      "size": 37665,
+      "sha256": "7b45c759903d3d6f050537a3980171adae2778ea458cebed0b8cb54954068673"
+    },
+    {
+      "name": "lang/kr.def",
+      "size": 21,
+      "sha256": "8906074a25cdca3d36e645e9fb36006ea78971d37a7b9908c829e576fd123efa"
+    },
+    {
+      "name": "lang/kr.txt",
+      "size": 36218,
+      "sha256": "250b87dee5a337cc53e3aadd712ff6d4914067a2d5d6fd8f7dcf1e4e5dbf74f8"
+    },
+    {
+      "name": "lang/latam.def",
+      "size": 33,
+      "sha256": "b5e4cc2b28c67913c7613e883071f53f81ae4f3f5a084ddbc1ce9d292f9bc0d0"
+    },
+    {
+      "name": "lang/latam.txt",
+      "size": 32944,
+      "sha256": "092289938d5c22cf20958039802d57489ad33b7f52943bf2c1c2fc547f0ba1fd"
+    },
+    {
+      "name": "lang/ru.def",
+      "size": 26,
+      "sha256": "63aebca62f92db4329ccc1901af2a35d45df55126b8279710bfc6d26159142a2"
+    },
+    {
+      "name": "lang/ru.txt",
+      "size": 48276,
+      "sha256": "621c81ac292986d35ef8ca4ca29c6649ff2384723fe568fab42ac67d3537c096"
+    },
+    {
+      "name": "lang/sc.def",
+      "size": 24,
+      "sha256": "961e1b00429d5fbf34a665b6329c7792df9c80f847b63d58e17ae65c35b1a381"
+    },
+    {
+      "name": "lang/sc.txt",
+      "size": 29157,
+      "sha256": "4a826879151757135d8e1d02686e650a623958fe41aac7c5e61dca737690dc72"
+    },
+    {
+      "name": "lang/spa.def",
+      "size": 22,
+      "sha256": "10572b9f4abec181ac2680a152fe1c8b1d64e6f5c7cf999bc9151fcda641f94c"
+    },
+    {
+      "name": "lang/spa.txt",
+      "size": 33036,
+      "sha256": "0c2a8f7b4d53e064632748a53ae7fc8c7de09aeb1679e81900b0b3b40ca8dc58"
+    },
+    {
+      "name": "lang/tc.def",
+      "size": 24,
+      "sha256": "c2373578eb91f2b02e5e63d6708268a1a7267a908e8d4e4e2ecdab97cfdd9ecb"
+    },
+    {
+      "name": "lang/tc.txt",
+      "size": 33058,
+      "sha256": "b3a250b278f4c9af6c31604337da76b5b429b443d9a7ff8ef80762e9a762c878"
+    },
+    {
+      "name": "licenses/Gameframe_License.txt",
+      "size": 2904,
+      "sha256": "1526e58a312eecced4892534f4e57aa7ac7e5ba04f3544807db9deeb3c277879"
+    },
+    {
+      "name": "licenses/Montserrat.OFL.txt",
+      "size": 4485,
+      "sha256": "c376dd6b498c6886fe5a43db3c48cf83ef05cac6846ec4010e535d48e43a29b0"
+    },
+    {
+      "name": "licenses/NotoSansJP.OFL.txt",
+      "size": 4480,
+      "sha256": "1778d919f28e548adab94a9dc3cf05549124e53d204c2f4c8164617734dc1a3a"
+    },
+    {
+      "name": "licenses/NotoSansKR.OFL.txt",
+      "size": 4480,
+      "sha256": "1778d919f28e548adab94a9dc3cf05549124e53d204c2f4c8164617734dc1a3a"
+    },
+    {
+      "name": "licenses/NotoSansSC.OFL.txt",
+      "size": 4480,
+      "sha256": "1778d919f28e548adab94a9dc3cf05549124e53d204c2f4c8164617734dc1a3a"
+    },
+    {
+      "name": "licenses/NotoSansTC.OFL.txt",
+      "size": 4480,
+      "sha256": "1778d919f28e548adab94a9dc3cf05549124e53d204c2f4c8164617734dc1a3a"
+    },
+    {
+      "name": "licenses/RussoOne.OFL.txt",
+      "size": 4483,
+      "sha256": "0f687d844b3a2616ed1521dd05a914a608021b83794bede61099295f669aa5f0"
+    },
+    {
+      "name": "noisecredits.txt",
+      "size": 1089,
+      "sha256": "30d83d3b11f85a0d2aa648f41537fd192d4bd63cfb81acb50a3aca20776f787a"
+    },
+    {
+      "name": "options.ini",
+      "size": 98,
+      "sha256": "a2cd0dc5e066f65b1ae8982486a7734c598e2dade2b9c81a3ad455a977963627"
+    },
+    {
+      "name": "sound/Desktop/HalloweenSpecial/halloween-Master.bank",
+      "size": 6334,
+      "sha256": "133299530bd2924dc328358d89c3d3a233604cf0e57a38fdd25fa718b17d7245"
+    },
+    {
+      "name": "sound/Desktop/HalloweenSpecial/halloween-Master.strings.bank",
+      "size": 31222,
+      "sha256": "64e09dcdc336231d99fab7f566207035311bdf1e6574466dfd7b349554ebb707"
+    },
+    {
+      "name": "sound/Desktop/HalloweenSpecial/halloween-music.bank",
+      "size": 20524544,
+      "sha256": "35d893b14da32a442c903dc0fabac42d04d41fce740cf0d3e187ad0c759c0535"
+    },
+    {
+      "name": "sound/Desktop/HalloweenSpecial/halloween-sfx.bank",
+      "size": 1900032,
+      "sha256": "71cc91bc3a6012c9945d2b53346938b2f93c21c6d1e5ed92c98b1a476f13aca3"
+    },
+    {
+      "name": "sound/Desktop/Master.bank",
+      "size": 4660,
+      "sha256": "aa4772d17bb51f2ede5552216e4f59e895491ac6ca3f22cae6965255fdadf720"
+    },
+    {
+      "name": "sound/Desktop/Master.strings.bank",
+      "size": 28980,
+      "sha256": "430c224e98a92e835f4f01a1db00788b9574f1e6aa4b47e735e0b264891652d4"
+    },
+    {
+      "name": "sound/Desktop/music.bank",
+      "size": 182966944,
+      "sha256": "db1106f5fdc0eb7b815c94b445a67e20c3f9af9885ed7e01baa6fa7b5d53a034"
+    },
+    {
+      "name": "sound/Desktop/sfx.bank",
+      "size": 16972896,
+      "sha256": "56876d6fe1fd621036ccb98f9ee4d0b9e201b437fed47da25163fe0c29afbc34"
+    }
+  ]
+}
