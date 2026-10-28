@@ -34,7 +34,6 @@ const MODS = [
 ];
 
 const FANGAMES = [
-    { name: 'pt soundtrack player', desc: 'original itch.io OGG soundtrack player', img: 'assets/thumb-ext/pizza-tower-soundtrack-player.png', action: 'pt-soundtrack', hideFromLibrary: true },
     { name: 'sugary spire', desc: 'P-Rank Hotfix web build', dir: 'sugaryspire-prank', img: 'assets/thumb-ss.png' },
     { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'assets/thumb-pat.png' },
     { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'assets/thumb-killnoise.gif' },
@@ -115,35 +114,6 @@ const FANGAMES = [
    groups = array of { label, items[] } rendered in order. */
 const CHANGELOG = [
     {
-        title: 'update 1.3',
-        date: 'october 31, 2026',
-        groups: [
-            { label: 'theme overhaul', items: [
-                'Cafe is now the default theme, with the Angelhub background and Wudpecker music',
-                'added War with Thousand March, Freezer with Don’t Preheat Your Oven, and Pizza Street with Delivery for the City',
-                'rebuilt the full-screen theme picker to match the compact background tiles in Settings',
-                'removed the theme creator, the Halloween 2026 theme, and the top-bar themes icon',
-                'added a Browse Backgrounds button in Settings so the full theme picker is still easy to reach',
-                'theme previews now show the complete image at a consistent size without cropping',
-            ]},
-            { label: 'home menu', items: [
-                'moved Pizza Tower, Mods, and Extras lower so they cover less of the background art',
-            ]},
-            { label: 'fixes', items: [
-                'fixed invisible Peppino and Noise sprites across all butterscotch web ports — a shader precision bug in the runtime broke the default sprite shader',
-            ]},
-            { label: 'included from 1.2', items: [
-                'favorites, Continue Playing, Recently Played, and the redesigned game library',
-                'the new games, web games, and Pizza Tower mod ports from the 1.2 catalog update',
-                'the Pizza Tower OGG soundtrack player in Extras',
-            ]},
-            { label: 'ports', items: [
-                'replaced the mislabeled Sugary Spire entry with the P-Rank Hotfix web build',
-                'newer OPFS-based Butterscotch ports now refresh outdated or incomplete cached game files',
-            ]},
-        ],
-    },
-    {
         title: 'update 1.2',
         date: 'october 25, 2026',
         groups: [
@@ -185,6 +155,7 @@ const CHANGELOG = [
                 'itch.io games are proxied through the worker to avoid the hotlink block',
                 'Godot games boot with cross-origin isolation headers on every mirror',
                 "fixed Beeder's Big Adventure source link",
+                'fixed invisible Peppino and Noise sprites across all butterscotch web ports — a shader precision bug in the runtime broke the default sprite shader',
             ]},
         ],
     },
