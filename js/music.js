@@ -4,10 +4,6 @@
 // Site themes: bg = background image, song = music track.
 // cls = optional extra class on .bgimg.
 const PU_THEMES = [
-    { name: 'Cafe', bg: 'assets/cafe.gif', soundcloud: 'https://soundcloud.com/peppino-pizza/wudpecker' },
-    { name: 'War', bg: 'assets/theme-war.webp', soundcloud: 'https://soundcloud.com/peppino-pizza/thousand-march' },
-    { name: 'Freezer', bg: 'assets/theme-freezer.webp', soundcloud: 'https://soundcloud.com/clascyjitto/dont-preheat-your-oven-because-if-you-do-the-song-wont-play' },
-    { name: 'Pizza Street', bg: 'assets/theme-pizzastreet.webp', soundcloud: 'https://soundcloud.com/kyez0ar/pizza-tower-ost-delivery-for-the-city' },
     { name: 'the tower',      bg: 'assets/bg.gif',            song: 'assets/theme.mp3' },
     { name: 'oregano desert', bg: 'assets/bg-desert.webp',    song: 'assets/theme-desert.ogg' },
     { name: 'pizzaland',      bg: 'assets/bg-pizzaland.webp', song: 'assets/theme-funiculi.ogg' },
