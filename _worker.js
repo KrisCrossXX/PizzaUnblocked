@@ -1,8 +1,9 @@
 const GAME_ORIGIN = "https://cdn.jsdelivr.net/gh/KrisCrossXX";
 const gameRepo = (n) => `${GAME_ORIGIN}/pizza-games-${n}@main`;
 
-// Bunny serves unknown extensions as octet-stream — fix script/wasm types
-const MIME_FIX = { mjs: "text/javascript", js: "text/javascript", wasm: "application/wasm", json: "application/json", css: "text/css", svg: "image/svg+xml" };
+// jsDelivr serves .html as text/plain and unknown exts as octet-stream —
+// extension wins for types browsers actually need
+const MIME_FIX = { html: "text/html", mjs: "text/javascript", js: "text/javascript", wasm: "application/wasm", json: "application/json", css: "text/css", svg: "image/svg+xml", map: "application/json" };
 
 function withSiteHeaders(response, pathname) {
 	const headers = new Headers(response.headers);
@@ -11,7 +12,7 @@ function withSiteHeaders(response, pathname) {
 	headers.set("Cross-Origin-Opener-Policy", "same-origin");
 	headers.set("Cross-Origin-Embedder-Policy", "credentialless");
 	const ext = (pathname?.match(/\.([a-z0-9]{1,10})$/i) || [])[1]?.toLowerCase();
-	if (MIME_FIX[ext] && headers.get("content-type") === "application/octet-stream") {
+	if (MIME_FIX[ext]) {
 		headers.set("content-type", MIME_FIX[ext]);
 	}
 	return new Response(response.body, {
@@ -37,7 +38,20 @@ async function getGamesManifest(env, url) {
 		gamesManifestPromise ??= env.ASSETS.fetch(new Request(new URL('/games-manifest.json', url.origin)))
 			.then(r => r.ok ? r.json() : {});
 		return await gamesManifestPromise;
-	} catch { return {}; }
+	} catch {
+		gamesManifestPromise = null;
+		return {};
+	}
+}
+
+// jsDelivr caches 403s from first-touch package indexing on fresh repos — purge+retry once
+async function jdFetch(url, init) {
+	let res = await fetch(url, init);
+	if (res.status === 403) {
+		await fetch(url.replace("cdn.jsdelivr.net", "purge.jsdelivr.net")).catch(() => {});
+		res = await fetch(url, init);
+	}
+	return res;
 }
 
 // stitches <key>.part.NNN parts from jsDelivr — same layout as the git shards
@@ -58,7 +72,7 @@ function serveGameChunks(request, url, key, info) {
 						if (partIndex >= info.p) { controller.close(); return; }
 						const enc = key.split('/').map(encodeURIComponent).join('/');
 						const partUrl = `${repo}/${enc}.part.${String(partIndex).padStart(3, '0')}`;
-						const part = await fetch(partUrl, { cf: { cacheEverything: true } });
+						const part = await jdFetch(partUrl, { cf: { cacheEverything: true } });
 						if (!part.ok || !part.body) throw new Error('Missing chunk ' + partUrl);
 						reader = part.body.getReader();
 					}
@@ -152,8 +166,14 @@ export default {
 		if (url.pathname.includes("..")) return new Response("Not found", { status: 404 });
 
 		if (url.pathname.startsWith("/games/")) {
-			const key = decodeURIComponent(url.pathname).replace(/^\/+/, '');
-			const info = (await getGamesManifest(env, url))[key];
+			const manifest = await getGamesManifest(env, url);
+			let key = decodeURIComponent(url.pathname).replace(/^\/+/, '');
+			let info = manifest[key];
+			// launch URLs are bare dirs (games/elm/) — resolve to index.html
+			if (!info && (key.endsWith('/') || !/\.[a-z0-9]{1,10}$/i.test(key))) {
+				const dirKey = key.replace(/\/?$/, '/index.html');
+				if (manifest[dirKey]) { key = dirKey; info = manifest[dirKey]; }
+			}
 			if (!info) return new Response("Not found", { status: 404 });
 			if (info.p) return serveGameChunks(request, url, key, info);
 			const headers = new Headers();
@@ -161,12 +181,12 @@ export default {
 				const value = request.headers.get(name);
 				if (value) headers.set(name, value);
 			}
-			const upstream = await fetch(`${gameRepo(info.r)}/${key.split('/').map(encodeURIComponent).join('/')}${url.search}`, {
+			const upstream = await jdFetch(`${gameRepo(info.r)}/${key.split('/').map(encodeURIComponent).join('/')}${url.search}`, {
 				method: request.method,
 				headers,
 				cf: { cacheEverything: true },
 			});
-			return withSiteHeaders(upstream, url.pathname);
+			return withSiteHeaders(upstream, key);
 		}
 
 		const chunked = await getChunkEntry(env, url);
