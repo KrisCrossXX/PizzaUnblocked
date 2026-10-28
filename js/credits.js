@@ -8,6 +8,7 @@ const SITE_CREDITS = [
 
 // helpers — tiny cards under the main row
 const SITE_HELPERS = [
+    { name: 'Froug', role: 'beta testing', img: 'assets/pfp-froug.png' },
     { name: 'theo ry', role: 'beta testing', img: 'https://cdn.discordapp.com/avatars/777722251222450186/bdd79047caa6bdaa4c1dd91ef2fbf5bd.webp?size=128' },
     { name: 'aqua', role: 'beta testing', img: 'https://cdn.discordapp.com/avatars/837075774905253988/7e6d70fc608b7d2ed72244e184ecc662.webp?size=128' },
     { name: 'eram', role: 'beta testing', img: 'https://cdn.discordapp.com/avatars/1280301110992699477/7cd6305aa5b951d993cf7b60d9b4294d.webp?size=128' },
