@@ -1,5 +1,14 @@
 const GAME_ORIGIN = "https://cdn.jsdelivr.net/gh/KrisCrossXX";
-const gameRepo = (n) => `${GAME_ORIGIN}/pizza-games-${n}@main`;
+// commit-pinned — jsDelivr treats @<sha> as immutable so fixes serve immediately
+const GAME_REFS = {
+	1: "4b0766e3d6ac240958143d748ab228fc9a4b5c0e",
+	2: "4eeecdda4f164b3f30154c44752e22bfbcc9c15f",
+	3: "6789892173b2720dce6999b065a6045fdeacceaf",
+	4: "44fbdd8006a6074ea20d4e05a25fe39e50a9c77d",
+	5: "724d238545e547f30a3ff7424c20a336c9389e52",
+	6: "f66992b59d46516e9d48de26f7b0ea14ef17de4c",
+};
+const gameRepo = (n) => `${GAME_ORIGIN}/pizza-games-${n}@${GAME_REFS[n] || "main"}`;
 
 // jsDelivr serves .html as text/plain and unknown exts as octet-stream —
 // extension wins for types browsers actually need
@@ -44,17 +53,33 @@ async function getGamesManifest(env, url) {
 	}
 }
 
-// jsDelivr caches 403s from first-touch package indexing on fresh repos — purge+retry once
-async function jdFetch(url, init) {
-	let res = await fetch(url, init);
-	if (res.status === 403) {
-		await fetch(url.replace("cdn.jsdelivr.net", "purge.jsdelivr.net")).catch(() => {});
-		res = await fetch(url, init);
+// jsDelivr caches 403s from first-touch package indexing on fresh repos — purge+retry.
+// Also retry transient failures: a mid-stitch part error would silently truncate the file.
+async function jdFetch(url, init, tries = 3) {
+	let res;
+	for (let i = 0; i < tries; i++) {
+		try {
+			res = await fetch(url, init);
+			if (res.ok) return res;
+			if (res.status === 403) {
+				await fetch(url.replace("cdn.jsdelivr.net", "purge.jsdelivr.net")).catch(() => {});
+				continue;
+			}
+			if (res.status !== 429 && res.status < 500) return res;
+		} catch (e) {
+			if (i === tries - 1) throw e;
+		}
+		if (res?.body) res.body.cancel().catch(() => {});
+		await new Promise(r => setTimeout(r, 300 * (i + 1)));
 	}
 	return res;
 }
 
-// stitches <key>.part.NNN parts from jsDelivr — same layout as the git shards
+const PART_SIZE = 19 * 1024 * 1024;
+
+// stitches <key>.part.NNN parts from jsDelivr — same layout as the git shards.
+// Verifies each part's byte count: jsDelivr can drop mid-body and a short
+// "done" would otherwise silently truncate the assembled file.
 function serveGameChunks(request, url, key, info) {
 	const repo = gameRepo(info.r);
 	const headers = new Headers({
@@ -63,7 +88,8 @@ function serveGameChunks(request, url, key, info) {
 		'Cache-Control': 'public, max-age=86400',
 	});
 	if (request.method === 'HEAD') return withSiteHeaders(new Response(null, { headers }), url.pathname);
-	let partIndex = 0, reader = null;
+	const expected = i => (i === info.p - 1 ? info.s - (info.p - 1) * PART_SIZE : PART_SIZE);
+	let partIndex = 0, reader = null, partBytes = 0, partFails = 0;
 	const stream = new ReadableStream({
 		async pull(controller) {
 			try {
@@ -74,10 +100,32 @@ function serveGameChunks(request, url, key, info) {
 						const partUrl = `${repo}/${enc}.part.${String(partIndex).padStart(3, '0')}`;
 						const part = await jdFetch(partUrl, { cf: { cacheEverything: true } });
 						if (!part.ok || !part.body) throw new Error('Missing chunk ' + partUrl);
+						const len = Number(part.headers.get('content-length') || 0);
+						if (len && len !== expected(partIndex)) {
+							part.body.cancel().catch(() => {});
+							if (++partFails > 4) throw new Error('Short chunk ' + partUrl);
+							continue;
+						}
 						reader = part.body.getReader();
+						partBytes = 0;
 					}
-					const item = await reader.read();
-					if (item.done) { reader = null; partIndex++; continue; }
+					let item;
+					try {
+						item = await reader.read();
+					} catch {
+						reader = null;
+						if (++partFails > 4) throw new Error('Failed chunk ' + key + '.part.' + partIndex);
+						continue;
+					}
+					if (item.done) {
+						reader = null;
+						if (partBytes < expected(partIndex)) {
+							if (++partFails > 4) throw new Error('Truncated chunk ' + key + '.part.' + partIndex);
+							continue;
+						}
+						partFails = 0; partIndex++; continue;
+					}
+					partBytes += item.value.byteLength;
 					controller.enqueue(item.value);
 					return;
 				}
@@ -176,12 +224,21 @@ export default {
 			}
 			if (!info) return new Response("Not found", { status: 404 });
 			if (info.p) return serveGameChunks(request, url, key, info);
+			const jdUrl = `${gameRepo(info.r)}/${key.split('/').map(encodeURIComponent).join('/')}${url.search}`;
+			// free-tier workers cap at ~30s — redirect big files to jsDelivr instead of proxying.
+			// .html must proxy: jsDelivr serves it text/plain which breaks game pages.
+			if (!key.endsWith(".html")) {
+				return new Response(null, {
+					status: 302,
+					headers: { Location: jdUrl, "Cache-Control": "public, max-age=86400" },
+				});
+			}
 			const headers = new Headers();
 			for (const name of ["Range", "If-None-Match", "If-Modified-Since"]) {
 				const value = request.headers.get(name);
 				if (value) headers.set(name, value);
 			}
-			const upstream = await jdFetch(`${gameRepo(info.r)}/${key.split('/').map(encodeURIComponent).join('/')}${url.search}`, {
+			const upstream = await jdFetch(jdUrl, {
 				method: request.method,
 				headers,
 				cf: { cacheEverything: true },
