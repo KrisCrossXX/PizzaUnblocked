@@ -6,7 +6,7 @@ const GAME_REFS = {
 	3: "6789892173b2720dce6999b065a6045fdeacceaf",
 	4: "44fbdd8006a6074ea20d4e05a25fe39e50a9c77d",
 	5: "724d238545e547f30a3ff7424c20a336c9389e52",
-	6: "64f767f0d9718ffee4a39824fac9e773b8ac9312",
+	6: "197260999e1fd089268975ee34efd42a8cda21ad",
 };
 const gameRepo = (n) => `${GAME_ORIGIN}/pizza-games-${n}@${GAME_REFS[n] || "main"}`;
 
@@ -227,7 +227,9 @@ export default {
 			const jdUrl = `${gameRepo(info.r)}/${key.split('/').map(encodeURIComponent).join('/')}${url.search}`;
 			// free-tier workers cap at ~30s — redirect big files to jsDelivr instead of proxying.
 			// .html must proxy: jsDelivr serves it text/plain which breaks game pages.
-			if (!key.endsWith(".html")) {
+			// .js/.mjs must proxy: Worker()/serviceWorker.register() require a
+			// same-origin script URL, so a 302 to the CDN aborts them.
+			if (!/\.(html|m?js)$/i.test(key)) {
 				return new Response(null, {
 					status: 302,
 					headers: { Location: jdUrl, "Cache-Control": "public, max-age=86400" },
