@@ -34,7 +34,7 @@ const MODS = [
 ];
 
 const FANGAMES = [
-    { name: 'sugary spire', desc: 'P-Rank Hotfix web build', dir: 'sugaryspire-prank', img: 'assets/thumb-ss.png' },
+    { name: 'sugary spire: exhibition night', desc: 'butterscotch web port', dir: 'sugaryspire-en', save101: true, img: 'assets/thumb-ssen.png' },
     { name: 'pat the peppino', desc: '', dir: 'patpeppino', img: 'assets/thumb-pat.png' },
     { name: 'kill the noise', desc: '', dir: 'killnoise', img: 'assets/thumb-killnoise.gif' },
     { name: 'john wick vs lario', desc: '', dir: 'jwvl', img: 'assets/thumb-jwl.png' },
@@ -113,6 +113,26 @@ const FANGAMES = [
 /* Changelog entries shown in the changelog popup.
    groups = array of { label, items[] } rendered in order. */
 const CHANGELOG = [
+    {
+        title: 'update 1.3',
+        date: 'october 31, 2026',
+        groups: [
+            { label: 'themes', items: [
+                'restored Cafe as the default theme, with the Angel Hub background and Wudpecker music',
+                'restored Freezer, Pizza Street, and War themes with matching Pizza Tower music',
+                'The Tower, Oregano Desert, Pizzaland, and What’s With These Pizza Guys? remain available',
+            ]},
+            { label: 'new features', items: [
+                'replaced the Extras soundtrack card with a music-note button that opens the OST popup',
+                'OST popup includes the local Pizza Tower and Sugary Spire music libraries',
+                'single-file HTML and SVG launchers load the latest published bundle through JSDelivr',
+            ]},
+            { label: 'fixes', items: [
+                'local server now sends cross-origin isolation headers needed by GameMaker ports, including Sugary Spire P-Rank and Chef’s Kiss',
+                'theme music pauses while the OST popup is open, then resumes when it closes',
+            ]},
+        ],
+    },
     {
         title: 'update 1.2',
         date: 'october 25, 2026',
@@ -267,7 +287,7 @@ const CHANGELOG = [
                 'pizza tower: co-op',
                 'swabs expedition',
                 'super bo noise',
-                'sugary spire',
+                'sugary spire: exhibition night',
                 'pat the peppino',
                 'kill the noise',
                 'john wick vs lario',

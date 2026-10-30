@@ -6,7 +6,7 @@ const GAME_REFS = {
 	3: "6789892173b2720dce6999b065a6045fdeacceaf",
 	4: "44fbdd8006a6074ea20d4e05a25fe39e50a9c77d",
 	5: "724d238545e547f30a3ff7424c20a336c9389e52",
-	6: "f66992b59d46516e9d48de26f7b0ea14ef17de4c",
+	6: "64f767f0d9718ffee4a39824fac9e773b8ac9312",
 };
 const gameRepo = (n) => `${GAME_ORIGIN}/pizza-games-${n}@${GAME_REFS[n] || "main"}`;
 
