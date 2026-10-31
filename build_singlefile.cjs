@@ -103,12 +103,14 @@ ${bodyCore}
 
 fs.writeFileSync(path.join(root, 'pusinglefile.html'), html);
 
-// Shareable loaders follow Toby Web's pattern: resolve main to an immutable
-// GitHub commit, then fetch the self-contained bundle from jsDelivr.
+// Every shareable HTML/SVG entry point resolves the latest main commit, then
+// fetches that immutable bundle from jsDelivr. Publishing a new commit updates
+// every loader on its next open without a separate file-by-file replacement.
 const REPO = 'KrisCrossXX/PizzaUnblocked';
 const RAW = 'https://raw.githubusercontent.com/';
 const API = `https://api.github.com/repos/${REPO}/commits/main`;
 const BUNDLE = 'pusinglefile.html';
+const CDN = `https://cdn.jsdelivr.net/gh/${REPO}@`;
 const stub = `<!DOCTYPE html>
 <html>
 <head>
@@ -125,9 +127,9 @@ fetch(${JSON.stringify(API)}, { cache: 'no-store' })
   .then(function (r) { if (!r.ok) throw new Error('GitHub API unavailable'); return r.json(); })
   .then(function (d) {
     if (!d.sha) throw new Error('GitHub did not return a commit');
-    return ${JSON.stringify(RAW + REPO + '/')} + d.sha + '/' + ${JSON.stringify(BUNDLE)};
+    return ${JSON.stringify(CDN)} + d.sha + '/' + ${JSON.stringify(BUNDLE)};
   })
-  .catch(function () { return ${JSON.stringify(RAW + REPO + '/main/' + BUNDLE)}; })
+  .catch(function () { return ${JSON.stringify(RAW + REPO + '/main/' + BUNDLE)} + '?v=' + Date.now(); })
   .then(function (url) {
     return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('Site bundle unavailable'); return r.text(); });
   })
@@ -141,9 +143,8 @@ fetch(${JSON.stringify(API)}, { cache: 'no-store' })
 </body>
 </html>
 `;
-fs.writeFileSync(path.join(root, 'pizza-unblocked.html'), stub);
-// same loader under the download-page name
-fs.writeFileSync(path.join(root, 'single-file.html'), stub);
+for (const name of ['pizza-unblocked.html', 'single-file.html', 'embedded.html'])
+    fs.writeFileSync(path.join(root, name), stub);
 
 // SVG loader — fetches the same commit-pinned bundle into a full-window iframe.
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position:fixed;inset:0"><title>Pizza Unblocked</title><foreignObject id="site" x="0" y="0" width="100%" height="100%"/><script><![CDATA[
@@ -158,9 +159,9 @@ fetch(${JSON.stringify(API)}, { cache: 'no-store' })
   .then(function (r) { if (!r.ok) throw new Error('GitHub API unavailable'); return r.json(); })
   .then(function (d) {
     if (!d.sha) throw new Error('GitHub did not return a commit');
-    return ${JSON.stringify(RAW + REPO + '/')} + d.sha + '/' + ${JSON.stringify(BUNDLE)};
+    return ${JSON.stringify(CDN)} + d.sha + '/' + ${JSON.stringify(BUNDLE)};
   })
-  .catch(function () { return ${JSON.stringify(RAW + REPO + '/main/' + BUNDLE)}; })
+  .catch(function () { return ${JSON.stringify(RAW + REPO + '/main/' + BUNDLE)} + '?v=' + Date.now(); })
   .then(function (url) {
     return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('Site bundle unavailable'); return r.text(); });
   })
@@ -172,7 +173,8 @@ fetch(${JSON.stringify(API)}, { cache: 'no-store' })
   .catch(function () { frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">Pizza Unblocked could not be loaded. Try again later.</body>'; });
 ]]></script></svg>
 `;
-fs.writeFileSync(path.join(root, 'single-file.svg'), svg);
+for (const name of ['single-file.svg', 'embedded.svg'])
+    fs.writeFileSync(path.join(root, name), svg);
 
 console.log('wrote pusinglefile.html', (html.length / 1024 / 1024).toFixed(1) + 'MB');
-console.log('wrote commit-pinned loaders for ' + REPO + '');
+console.log('wrote JSDelivr-backed loaders for ' + REPO);

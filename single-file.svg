@@ -10,9 +10,9 @@ fetch("https://api.github.com/repos/KrisCrossXX/PizzaUnblocked/commits/main", { 
   .then(function (r) { if (!r.ok) throw new Error('GitHub API unavailable'); return r.json(); })
   .then(function (d) {
     if (!d.sha) throw new Error('GitHub did not return a commit');
-    return "https://raw.githubusercontent.com/KrisCrossXX/PizzaUnblocked/" + d.sha + '/' + "pusinglefile.html";
+    return "https://cdn.jsdelivr.net/gh/KrisCrossXX/PizzaUnblocked@" + d.sha + '/' + "pusinglefile.html";
   })
-  .catch(function () { return "https://raw.githubusercontent.com/KrisCrossXX/PizzaUnblocked/main/pusinglefile.html"; })
+  .catch(function () { return "https://raw.githubusercontent.com/KrisCrossXX/PizzaUnblocked/main/pusinglefile.html" + '?v=' + Date.now(); })
   .then(function (url) {
     return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('Site bundle unavailable'); return r.text(); });
   })

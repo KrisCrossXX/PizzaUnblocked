@@ -4,10 +4,14 @@
 // Site themes: bg = background image, song = music track.
 // cls = optional extra class on .bgimg.
 const PU_THEMES = [
+    { name: 'cafe',            bg: 'assets/cafe.gif',          soundcloud: 'https://soundcloud.com/peppino-pizza/wudpecker' },
     { name: 'the tower',      bg: 'assets/bg.gif',            song: 'assets/theme.mp3' },
     { name: 'oregano desert', bg: 'assets/bg-desert.webp',    song: 'assets/theme-desert.ogg' },
     { name: 'pizzaland',      bg: 'assets/bg-pizzaland.webp', song: 'assets/theme-funiculi.ogg' },
     { name: "what's with these pizza guys?", bg: 'assets/bg-pizzaguys.png', song: 'assets/theme-pizzaguys.mp3' },
+    { name: 'freezer',        bg: 'assets/theme-freezer.webp', song: 'extras/ost-player/Pizza%20Unblocked%20Player/Pizza%20Tower%20Songs/On%20The%20Rocks.mp3' },
+    { name: 'pizza street',   bg: 'assets/theme-pizzastreet.webp', song: 'extras/ost-player/Pizza%20Unblocked%20Player/Pizza%20Tower%20Songs/Pizza%20Deluxe.mp3' },
+    { name: 'war',            bg: 'assets/theme-war.webp', song: 'extras/ost-player/Pizza%20Unblocked%20Player/Pizza%20Tower%20Songs/Thousand%20March.mp3' },
 ];
 
 const puTheme = PU_THEMES.find(t => t.name === localStorage.getItem('pu_theme')) || PU_THEMES[0];
@@ -125,13 +129,15 @@ window.pausePuMusic = pausePuMusic;
 window.setPuMusicVolume = setPuMusicVolume;
 window.setPuMusicEnabled = setPuMusicEnabled;
 window.isPuSoundCloudMusic = () => Boolean(activeMusicTheme.soundcloud);
+window.isPuMusicPlaying = () => activeMusicTheme.soundcloud ? soundCloudPlaying : !bgm.paused;
 window.getPuMusicKey = () => activeMusicTheme.soundcloud || activeMusicTheme.song || '';
 
 if (puTheme.soundcloud) ensureSoundCloudWidget(puTheme.soundcloud);
 
-function kickBgm() {
+function kickBgm(event) {
     // dataset.gameOpen = a game is open in the overlay — never start over it
-    if (bgmStarted || !bgmWanted || document.body.dataset.gameOpen) return;
+    if (event?.target?.closest?.('#ostBtn') || document.body.dataset.ostOpen
+        || bgmStarted || !bgmWanted || document.body.dataset.gameOpen) return;
     if (!activeMusicTheme.soundcloud) try { bgm.currentTime = bgmPos; } catch {}
     playPuMusic()
         .then(() => {
