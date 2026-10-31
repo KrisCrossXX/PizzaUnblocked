@@ -131,7 +131,13 @@ fetch(${JSON.stringify(API)}, { cache: 'no-store' })
   })
   .catch(function () { return ${JSON.stringify(RAW + REPO + '/main/' + BUNDLE)} + '?v=' + Date.now(); })
   .then(function (url) {
-    return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('Site bundle unavailable'); return r.text(); });
+    var load = function (u) {
+      return fetch(u, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('Site bundle unavailable'); return r.text(); });
+    };
+    // jsDelivr refuses files over ~20MB — if it 403s the bundle, fall back to raw.
+    return load(url).catch(function () {
+      return load(${JSON.stringify(RAW + REPO + '/main/' + BUNDLE)} + '?v=' + Date.now());
+    });
   })
   .then(function (h) {
     document.open();
@@ -163,7 +169,13 @@ fetch(${JSON.stringify(API)}, { cache: 'no-store' })
   })
   .catch(function () { return ${JSON.stringify(RAW + REPO + '/main/' + BUNDLE)} + '?v=' + Date.now(); })
   .then(function (url) {
-    return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('Site bundle unavailable'); return r.text(); });
+    var load = function (u) {
+      return fetch(u, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('Site bundle unavailable'); return r.text(); });
+    };
+    // jsDelivr refuses files over ~20MB — if it 403s the bundle, fall back to raw.
+    return load(url).catch(function () {
+      return load(${JSON.stringify(RAW + REPO + '/main/' + BUNDLE)} + '?v=' + Date.now());
+    });
   })
   .then(function (h) {
     var head = /<head[^>]*>/i;
