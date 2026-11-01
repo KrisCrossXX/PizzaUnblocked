@@ -24,7 +24,7 @@ fetch("https://api.github.com/repos/KrisCrossXX/PizzaUnblocked/commits/main", { 
   })
   .then(function (h) {
     var head = /<head[^>]*>/i;
-    var prelude = '<script>window.PU_HOST="https://pizza-tower-9iw.pages.dev";<\/script>';
+    var prelude = '<script>window.PU_HOST="https://pizzaunblocked.online";<\/script>';
     frame.srcdoc = head.test(h) ? h.replace(head, function (m) { return m + prelude; }) : prelude + h;
   })
   .catch(function () { frame.srcdoc = '<body style="background:#1e1a16;color:#fff4e0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">Pizza Unblocked could not be loaded. Try again later.</body>'; });

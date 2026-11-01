@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizza Unblocked</title>
+  <style>html,body{margin:0;min-height:100%;background:#1e1a16;color:#fff4e0}body{font:16px monospace;display:grid;place-items:center}</style>
+</head>
+<body>
+<p id="status">loading pizza unblocked...</p>
+<script>
+var statusNode = document.getElementById('status');
+fetch("https://api.github.com/repos/KrisCrossXX/PizzaUnblocked/commits/main", { cache: 'no-store' })
+  .then(function (r) { if (!r.ok) throw new Error('GitHub API unavailable'); return r.json(); })
+  .then(function (d) {
+    if (!d.sha) throw new Error('GitHub did not return a commit');
+    return "https://cdn.jsdelivr.net/gh/KrisCrossXX/PizzaUnblocked@" + d.sha + '/' + "pusinglefile.html";
+  })
+  .catch(function () { return "https://raw.githubusercontent.com/KrisCrossXX/PizzaUnblocked/main/pusinglefile.html" + '?v=' + Date.now(); })
+  .then(function (url) {
+    var load = function (u) {
+      return fetch(u, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('Site bundle unavailable'); return r.text(); });
+    };
+    // jsDelivr refuses files over ~20MB — if it 403s the bundle, fall back to raw.
+    return load(url).catch(function () {
+      return load("https://raw.githubusercontent.com/KrisCrossXX/PizzaUnblocked/main/pusinglefile.html" + '?v=' + Date.now());
+    });
+  })
+  .then(function (h) {
+    document.open();
+    document.write('<script>window.PU_HOST="https://pizzaunblocked.online";<\/script>' + h);
+    document.close();
+  })
+  .catch(function () { statusNode.textContent = 'Pizza Unblocked could not be loaded. Try again later.'; });
+</script>
+</body>
+</html>
