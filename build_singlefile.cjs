@@ -6,7 +6,7 @@ const root = __dirname;
 
 // game + asset links always resolve here — the only host with the full payload
 // (pages.dev drops the big chunked game files)
-const GAME_HOST = 'https://pizza-tower-9iw.pages.dev';
+const GAME_HOST = 'https://pizzaunblocked.online';
 
 const MIME = { png: 'image/png', gif: 'image/gif', webp: 'image/webp', mp3: 'audio/mpeg', ogg: 'audio/ogg', ttf: 'font/ttf', ico: 'image/x-icon', jpg: 'image/jpeg' };
 function dataUri(rel) {

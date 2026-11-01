@@ -8,7 +8,7 @@
 //
 // Fallback: if a same-origin request comes back non-OK, retry against the Pages
 // mirror so the site keeps working when this mirror is missing files.
-const FALLBACK_ORIGIN = 'https://pizza-tower-9iw.pages.dev';
+const FALLBACK_ORIGIN = 'https://pizzaunblocked.online';
 const JSD = 'https://cdn.jsdelivr.net/gh/KrisCrossXX';
 const GAME_REFS = {
     1: '4b0766e3d6ac240958143d748ab228fc9a4b5c0e',

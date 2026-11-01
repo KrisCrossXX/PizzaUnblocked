@@ -1,6 +1,6 @@
 // site mirror — proxies the whole Pizza Unblocked tree to Bunny CDN.
 // Any non-file path falls back to index.html so deep links work.
-const ORIGIN = "https://pizza-tower-9iw.pages.dev";
+const ORIGIN = "https://pizzaunblocked.online";
 
 const MIME_TYPES = {
 	css: "text/css; charset=utf-8",
